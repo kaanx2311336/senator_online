@@ -1,0 +1,14 @@
+GÖREV - FAZ A5-2: Nesne Yerleşim Planı + Boyut Oranları (DALGA 2) Başarıyla Tamamlandı.
+
+## Özeti:
+- `research/yerlesim_plani.txt` dosyası oluşturuldu.
+  - Senato merkeze (0,0,0) alındı.
+  - Kolezyum sağ tarafa (40,0,10) yerleştirildi.
+  - 6 adet evin koordinatları dağınık şekilde belirlendi.
+  - Harita sınırlarına uygun surlar tasarlandı ve 4 köşeye kuleler eklendi.
+  - 15 adet ağacın rastgele koordinatları belirlendi.
+  - Yollarla bu binaların birleşimi belirtildi.
+
+- `research/boyut_oranlari.txt` dosyası oluşturuldu.
+  - Nesnelerin oransal boyutları listelendi.
+  - Senato referans ölçü (en büyük) olarak ele alınarak, ev ve ağaçlara kadar oransal boyutlar tanımlandı.

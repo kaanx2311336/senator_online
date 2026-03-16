@@ -1,0 +1,68 @@
+# Roma City Builder - Nesne Yerleşim Planı
+
+## Koordinat Sistemi
+- (x, y, z)
+- x ve z yatay düzlem (harita), y ise yükseklik ekseni.
+- Harita boyutu: Yaklaşık x: -100 ile 100, z: -100 ile 100
+
+## Binalar
+
+### Senato (Merkez)
+- Koordinat: (0, 0, 0)
+- En büyük ve görkemli yapı.
+
+### Kolezyum (Sağ Taraf)
+- Koordinat: (40, 0, 10)
+- İkinci büyük yapı.
+
+### Evler (Dağınık Yerleşim)
+Senato etrafında dağınık yerleştirilen evler (en az 6 adet):
+1. Ev 1: (-20, 0, -15)
+2. Ev 2: (-35, 0, 10)
+3. Ev 3: (10, 0, -25)
+4. Ev 4: (25, 0, -35)
+5. Ev 5: (-10, 0, 30)
+6. Ev 6: (15, 0, 40)
+
+## Surlar ve Kuleler
+
+### Surlar
+Harita sınırlarını çizen dış surlar:
+- Kuzey Suru: z = -80 (x: -80 ile 80 arası)
+- Güney Suru: z = 80 (x: -80 ile 80 arası)
+- Doğu Suru: x = 80 (z: -80 ile 80 arası)
+- Batı Suru: x = -80 (z: -80 ile 80 arası)
+
+### Kuleler (4 Köşe)
+Surların birleşim noktalarındaki kuleler:
+1. Kuzey-Batı Kulesi: (-80, 0, -80)
+2. Kuzey-Doğu Kulesi: (80, 0, -80)
+3. Güney-Batı Kulesi: (-80, 0, 80)
+4. Güney-Doğu Kulesi: (80, 0, 80)
+
+## Çevre Düzenlemesi
+
+### Ağaçlar (Rastgele Serpiştirilmiş)
+Harita genelinde rastgele konumlanmış 15 ağaç:
+1. Ağaç 1: (-50, 0, -40)
+2. Ağaç 2: (-60, 0, -20)
+3. Ağaç 3: (-45, 0, 15)
+4. Ağaç 4: (-70, 0, 50)
+5. Ağaç 5: (-30, 0, 60)
+6. Ağaç 6: (-15, 0, -60)
+7. Ağaç 7: (5, 0, -50)
+8. Ağaç 8: (30, 0, -65)
+9. Ağaç 9: (50, 0, -45)
+10. Ağaç 10: (65, 0, -25)
+11. Ağaç 11: (55, 0, 30)
+12. Ağaç 12: (70, 0, 50)
+13. Ağaç 13: (35, 0, 65)
+14. Ağaç 14: (10, 0, 70)
+15. Ağaç 15: (-5, 0, -75)
+
+## Yollar
+Bağlantı ve ulaşım yolları:
+1. Ana Yol: Senato (0,0,0) ile Kolezyum (40,0,10) arası.
+2. Batı Yolu: Senato'dan batıdaki evlere (Ev 1 ve Ev 2).
+3. Kuzey Yolu: Senato'dan kuzeydeki evlere (Ev 3 ve Ev 4).
+4. Güney Yolu: Senato'dan güneydeki evlere (Ev 5 ve Ev 6).

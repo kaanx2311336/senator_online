@@ -1,0 +1,34 @@
+# Roma City Builder - Nesne Boyut Oranları
+
+Nesnelerin büyüklük ve yüksekliklerine göre oransal listesi:
+En büyük nesne Senato, en küçük nesneler evler ve bitkiler olacak şekilde sıralanmıştır.
+Genel olarak, x,y,z boyutlarında oranlar şöyledir:
+
+1. **Senato (Merkez)**
+   - Oransal Boyut: 100% (Referans Boyutu, örneğin: 20x15x20)
+   - Oyun içi alanın en büyük yapısı, heybetli.
+
+2. **Kolezyum (Arena)**
+   - Oransal Boyut: 90% (Senato'nun %90'ı büyüklüğünde, ancak yatay olarak daha geniş olabilir)
+   - Yuvarlak ve geniş yapı.
+
+3. **Surlar**
+   - Kalınlık: Senato genişliğinin %10'u
+   - Yükseklik: Senato yüksekliğinin %50'si (Yüksek ancak binalar kadar devasa değil)
+   - Uzunluk: Harita sınırları boyunca kesintisiz.
+
+4. **Kuleler (Köşelerde)**
+   - Kalınlık/Genişlik: Surların yaklaşık 2 katı
+   - Yükseklik: Senato yüksekliğinin %70'i (Surlardan daha yüksek, gözetleme kuleleri).
+
+5. **Ağaçlar**
+   - Oransal Boyut: %15 ile %25 arası (Çeşitliliğe bağlı)
+   - Evlerden biraz daha uzun olabilirler (Yükseklik), ancak tabanları daha dardır.
+
+6. **Evler**
+   - Oransal Boyut: %10 ile %15 arası
+   - En küçük yapılar. (Örneğin: 2x1.5x2 veya 3x2x3). Evler farklı tasarımlarla varyasyon gösterebilir.
+
+7. **Yollar**
+   - Genişlik: Ev genişliğine yakın (Senato'nun %10-%15'i civarı).
+   - Yükseklik: Zemine gömülü, 0 veya 0.1 gibi çok düşük bir değer.
