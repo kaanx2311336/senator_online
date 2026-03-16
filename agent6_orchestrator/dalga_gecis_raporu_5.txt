@@ -1,0 +1,9 @@
+DALGA 5 GEÇİŞ RAPORU
+
+- Binalardaki görsel yapılandırma (mermer ve kiremit çatı dokuları), MeshLambertMaterial ile birlikte emissive efektleriyle detaylandırılmıştır.
+- UI tooltipleri, bildirimler ve responsive yapılar düzgün şekilde çalışmaktadır.
+- Hover üzerine gelen glow efekti (pointer ile birlikte) raycaster.js tarafından karşılanmıştır.
+- Genel anlamda beklenen atmosfer kriterlerine büyük ölçüde uyulmuştur (fakat fog efekti daha detaylı entegre edilebilir).
+
+Durum:
+GECIS ONAY

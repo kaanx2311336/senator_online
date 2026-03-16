@@ -1,0 +1,21 @@
+GÖRSEL VE ATMOSFER İNCELEMESİ (DALGA 5)
+
+1. Görsel Review:
+- Binalarda (Kolezyum, Senato, Ev, vb.) detaylı geometriler oluşturulmuş.
+- Mermer doku ve parıltı hissi vermek için MeshLambertMaterial ile birlikte "emissive" değeri kullanılarak hedeflenen görünüm elde edilmiş.
+- Çatılar kiremit renkleri (ör. 0x8B3A3A, 0x9B4A4A) ile detaylandırılmış. Alternatif renkli çatı varyasyonları var.
+- Sütun detayları eklenmiş.
+
+2. Atmosfer:
+- Görsel parlaklık ve genel aydınlık mevcut, fakat fog efekti veya skybox gibi çevresel atmosfer ögeleri belirgin değil (sahne dosyaları detayında rastlanmadı). Yine de binalar ferah bir yapıya sahip.
+
+3. UI Review:
+- Tooltip sistemi (js/ui/tooltip.js) çalışır vaziyette. Hover durumunda bina adını, seviyesini ve üretim miktarını gösteriyor.
+- Bildirim sistemi (js/ui/notifications.js) GSAP ile animasyonlu şekilde (sağ üstte) ekranın üstünde gösteriliyor.
+- Mobil uyumluluk (responsive) yapılarına dikkat edilmiş, Tailwind class'ları kullanılmış.
+
+4. Etkileşim:
+- Hover efekti: raycaster aracılığıyla (js/interaction/raycaster.js) mouse objenin üzerine geldiğinde objenin emissive değeri artırılarak glow efekti oluşturuluyor ve cursor pointer yapılıyor.
+- Parçacık efekti (Particle): Yükseltme animasyonlarında (js/interaction/animations.js) kırmızı arka plan flaşı vb. efektlerle detaylandırılmış.
+
+Sonuç: Dalga 5 için belirlenen görsel ve UI hedeflerine büyük oranda ulaşılmıştır.
