@@ -104,3 +104,89 @@ GÖREV - FAZ A4-6: Touch Desteği + Error Handling + Polish (DALGA 6)
 - Error handling: WebGL context lost durumunda kullanıcıya mesaj göster. Try-catch tüm kritik fonksiyonlarda.
 - Performans throttle: Raycaster'ı her frame yerine throttle ile çalıştır (mousemove için). requestAnimationFrame optimizasyonu.
 - Bitirdiğinde prodetayi/faz_A4_6_touch_error.txt oluştur.
+
+PROMPT A4-7:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. GSAP animasyonları kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-7: Pazar Etkileşimi & Ticaret Animasyonları (DALGA 7)
+- public/objects/market/interact.js: onSelect (ticaret panelini aç), onDeselect, onUpgrade.
+- Ticaret animasyonu: Al/Sat yapıldığında altın parçacıklar uçuşsun (GSAP + Three.js Points).
+- Pazar tezgahlarında hafif sallanma animasyonu (idle state).
+- Bitirdiğinde prodetayi/faz_A4_7_pazar_etkilesim.txt oluştur.
+
+PROMPT A4-8:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-8: Tapınak Etkileşimi & Buff Animasyonu (DALGA 8)
+- public/objects/temple/interact.js: onSelect (tapınak paneli + "Dua Et" butonu), onDeselect, onUpgrade.
+- "Dua Et" tıklanınca: Tapınaktan yukarı doğru ışık huzmesi animasyonu (GSAP scale + opacity).
+- Buff aktifleşince: Etkilenen binaların etrafında kısa süre altın halka efekti.
+- Bitirdiğinde prodetayi/faz_A4_8_tapinak_etkilesim.txt oluştur.
+
+PROMPT A4-9:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-9: Gemi Hareket & Liman Etkileşimi (DALGA 9)
+- public/objects/harbor/interact.js: onSelect (ticaret rotası panelini aç), onDeselect, onUpgrade.
+- public/objects/ship/interact.js: onSelect (gemi detayı göster).
+- Gemi hareket animasyonu: GSAP ile A noktasından B noktasına düz çizgide hareket.
+  Hafif yukarı-aşağı sallanma (deniz efekti).
+  Varışta küçük dalga efekti.
+- Bitirdiğinde prodetayi/faz_A4_9_gemi_liman_etkilesim.txt oluştur.
+
+PROMPT A4-10:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-10: Asker Yerleştirme & Savaş Animasyonları (DALGA 10)
+- public/objects/barracks/interact.js: onSelect (ordu panelini aç), onDeselect, onUpgrade.
+- Asker eğitim animasyonu: Kışladan çıkan asker figürü (scale 0→1, GSAP).
+- Savunma modu: Askerler surların üzerine yerleşsin (pozisyon animasyonu).
+- Saldırı efekti: Kırmızı parçacık patlaması (düşman saldırısı simülasyonu).
+- Bitirdiğinde prodetayi/faz_A4_10_asker_savas.txt oluştur.
+
+PROMPT A4-11:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-11: Festival Başlatma & Kalabalık Animasyonu (DALGA 11)
+- Festival başlatma etkileşimi: Arena'ya tıkla → Festival paneli açılsın.
+- "Festival Başlat" tıklanınca:
+  Konfeti patlaması (renkli parçacıklar, GSAP ile yukarıdan yağma).
+  Kalabalık simülasyonu: Arena etrafında küçük noktalar (Points) belirsin ve hareket etsin.
+  Kolezyum/Arena'da ışık efekti (emissive artışı, GSAP pulse).
+- Festival bitince: Ödül bildirimi + parçacık temizleme.
+- Bitirdiğinde prodetayi/faz_A4_11_festival_etkilesim.txt oluştur.
+
+PROMPT A4-12:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-12: Menü Geçiş Animasyonları (DALGA 12)
+- Ana menüden oyuna geçiş: Kamera uzaktan yakına zoom animasyonu (GSAP, 2sn).
+- Ayarlar paneli açılış/kapanış: Blur efekti + slide animasyonu.
+- Tüm panel geçişlerinde tutarlı easing (power2.out).
+- Touch event'lerde 300ms delay kaldırma (touch-action: manipulation).
+- Bitirdiğinde prodetayi/faz_A4_12_menu_animasyon.txt oluştur.

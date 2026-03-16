@@ -116,3 +116,84 @@ GÖREV - FAZ A1-8: Güvenlik + Reconnect + Deployment (DALGA 6)
 - Reconnect: Oyun sırasında bağlantı kopunca 60sn içinde geri dönebilme. Token ile otomatik giriş, oyun state'ini geri yükle.
 - Dockerfile, docker-compose.yml (app + mysql), nginx.conf (WebSocket proxy, gzip).
 - Bitirdiğinde prodetayi/faz_A1_8_guvenlik_deployment.txt oluştur.
+
+PROMPT A1-7:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js, public/js/objectLoader.js, public/js/interaction/objectModules.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-7: Pazar Binası Sahne Entegrasyonu (DALGA 7)
+- objectLoader.js'e objects/market/ import'unu ekle, sahneye yerleştir (senato yakınında, sağ ön).
+- objectModules.js'e market interact/config modüllerini ekle.
+- Pazar alanı için hafif sıcak nokta ışığı (PointLight, sarı ton, düşük intensity) ekle.
+- Bitirdiğinde prodetayi/faz_A1_7_pazar_sahne.txt oluştur.
+
+PROMPT A1-8:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js, public/js/objectLoader.js, public/js/interaction/objectModules.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-8: Tapınak Sahne Entegrasyonu (DALGA 8)
+- objectLoader.js'e objects/temple/ import'unu ekle, sahneye yerleştir (senato arkasında, yüksek tepe).
+- objectModules.js'e temple interact/config modüllerini ekle.
+- Tapınak için mistik parçacık efekti (küçük ışık noktaları yukarı süzülsün) ekle main.js animate loop'una.
+- Bitirdiğinde prodetayi/faz_A1_8_tapinak_sahne.txt oluştur.
+
+PROMPT A1-9:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js, public/js/objectLoader.js, public/js/interaction/objectModules.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-9: Liman & Su Alanı Sahne Entegrasyonu (DALGA 9)
+- Haritanın bir kenarına (güney) basit su düzlemi ekle (PlaneGeometry, mavi yarı-saydam materyal, hafif dalga animasyonu).
+- objectLoader.js'e objects/harbor/ ve objects/ship/ import'larını ekle.
+- Liman'ı su kenarına, gemileri su üzerine yerleştir.
+- objectModules.js'e harbor ve ship interact/config modüllerini ekle.
+- Bitirdiğinde prodetayi/faz_A1_9_liman_sahne.txt oluştur.
+
+PROMPT A1-10:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js, public/js/objectLoader.js, public/js/interaction/objectModules.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-10: Kışla Sahne Entegrasyonu (DALGA 10)
+- objectLoader.js'e objects/barracks/ import'unu ekle, surların iç tarafına yerleştir.
+- Kışla önüne küçük eğitim alanı (düz zemin, farklı renk) ekle.
+- objectModules.js'e barracks interact/config modüllerini ekle.
+- Bitirdiğinde prodetayi/faz_A1_10_kisla_sahne.txt oluştur.
+
+PROMPT A1-11:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-11: Festival Efektleri (DALGA 11)
+- main.js'e festival parçacık sistemi ekle: konfeti (renkli küçük kareler yukarıdan yağsın), havai fişek (belirli noktalardan patlayan ışık noktaları).
+- Festival aktifken çalışsın, pasifken dursun (window.festivalActive flag).
+- Performans: maksimum 200 parçacık, otomatik temizleme.
+- Bitirdiğinde prodetayi/faz_A1_11_festival_efekt.txt oluştur.
+
+PROMPT A1-12:
+Sen AGENT 1: SCENE_MASTER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: public/js/main.js, public/js/objectLoader.js, vite.config.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-12: Final Optimizasyon (DALGA 12)
+- Renderer: antialias sadece desktop'ta, mobilde kapalı. setPixelRatio(1) sabit.
+- LOD mesafelerini ince ayarla (yakın: 0-40, orta: 40-80, uzak: 80+).
+- Frustum culling aktif olduğunu doğrula.
+- FPS sayacı ekle (sol üst köşe, debug modda görünsün).
+- Vite build config: minify, chunk splitting.
+- Bitirdiğinde prodetayi/faz_A1_12_final_optimizasyon.txt oluştur.

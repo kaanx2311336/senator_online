@@ -14,11 +14,15 @@ $dalgaAdimFaz = @{
     4 = @{ adim=1; fazlar=@("A3-4"); bekle=@() }
     5 = @{ adim=1; fazlar=@("A3-5"); bekle=@() }
     6 = @{ adim=1; fazlar=@("A3-6"); bekle=@() }
+    7 = @{ adim=2; fazlar=@("A3-7"); bekle=@(2,5) }
+    8 = @{ adim=2; fazlar=@("A3-8"); bekle=@(2,5) }
+    9 = @{ adim=2; fazlar=@("A3-9"); bekle=@(2,5) }
+    10 = @{ adim=1; fazlar=@("A3-10"); bekle=@() }
+    11 = @{ adim=1; fazlar=@("A3-11"); bekle=@() }
+    12 = @{ adim=1; fazlar=@("A3-12"); bekle=@() }
 }
 
-# Dalga 1: A3-1 | Dalga 2: A3-2 | Dalga 3: A3-3
-# Dalga 4: A3-4 | Dalga 5: A3-5 | Dalga 6: A3-6
-$tumFazlar = @("A3-1","A3-2","A3-3","A3-4","A3-5","A3-6")
+$tumFazlar = @("A3-1","A3-2","A3-3","A3-4","A3-5","A3-6","A3-7","A3-8","A3-9","A3-10","A3-11","A3-12")
 
 function Write-Log ($message) { $time = Get-Date -Format "HH:mm:ss"; Write-Host "[$time] [$agentName] $message" -ForegroundColor Cyan }
 function Strip-Ansi ($line) { return $line -replace '\x1b\[[0-9;]*[a-zA-Z]', '' }

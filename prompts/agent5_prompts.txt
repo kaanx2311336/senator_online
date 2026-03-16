@@ -115,3 +115,105 @@ GÖREV - FAZ A5-6: Tam Entegrasyon Testi + Mobil Test (DALGA 6)
 - Performans: 60fps masaüstü, 30fps mobil, 0 console error.
 - research/entegrasyon_test.txt, research/mobil_test.txt oluştur.
 - Bitirdiğinde prodetayi/faz_A5_6_entegrasyon_mobil.txt oluştur.
+
+PROMPT A5-7:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-7: Ticaret Dengesi Araştırması (DALGA 7)
+- research/ticaret_dengesi.txt: Roma pazarı fiyat formülleri.
+  Baz fiyatlar: Odun=10 Altın, Buğday=15 Altın.
+  Arz-talep etkisi: Çok satılan malın fiyatı düşer (%5/işlem), az satılanın artar.
+  Fiyat limitleri: Min %50, Max %200 baz fiyat.
+  Pazar seviyesi bonusu: Her seviye %5 daha iyi fiyat.
+- shared/contracts/objectRegistry.js'e COMMERCE kategorisi ekle.
+- Bitirdiğinde prodetayi/faz_A5_7_ticaret_arastirma.txt oluştur.
+
+PROMPT A5-8:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-8: Roma İnanç Sistemi Araştırması (DALGA 8)
+- research/inanc_sistemi.txt: Roma inanç mekaniği.
+  İnanç puanı: Tapınak seviyesi × 10 puan/dakika üretim.
+  Buff maliyeti: 100 inanç puanı = 1 buff aktivasyonu.
+  Buff süreleri: Üretim +%20 (60sn), Savunma +%15 (90sn), Ticaret -%10 (45sn).
+  Buff stack: Aynı anda max 2 farklı buff aktif olabilir.
+- shared/types/gameTypes.js'e Buff ve Faith typedef'leri ekle.
+- Bitirdiğinde prodetayi/faz_A5_8_inanc_arastirma.txt oluştur.
+
+PROMPT A5-9:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-9: Deniz Ticareti Araştırması (DALGA 9)
+- research/deniz_ticareti.txt: Antik Roma deniz ticaret rotaları.
+  Rota tipleri: Kısa (30sn, düşük kar), Orta (60sn, orta kar), Uzun (120sn, yüksek kar).
+  Risk faktörü: Uzun rotalarda %10 kayıp riski.
+  Gemi kapasitesi: Ticaret=100 birim, Savaş=20 birim, Balıkçı=30 birim.
+  Liman seviyesi: Her seviye +1 eşzamanlı rota kapasitesi.
+- shared/contracts/objectRegistry.js'e TRADE kategorisi ekle.
+- Bitirdiğinde prodetayi/faz_A5_9_deniz_ticaret_arastirma.txt oluştur.
+
+PROMPT A5-10:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-10: Roma Ordu Yapısı Araştırması (DALGA 10)
+- research/ordu_sistemi.txt: Roma ordu mekaniği.
+  Asker tipleri: Lejyoner (saldırı:10, savunma:8, maliyet: 50 altın + 20 buğday),
+                 Okçu (saldırı:12, savunma:4, maliyet: 40 altın + 10 odun),
+                 Süvari (saldırı:15, savunma:6, maliyet: 80 altın + 30 buğday).
+  Eğitim süresi: Lejyoner 30sn, Okçu 20sn, Süvari 45sn.
+  Savunma formülü: Toplam savunma = Σ(asker_savunma) + sur_seviyesi × 50 + kule_sayısı × 30.
+  Saldırı olayları: Her 5 dakikada rastgele barbar saldırısı (güç: dakika × 10).
+- shared/contracts/objectRegistry.js'e MILITARY kategorisi ekle.
+- shared/types/gameTypes.js'e Soldier ve Army typedef'leri ekle.
+- Bitirdiğinde prodetayi/faz_A5_10_ordu_arastirma.txt oluştur.
+
+PROMPT A5-11:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-11: Roma Festivalleri & Memnuniyet Araştırması (DALGA 11)
+- research/festival_memnuniyet.txt: Roma festival mekaniği.
+  Festivaller: Saturnalia (maliyet: 500 altın, memnuniyet +30, süre 120sn),
+               Lupercalia (maliyet: 300 altın + 200 buğday, memnuniyet +20, süre 90sn),
+               Gladyatör Oyunları (maliyet: 800 altın, memnuniyet +40, süre 150sn, kolezyum gerekli).
+  Memnuniyet formülü: Baz %50 + festival_bonus - vergi_oranı - kalabalık_cezası.
+  Memnuniyet etkileri: >%80 = üretim +%10, <%30 = isyan riski (kaynak kaybı).
+  Cooldown: Aynı festival tekrar 5dk sonra yapılabilir.
+- Bitirdiğinde prodetayi/faz_A5_11_festival_arastirma.txt oluştur.
+
+PROMPT A5-12:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-12: Final QA & Performans Testi (DALGA 12)
+- research/performans_raporu.txt: Performans test sonuçları.
+  FPS hedefi: Desktop 60fps, Mobil 30fps.
+  Bellek hedefi: Max 200MB GPU bellek.
+  Yükleme süresi: İlk açılış max 3sn.
+  Test senaryoları: Tüm binalar max seviye, 50 ağaç, 10 gemi aktif.
+- research/mobil_uyumluluk.txt: Mobil test raporu.
+  Touch event'ler çalışıyor mu, UI responsive mi, WebGL uyumlu mu.
+- prodetayi/faz_A5_12_final_qa.txt: Tüm fazların tamamlanma durumu özet tablosu.
+- Bitirdiğinde prodetayi/faz_A5_12_final_qa.txt oluştur.

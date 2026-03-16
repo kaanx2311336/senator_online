@@ -115,3 +115,115 @@ GÖREV - FAZ A2-8: Final Polish + Geometry Optimizasyon (DALGA 6)
 - Material paylaşımı: Aynı renk/özellikte materyalleri tek instance olarak paylaş.
 - Geometry dispose: Kullanılmayan geometrileri temizle.
 - Bitirdiğinde prodetayi/faz_A2_8_final_polish.txt oluştur.
+
+PROMPT A2-9:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ klasörüne ve public/objects/ klasörüne dosya oluşturabilirsin.
+2. Her nesne: model.js + config.json + interact.js
+3. Three.js MeshLambertMaterial kullan, gölge KAPALI, low-poly.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-9: Pazar Binası 3D Modeli (DALGA 7)
+- objects/market/model.js: createMarket(level) fonksiyonu. Seviye 1-5.
+  Seviye 1: Basit ahşap tezgah (BoxGeometry), kumaş tente (üçgen çatı).
+  Seviye 2: Çoklu tezgahlar, taş zemin.
+  Seviye 3: Kapalı pazar binası, kemerli girişler.
+  Seviye 4: İki katlı, balkon, dekoratif sütunlar.
+  Seviye 5: Büyük pazar kompleksi, altın süslemeler, çeşme ortada.
+- objects/market/config.json: name="Pazar", type="commerce", 5 seviye, maliyet ve gelir bilgileri.
+- objects/market/interact.js: onSelect, onDeselect, onUpgrade, isUpgradeable=true.
+- Aynı dosyaları public/objects/market/ altına da kopyala.
+- shared/contracts/objectRegistry.js'e COMMERCE.MARKET ekle.
+- Bitirdiğinde prodetayi/faz_A2_9_pazar_modeli.txt oluştur.
+
+PROMPT A2-10:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-10: Tapınak 3D Modeli (DALGA 8)
+- objects/temple/model.js: createTemple(level) fonksiyonu. Seviye 1-5.
+  Seviye 1: Küçük sunak taşı, 2 sütun.
+  Seviye 2: Küçük tapınak, 4 sütun, üçgen alınlık.
+  Seviye 3: Orta tapınak, 6 sütun, mermer zemin.
+  Seviye 4: Büyük tapınak, kubbe, iç avlu.
+  Seviye 5: Devasa tapınak, altın kubbe, heykel, merdiven.
+- objects/temple/config.json: name="Tapınak", type="faith", 5 seviye, maliyet + inanç puanı.
+- objects/temple/interact.js: onSelect, onDeselect, onUpgrade, isUpgradeable=true.
+- public/objects/temple/ altına da kopyala.
+- shared/contracts/objectRegistry.js'e FAITH.TEMPLE ekle.
+- Bitirdiğinde prodetayi/faz_A2_10_tapinak_modeli.txt oluştur.
+
+PROMPT A2-11:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-11: Liman & Gemi 3D Modelleri (DALGA 9)
+- objects/harbor/model.js: createHarbor(level). İskele (uzun dikdörtgen), vinç, depo binaları.
+- objects/harbor/config.json: name="Liman", type="trade", 5 seviye.
+- objects/harbor/interact.js: onSelect, onDeselect, onUpgrade.
+- objects/ship/model.js: createShip(type). type: "trade" (büyük kargo), "war" (savaş gemisi), "fishing" (küçük balıkçı).
+  Gemi: Gövde (uzun oval BoxGeometry), direk (CylinderGeometry), yelken (PlaneGeometry).
+- objects/ship/config.json: name="Gemi", variants.
+- public/objects/ altına da kopyala.
+- shared/contracts/objectRegistry.js'e TRADE.HARBOR, TRADE.SHIP ekle.
+- Bitirdiğinde prodetayi/faz_A2_11_liman_gemi.txt oluştur.
+
+PROMPT A2-12:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-12: Kışla & Asker 3D Modelleri (DALGA 10)
+- objects/barracks/model.js: createBarracks(level). Seviye 1-5.
+  Seviye 1: Basit çadır kampı.
+  Seviye 2: Ahşap kışla, eğitim alanı.
+  Seviye 3: Taş kışla, silah deposu.
+  Seviye 4: Büyük kışla kompleksi, kule.
+  Seviye 5: Lejyon karargahı, altın kartal heykeli.
+- objects/barracks/config.json: name="Kışla", type="military", 5 seviye, asker kapasitesi.
+- objects/barracks/interact.js: onSelect, onDeselect, onUpgrade.
+- objects/soldier/model.js: createSoldier(type). Basit low-poly asker figürü (silindir gövde, küre kafa, kılıç/kalkan).
+- public/objects/ altına da kopyala.
+- shared/contracts/objectRegistry.js'e MILITARY.BARRACKS, MILITARY.SOLDIER ekle.
+- Bitirdiğinde prodetayi/faz_A2_12_kisla_asker.txt oluştur.
+
+PROMPT A2-13:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-13: Arena Dekorasyon Varyantları (DALGA 11)
+- objects/arena/model.js: createArena(level). Kolezyum'dan küçük, mahalle arenası.
+  Festival modunda: Renkli bayraklar (PlaneGeometry, çeşitli renkler), çiçek süsleri.
+- objects/arena/config.json: name="Arena", type="entertainment", 3 seviye.
+- objects/arena/interact.js: onSelect, onDeselect, onUpgrade.
+- Festival dekorasyon fonksiyonu: addFestivalDecorations(arenaGroup) - bayrak ve süs ekler.
+- public/objects/ altına da kopyala.
+- Bitirdiğinde prodetayi/faz_A2_13_arena_dekor.txt oluştur.
+
+PROMPT A2-14:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-14: Tüm Modellerde Polygon Azaltma (DALGA 12)
+- Tüm model.js dosyalarında CylinderGeometry segment sayılarını azalt (max 8).
+- SphereGeometry segment sayılarını azalt (max 12).
+- Gereksiz iç geometrileri kaldır (görünmeyen yüzler).
+- Her modelde castShadow=false, receiveShadow=false doğrula.
+- LOD mid/low seviyelerinde daha agresif basitleştirme.
+- Bitirdiğinde prodetayi/faz_A2_14_polygon_azaltma.txt oluştur.

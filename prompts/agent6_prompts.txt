@@ -120,3 +120,83 @@ GÖREV - FAZ A6-6: Final Entegrasyon + Yayın Raporu (DALGA 6)
 KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
 agent6_orchestrator/dalga_gecis_raporu_6.txt MUTLAKA oluştur.
 İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.
+
+PROMPT A6-7:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-7: Dalga 7 Denetim (PAZAR & TİCARET)
+- Tüm agent'ların Dalga 7 çıktılarını kontrol et.
+- objects/market/ klasörü var mı, model.js + config.json + interact.js tam mı?
+- Ticaret paneli UI çalışıyor mu?
+- objectLoader.js'de market import'u var mı?
+- agent6_orchestrator/dalga_gecis_raporu_7.txt oluştur.
+
+PROMPT A6-8:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-8: Dalga 8 Denetim (TAPINAK & İNANÇ)
+- objects/temple/ klasörü tam mı?
+- İnanç barı ve buff sistemi UI'da görünüyor mu?
+- Tapınak parçacık efekti çalışıyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_8.txt oluştur.
+
+PROMPT A6-9:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-9: Dalga 9 Denetim (LİMAN & DENİZ TİCARETİ)
+- objects/harbor/ ve objects/ship/ klasörleri tam mı?
+- Su düzlemi ve gemi animasyonu çalışıyor mu?
+- Ticaret rotası haritası UI görünüyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_9.txt oluştur.
+
+PROMPT A6-10:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-10: Dalga 10 Denetim (ORDU & SAVUNMA)
+- objects/barracks/ ve objects/soldier/ klasörleri tam mı?
+- Ordu paneli UI çalışıyor mu?
+- Asker eğitim ve savunma animasyonları çalışıyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_10.txt oluştur.
+
+PROMPT A6-11:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-11: Dalga 11 Denetim (FESTİVAL & MEMNUNİYET)
+- Arena dekorasyonları ve festival efektleri çalışıyor mu?
+- Memnuniyet barı ve festival paneli UI görünüyor mu?
+- Konfeti/havai fişek parçacıkları performansı kabul edilebilir mi?
+- agent6_orchestrator/dalga_gecis_raporu_11.txt oluştur.
+
+PROMPT A6-12:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-12: Final Denetim & Yayın Raporu (DALGA 12)
+- Tüm 12 dalganın tamamlanma durumunu kontrol et.
+- FPS, bellek, yükleme süresi hedeflerini doğrula.
+- Mobil uyumluluk raporunu incele.
+- Ana menü, ayarlar, ses kontrolleri çalışıyor mu?
+- agent6_orchestrator/yayin_raporu_final.txt oluştur: Yayına hazır mı, eksikler neler.

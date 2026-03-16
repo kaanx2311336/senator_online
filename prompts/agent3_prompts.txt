@@ -95,3 +95,102 @@ GÖREV - FAZ A3-6: Loading Ekranı + Erişilebilirlik + Polish (DALGA 6)
 - Erişilebilirlik: Tüm butonlarda aria-label, keyboard navigation (Tab ile bina seçme), yeterli renk kontrastı (WCAG AA).
 - Son polish: Tüm UI elementlerinde tutarlı spacing, font boyutları, renk paleti kontrolü.
 - Bitirdiğinde prodetayi/faz_A3_6_loading_erisim.txt oluştur.
+
+PROMPT A3-7:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Tailwind CSS CDN + özel CSS. Framework YASAK.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-7: Ticaret Paneli UI (DALGA 7)
+- public/js/ui/tradePanel.js: Ticaret paneli modülü.
+  Al/Sat butonları (Odun, Buğday, Altın arası dönüşüm).
+  Fiyat göstergesi (dinamik, arz-talep simülasyonu).
+  Miktar seçici (1x, 10x, 100x).
+  Panel açılış/kapanış GSAP animasyonu.
+- css/ui.css'e ticaret paneli stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_7_ticaret_ui.txt oluştur.
+
+PROMPT A3-8:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-8: İnanç Barı & Buff UI (DALGA 8)
+- public/js/ui/faithBar.js: İnanç kaynağı barı (üst barda, mor/altın renk).
+- public/js/ui/buffPanel.js: Aktif buff'ları gösteren küçük ikonlar (üst barın altında).
+  Buff tipleri: Üretim Artışı (+%20), Savunma Bonusu (+%15), Ticaret İndirimi (-%10).
+  Her buff'ın süresi ve tooltip açıklaması.
+- Tapınak detay panelinde "Dua Et" butonu (buff aktifleştirme).
+- css/ui.css'e inanç ve buff stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_8_inanc_ui.txt oluştur.
+
+PROMPT A3-9:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-9: Ticaret Rotası Haritası UI (DALGA 9)
+- public/js/ui/tradeRouteMap.js: Basit 2D mini harita (canvas overlay).
+  Liman noktası, ticaret rotaları (çizgiler), gemi ikonları.
+  Rota durumu: Aktif (yeşil), Beklemede (sarı), Tehlikede (kırmızı).
+  Gemi tıklanınca detay: Kargo, varış süresi, kar tahmini.
+- css/ui.css'e mini harita stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_9_rota_harita_ui.txt oluştur.
+
+PROMPT A3-10:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-10: Ordu Paneli UI (DALGA 10)
+- public/js/ui/armyPanel.js: Ordu yönetim paneli.
+  Asker sayısı göstergesi (tip bazlı: Lejyoner, Okçu, Süvari).
+  Eğitim butonu (kaynak harcayarak asker üret).
+  Savunma gücü barı (toplam savunma puanı).
+  Saldırı/Savunma modu geçişi.
+- css/ui.css'e ordu paneli stilleri ekle (kırmızı/bronz tema).
+- Bitirdiğinde prodetayi/faz_A3_10_ordu_ui.txt oluştur.
+
+PROMPT A3-11:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-11: Memnuniyet & Festival UI (DALGA 11)
+- public/js/ui/happinessBar.js: Halk memnuniyeti barı (üst barda, yeşil-kırmızı gradient).
+  Memnuniyet %0-100, renk değişimi.
+- public/js/ui/festivalPanel.js: Festival takvimi paneli.
+  Festival listesi (Saturnalia, Lupercalia, Gladyatör Oyunları).
+  Her festivalin maliyeti, süresi, memnuniyet bonusu.
+  "Festival Başlat" butonu.
+  Ödül göstergesi (festival bitince kazanılan bonus).
+- css/ui.css'e memnuniyet ve festival stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_11_festival_ui.txt oluştur.
+
+PROMPT A3-12:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/, public/index.html dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-12: Ana Menü & Ayarlar Ekranı (DALGA 12)
+- public/index.html'e ana menü overlay ekle: "Oyuna Başla", "Ayarlar", "Hakkında" butonları.
+- public/js/ui/mainMenu.js: Ana menü mantığı, GSAP geçiş animasyonları.
+- public/js/ui/settingsPanel.js: Ayarlar paneli.
+  Ses açık/kapalı, müzik ses seviyesi slider.
+  Grafik kalitesi: Düşük/Orta/Yüksek.
+  Dil seçimi (TR/EN placeholder).
+- Roma temalı tasarım: Mermer arka plan, altın kenarlıklar, Cinzel font.
+- Bitirdiğinde prodetayi/faz_A3_12_menu_ayarlar.txt oluştur.

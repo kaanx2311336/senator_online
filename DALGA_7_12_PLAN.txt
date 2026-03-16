@@ -1,0 +1,65 @@
+================================================================================
+🏛️ ROMA CITY BUILDER - DALGA 7-12 GENIŞLEME PLANI
+================================================================================
+
+DALGA 7: PAZAR & TİCARET SİSTEMİ
+  Hedef: Oyuncuya kaynak ticareti ve pazar binası ekleme
+  Agent 1: Pazar binası sahne entegrasyonu, yeni ışık efektleri
+  Agent 2: objects/market/ (model.js, config.json) - Pazar binası 3D modeli
+  Agent 3: Ticaret paneli UI (al/sat butonları, fiyat göstergesi)
+  Agent 4: Pazar tıklama etkileşimi, ticaret animasyonları
+  Agent 5: Ticaret dengesi araştırması, fiyat formülleri
+  Agent 6: Dalga 7 denetim ve geçiş raporu
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 8: TAPINAK & İNANÇ SİSTEMİ
+  Hedef: Tapınak binası, inanç kaynağı, buff/bonus sistemi
+  Agent 1: Tapınak sahne yerleşimi, parçacık efektleri (duman/ışık)
+  Agent 2: objects/temple/ (model.js, config.json) - Tapınak 3D modeli
+  Agent 3: İnanç barı UI, buff göstergesi, tapınak detay paneli
+  Agent 4: Tapınak etkileşimi, buff aktivasyon animasyonu
+  Agent 5: Roma inanç sistemi araştırması, buff dengesi
+  Agent 6: Dalga 8 denetim ve geçiş raporu
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 9: LIMAN & DENİZ TİCARETİ
+  Hedef: Liman binası, deniz ticaret rotaları, gemi animasyonları
+  Agent 1: Su/deniz alanı oluşturma, liman sahne entegrasyonu
+  Agent 2: objects/harbor/ + objects/ship/ (3D modeller)
+  Agent 3: Ticaret rotası haritası UI, gemi durumu paneli
+  Agent 4: Gemi hareket animasyonu, liman etkileşimi
+  Agent 5: Antik Roma deniz ticareti araştırması, rota dengesi
+  Agent 6: Dalga 9 denetim ve geçiş raporu
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 10: ORDU & SAVUNMA SİSTEMİ
+  Hedef: Kışla binası, asker üretimi, saldırı/savunma mekaniği
+  Agent 1: Kışla sahne yerleşimi, savaş efektleri
+  Agent 2: objects/barracks/ + objects/soldier/ (3D modeller)
+  Agent 3: Ordu paneli UI (asker sayısı, eğitim, savunma gücü)
+  Agent 4: Asker yerleştirme etkileşimi, savaş animasyonları
+  Agent 5: Roma ordu yapısı araştırması, savaş dengesi
+  Agent 6: Dalga 10 denetim ve geçiş raporu
+  Adım Yapısı: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+
+DALGA 11: FESTIVAL & HALK MEMNUNİYETİ
+  Hedef: Arena etkinlikleri, festival sistemi, halk memnuniyeti barı
+  Agent 1: Festival efektleri (havai fişek, konfeti parçacıkları)
+  Agent 2: objects/arena/ dekorasyon varyantları, festival süsleri
+  Agent 3: Memnuniyet barı, festival takvimi UI, ödül paneli
+  Agent 4: Festival başlatma etkileşimi, kalabalık animasyonu
+  Agent 5: Roma festivalleri araştırması, memnuniyet formülleri
+  Agent 6: Dalga 11 denetim ve geçiş raporu
+  Adım Yapısı: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+
+DALGA 12: FINAL POLISH & YAYINLAMA
+  Hedef: Performans optimizasyonu, ses, müzik, son rötuşlar
+  Agent 1: Renderer optimizasyonu, LOD ince ayar, FPS stabilizasyonu
+  Agent 2: Tüm modellerde polygon azaltma, texture atlas
+  Agent 3: Ana menü, ayarlar ekranı, ses kontrolleri UI
+  Agent 4: Geçiş animasyonları, menü etkileşimleri
+  Agent 5: Performans testi, mobil uyumluluk, son QA raporu
+  Agent 6: Final denetim, yayın raporu, tüm sistem doğrulama
+  Adım Yapısı: Adım1(1,2,3,4,5) → herkes paralel
+
+================================================================================

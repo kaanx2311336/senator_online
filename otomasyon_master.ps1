@@ -12,6 +12,12 @@ Write-Host "  Dalga 3: Etkilesim + Animasyon"
 Write-Host "  Dalga 4: Kaynak Sistemi + Yukseltmeler"
 Write-Host "  Dalga 5: Gorsel Iyilestirme + Detay"
 Write-Host "  Dalga 6: Optimizasyon + Mobil + Final"
+Write-Host "  Dalga 7: Pazar + Ticaret Sistemi"
+Write-Host "  Dalga 8: Tapinak + Inanc Sistemi"
+Write-Host "  Dalga 9: Liman + Deniz Ticareti"
+Write-Host "  Dalga 10: Ordu + Savunma Sistemi"
+Write-Host "  Dalga 11: Festival + Halk Memnuniyeti"
+Write-Host "  Dalga 12: Final Polish + Yayinlama"
 Write-Host ""
 
 $scriptDir = $PSScriptRoot
