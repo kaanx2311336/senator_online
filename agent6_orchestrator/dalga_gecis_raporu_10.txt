@@ -1,0 +1,16 @@
+FAZ A6-10: Dalga 10 Denetim Raporu (ORDU & SAVUNMA)
+
+İnceleme Sonuçları:
+1. objects/barracks/ ve objects/soldier/ klasörleri tam mı?:
+   - `objects/barracks/` ve `public/objects/barracks/` klasörleri mevcut ve dosyaları (config.json, interact.js, model.js) yerinde.
+   - Ancak, `objects/soldier/` ve `public/objects/soldier/` klasörleri EKSİK. Bu objelerin oluşturulması gerekiyor.
+
+2. Ordu paneli UI çalışıyor mu?:
+   - `public/js/ui/armyPanel.js` dosyası mevcut ve tanımlanmış. UI elemanları genel olarak hazır. Fakat arka planda asker üretimi (soldier objeleri ile) entegrasyonu tamamlanmamış (şu anda sadece sayı artırılıyor).
+
+3. Asker eğitim ve savunma animasyonları çalışıyor mu?:
+   - Asker objeleri (`soldier`) henüz olmadığından, eğitim ve savunma animasyonları da oyuna entegre edilmiş değil.
+
+ONAY DURUMU: KOSULLU GECIS
+
+Eksiklerin (özellikle `soldier` objesinin ve animasyonlarının) giderilmesi gerekmektedir.
