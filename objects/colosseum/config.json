@@ -1,0 +1,10 @@
+{
+  "name": "Kolezyum",
+  "type": "building",
+  "levels": [
+    { "cost": 1000, "capacity": 500 },
+    { "cost": 2500, "capacity": 1200 },
+    { "cost": 6000, "capacity": 3000 }
+  ],
+  "position": [40, 0, 10]
+}

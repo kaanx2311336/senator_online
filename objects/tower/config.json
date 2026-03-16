@@ -1,0 +1,10 @@
+{
+  "name": "Kule",
+  "type": "defense",
+  "levels": [
+    { "cost": 300, "defense": 50 },
+    { "cost": 650, "defense": 120 },
+    { "cost": 1500, "defense": 300 }
+  ],
+  "positions": []
+}

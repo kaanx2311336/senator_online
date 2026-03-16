@@ -1,0 +1,19 @@
+FAZ A2-2: Kolezyum + Sur + Kule (DALGA 2) tamamlanmıştır.
+
+1. Kolezyum (objects/colosseum/model.js & config.json):
+   - createColosseum(level) fonksiyonu eklendi.
+   - Oval arena, beyaz mermer materyali (MeshLambertMaterial), iç kademeli oturma sıraları ve kemerli açıklıklar oluşturuldu. Gölgeler (castShadow, receiveShadow) kapalı.
+   - config.json belirtilen formatta hazırlandı.
+
+2. Sur (objects/wall/model.js & config.json):
+   - createWall(length) fonksiyonu eklendi.
+   - Beyaz-gri renkte uzun dikdörtgen gövde ve üstünde mazgallar oluşturuldu. Gölgeler kapalı.
+   - config.json belirtilen formatta hazırlandı.
+
+3. Kule (objects/tower/model.js & config.json):
+   - createTower(level) fonksiyonu eklendi.
+   - Gri-beyaz silindirik gövde, kiremit rengi konik çatı ve mazgallı üst platform oluşturuldu. Gölgeler kapalı.
+   - config.json belirtilen formatta hazırlandı.
+
+4. Object Loader (js/objectLoader.js):
+   - Modeller import edilerek ObjectLoader modülü altında erişilebilir hale getirildi.
