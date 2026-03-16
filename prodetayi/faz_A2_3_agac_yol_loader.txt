@@ -1,0 +1,12 @@
+FAZ A2-3 GÖREV RAPORU
+--------------------
+Görev: Ağaç + Yol + ObjectLoader (DALGA 2)
+
+Tamamlanan İşlemler:
+1. `objects/tree/model.js` ve `objects/tree/config.json` dosyaları oluşturuldu. Ağaç oluşturma (`createTree(type)`) servisi eklendi; 'cypress' (ince, silindir uzun) ve 'pine' (katmanlı koni) tipleri destekleniyor. Gölge atma ayarları (shadows OFF) ve userData tanımlamaları yapıldı.
+2. `objects/road/model.js` ve `objects/road/config.json` dosyaları oluşturuldu. Yol oluşturma (`createRoad(startX, startZ, endX, endZ, width)`) servisi, başlangıç ve bitiş noktalarına göre düz ve gri-bej zeminle, yatay olarak (Y ekseni etrafında) doğru açıyı alarak oluşturuldu. Yüksekliği hafifçe kaldırıldı (y=0.05).
+3. `js/objectLoader.js` dosyası tamamen güncellendi. Artık tüm nesneleri ilgili config.json dosyalarından okuyarak çeken ve raycaster gibi etkileşim sistemleri için `userData.objectType` ve `userData.objectName` barındıran üç boyutlu objeleri bir dizi içinde sunan `loadAllObjects()` fonksiyonuna sahip.
+4. Ağaç nesneleri rastgele konumlara atılırken, yollar config içerisindeki 'paths' dizisi baz alınarak konumlandırılacak (şuan boş, hazır yapıda). Duvarlar ve kuleler demo olarak belirli çember dizilimlerine kondu.
+
+Durum:
+Tüm geliştirmeler tamamlandı. İlgili dosyaların içindeki kurallar katı bir şekilde uygulandı.
