@@ -1,0 +1,15 @@
+FAZ A4-1: Kamera Kontrol + Temel Raycaster (DALGA 1) TAMAMLANDI
+
+js/interaction/cameraControls.js:
+- setupControls fonksiyonu oluşturuldu.
+- OrbitControls kullanıldı.
+- Döndürme (enableRotate) KESİNLİKLE KAPALI.
+- Kaydırma (enablePan) AÇIK.
+- Zoom (enableZoom) AÇIK.
+- Zoom limitleri (minDistance=20, maxDistance=120) ayarlandı.
+- maxPolarAngle = Math.PI/3 olarak belirlendi.
+
+js/interaction/raycaster.js:
+- onClick fonksiyonu oluşturuldu.
+- Raycaster ile mouse pozisyonu hesaplandı.
+- Sadece userData.objectType özelliği olan nesneleri algılama mantığı eklendi (parent nesnelere de bakılıyor).
