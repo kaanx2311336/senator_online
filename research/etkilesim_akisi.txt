@@ -1,0 +1,28 @@
+Kullanıcı Etkileşim Akış Diyagramı:
+
+1. Tıklama İşlemi
+   - Kullanıcı ekrana tıklar.
+   - Raycaster tıklanan koordinatları hesaplar.
+   - Sahnede kesişen nesneler kontrol edilir.
+     - Nesne Bulundu mu?
+       - Evet:
+         - Önceki seçili nesne varsa seçimi iptal et (Deselect).
+         - Yeni nesneyi seç.
+         - Seçim halkasını (selection ring) aktif et.
+         - Nesneye zıplama (jump) animasyonu uygula.
+         - Seçili nesnenin detaylarını gösteren UI panelini aç.
+       - Hayır (Boş Alan Tıklaması):
+         - Önceki seçili nesne varsa seçimi iptal et (Deselect).
+         - UI panelini kapat.
+
+2. Yükseltme İşlemi
+   - Kullanıcı UI panelindeki "Yükselt" butonuna tıklar.
+   - Kaynak yöneticisi (Resource Manager) gerekli kaynakların yeterli olup olmadığını kontrol eder.
+     - Yeterli Kaynak Var mı?
+       - Evet:
+         - Kaynakları düş.
+         - Nesnenin seviyesini yükselt.
+         - Yükseltme efekti/animasyonu uygula.
+         - UI panelini güncelle.
+       - Hayır:
+         - Kullanıcıya yetersiz kaynak uyarısı göster.
