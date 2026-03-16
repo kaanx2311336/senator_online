@@ -1,0 +1,4 @@
+FAZ A1-4: Oda Sistemi Socket Event'leri (DALGA 2) tamamlandı.
+
+- roomManager.js dosyası oluşturuldu ve oda yönetimi (oluşturma, katılma, ayrılma, oyuncu hazır durumu vb.) eklendi. Max 4 oyuncu kapasitesi ayarlandı.
+- sockets/lobbySocket.js güncellendi ve create_room, join_room, leave_room, room_list, player_ready socket dinleyicileri eklendi. shared/contracts/socketEvents.js dosyasından gerekli event isimlerini dinamik olarak alacak şekilde kodlandı.
