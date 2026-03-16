@@ -11,3 +11,5 @@ Proje değişikliği: Okey Online → Roma City Builder
 [Mon Mar 16 17:07:37 UTC 2026] - AGENT 6: Dalga 8 Denetimi tamamlandi. Durum: KOSULLU GECIS.
 A6-9 Dalga 9 Denetimi tamamlandi.
 [AGENT 6] A6-10 Dalga 10 Denetimi tamamlandi. Durum: KOSULLU GECIS.
+
+[DALGA 11] Festival ve Memnuniyet sistemleri incelendi. Parçacık performansı kurallara uygun. Ancak 'addFestivalDecorations' kullanılmıyor. Durum: KOSULLU GECIS.

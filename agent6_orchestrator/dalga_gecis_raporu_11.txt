@@ -1,0 +1,23 @@
+FAZ A6-11: Dalga 11 Denetim Raporu (FESTİVAL & MEMNUNİYET)
+
+İnceleme Sonuçları:
+1. Arena dekorasyonları ve festival efektleri çalışıyor mu?:
+   - 'public/js/interaction/animations.js' içerisinde 'startFestivalAnimation' fonksiyonu tanımlı. Seçim ekranında (selection.js) 'Festival Başlat' butonu üzerinden tetikleniyor ve sorunsuz çalışıyor.
+   - Işık efekti (emissive pulse) için orijinal materyal renkleri hafızaya alınıyor ve doğru şekilde restore ediliyor (AGENTS.md kurallarına uygun).
+   - 'public/objects/arena/model.js' içerisinde 'addFestivalDecorations' fonksiyonu tanımlanmış. Ancak, bu fonksiyon kodun hiçbir yerinde çağrılmıyor. Festival başladığında görsel bayrak/çiçek dekorasyonları aktif olmuyor. Bu entegrasyonun tamamlanması gerek.
+
+2. Memnuniyet barı ve festival paneli UI görünüyor mu?:
+   - 'public/js/ui/happinessBar.js' ve 'public/js/ui/festivalPanel.js' başarıyla oluşturulmuş.
+   - Her ikisi de 'topBar.js' içinden içe aktarılıyor (import) ve başlatılıyor. 
+   - Modüller kendilerini 'window.RomanUI' namespace'i altında kaydederek UI kurallarına (circular dependency'den kaçınma) tam uyum gösteriyor.
+
+3. Konfeti/havai fişek parçacıkları performansı kabul edilebilir mi?:
+   - Animasyonlarda parçacık sayıları ('confettiCount = 150', 'crowdCount = 100') kısıtlamalara ve kurallara uygun olarak 200 sayısını geçmiyor.
+   - Parçacıkların animasyon bitiminde 'geometry.dispose()' ve 'material.dispose()' ile temizlendiği görüldü. Performans olarak mükemmel ve bellek sızıntısı engellenmiş.
+
+ONAY DURUMU: KOSULLU GECIS
+
+Eksiklerin giderilmesi:
+- 'addFestivalDecorations' fonksiyonunun (arena/model.js içindeki) ilgili obje yaratılırken veya festival tetiklenirken çağrılması gerekmektedir. Şu anlık kullanılmıyor.
+
+Koordinasyon Logu (AGENT_KOORDINASYON_LOGU.txt) güncellenecektir.
