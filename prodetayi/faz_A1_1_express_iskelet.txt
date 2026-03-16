@@ -1,0 +1,6 @@
+Faz A1-1 Tamamlandı.
+Express + Socket.IO İskeleti oluşturuldu.
+- package.json oluşturuldu ve express, socket.io, mysql2, cors, dotenv, jsonwebtoken, bcryptjs yüklendi.
+- server.js Express, Socket.IO ve static path tanımlamalarıyla ayarlandı.
+- .env dosyası default bilgilerle eklendi.
+- Klasör yapısı ve dbConfig.js hazırlandı.
