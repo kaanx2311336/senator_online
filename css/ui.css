@@ -74,6 +74,38 @@
     transition: opacity 0.2s ease-in-out;
 }
 
+/* Marble Background for Roman Theme */
+.marble-bg {
+    background-color: #fdfbf7;
+    background-image: 
+        linear-gradient(rgba(240, 235, 225, 0.7) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240, 235, 225, 0.7) 1px, transparent 1px),
+        linear-gradient(rgba(225, 220, 210, 0.3) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(225, 220, 210, 0.3) 2px, transparent 2px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography styles for detail panel */
+.cinzel-font {
+    font-family: 'Cinzel', serif;
+}
+
+/* Shimmer animation for upgrade button */
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.roman-gold-btn {
+    background: linear-gradient(to bottom, #fde047, #ca8a04);
+}
+.roman-gold-btn:hover {
+    background: linear-gradient(to bottom, #fef08a, #eab308);
+}
+
 /* Notifications */
 #roman-notifications {
     pointer-events: none;

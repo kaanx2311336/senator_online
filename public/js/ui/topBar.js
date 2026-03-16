@@ -1,10 +1,10 @@
 // js/ui/topBar.js
 
 const resourceMeta = {
-    wood: { label: 'Odun', icon: '🌲' },
-    wheat: { label: 'Buğday', icon: '🌾' },
-    population: { label: 'Nüfus', icon: '🧑' },
-    gold: { label: 'Altın', icon: '🪙' }
+    wood: { label: 'Odun', icon: '🌲', rate: '+5/dk' },
+    wheat: { label: 'Buğday', icon: '🌾', rate: '+10/dk' },
+    population: { label: 'Nüfus', icon: '🧑', rate: '+1/dk' },
+    gold: { label: 'Altın', icon: '🪙', rate: '+2/dk' }
 };
 
 function initTopBar() {
@@ -14,27 +14,39 @@ function initTopBar() {
         const currentResources = getResources();
         const topBar = document.createElement('div');
         topBar.id = 'roman-top-bar';
-        topBar.className = 'fixed top-0 left-0 w-full bg-red-800 border-b-2 border-yellow-500 gold-border p-3 flex justify-around items-center z-50 roman-ui shadow-lg text-white font-medium tracking-wide';
+        topBar.className = 'fixed top-0 left-0 w-full bg-red-800 border-b-2 border-yellow-500 gold-border p-2 md:p-3 flex flex-wrap md:flex-nowrap justify-around items-center z-50 roman-ui shadow-lg text-white font-medium tracking-wide';
         
         for (const [key, meta] of Object.entries(resourceMeta)) {
             const item = document.createElement('div');
-            item.className = 'flex items-center relative mx-2';
+            item.className = 'flex flex-col md:flex-row items-center relative mx-1 md:mx-2 min-w-[70px] md:min-w-auto';
+            
+            const topRow = document.createElement('div');
+            topRow.className = 'flex items-center';
             
             const iconSpan = document.createElement('span');
-            iconSpan.className = 'resource-icon text-2xl z-10';
+            iconSpan.className = 'resource-icon text-xl md:text-2xl z-10';
             iconSpan.textContent = meta.icon;
             
             const valueSpan = document.createElement('span');
             valueSpan.id = `resource-${key}`;
-            valueSpan.className = 'resource-value ml-2 z-10 relative overflow-hidden inline-block';
+            valueSpan.className = 'resource-value ml-1 md:ml-2 z-10 relative overflow-hidden inline-block';
             
             const innerTextSpan = document.createElement('span');
             innerTextSpan.className = 'inline-block';
             innerTextSpan.textContent = `${meta.label}: ${currentResources[key]}`;
             valueSpan.appendChild(innerTextSpan);
+            
+            topRow.appendChild(iconSpan);
+            topRow.appendChild(valueSpan);
 
-            item.appendChild(iconSpan);
-            item.appendChild(valueSpan);
+            item.appendChild(topRow);
+            
+            // Production rate element
+            const rateSpan = document.createElement('span');
+            rateSpan.id = `resource-rate-${key}`;
+            rateSpan.className = 'text-[10px] md:text-xs text-green-400 font-bold ml-0 md:ml-2 mt-1 md:mt-0 drop-shadow-md';
+            rateSpan.textContent = meta.rate;
+            item.appendChild(rateSpan);
             
             topBar.appendChild(item);
         }
