@@ -1,0 +1,9 @@
+FAZ A6-13: Dalga 13 Denetim (GÖRSEL DÜZELTME)
+Durum: GECILEBILIR
+
+Denetim Bulguları:
+- Senato Modeli: Kubbe (SphereGeometry) ve sütunlar (CylinderGeometry) başarıyla eklenmiştir.
+- Kolezyum: Oval görünümü sağlamak için scale.set ile x ve z eksenlerinde ölçeklendirme uygulanmış olup segment sayısı yeterlidir.
+- LOD Mesafeleri: objectLoader.js dosyasında LOD mesafeleri (0, 80, 150) olarak ayarlanmıştır.
+- Su Düzlemi: Zemin ve su yüzeyi seviye ve konum açısından çakışmamaktadır (Su y=-0.5, Zemin y=-0.1).
+- Detay Paneli: Roma temalı renkler, marble-bg, cinzel-font classları kullanılarak başarıyla oluşturulmuştur.
