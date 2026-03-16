@@ -38,3 +38,13 @@
     box-sizing: border-box;
     font-family: 'Cinzel', serif;
 }
+
+/* Detail Panel Transition */
+.detail-panel {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.detail-panel.open {
+    transform: translateY(0);
+}

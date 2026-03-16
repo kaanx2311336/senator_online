@@ -1,0 +1,6 @@
+GÖREV - FAZ A3-3: Detay Paneli (DALGA 3) tamamlandı.
+
+- js/ui/detailPanel.js: Binaya tıklanınca alttan slide-up animasyonuyla açılan, bina verilerini ve yükseltme maliyetini gösteren, "Yükselt" butonunu barındıran panel oluşturuldu.
+- css/ui.css: Panel açılma/kapanma transition (transform translateY) sınıfı `.detail-panel` eklendi.
+- "Yükselt" butonu istenildiği gibi altın sarısı `bg-yellow-500` ve hover efektli.
+- Panel Tailwind CSS class'ları (fixed bottom-0, bg-gray-900/90 backdrop-blur, rounded-t-2xl vb.) ile hazırlandı ve kapatma butonu eklendi.
