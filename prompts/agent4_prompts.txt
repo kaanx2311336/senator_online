@@ -1,0 +1,106 @@
+PROMPT A4-1:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesinin etkileşim, animasyon ve kamera kontrol sistemini geliştiriyorsun.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/interaction/raycaster.js, js/interaction/selection.js, js/interaction/cameraControls.js, js/interaction/animations.js, objects/*/interact.js
+2. Başka hiçbir dosyaya DOKUNAMAZSIN (index.html, js/scene.js, objects/*/model.js YASAK).
+3. Three.js + GSAP kullan. Framework YASAK.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-1: Kamera Kontrol + Temel Raycaster (DALGA 1)
+- js/interaction/cameraControls.js: OrbitControls kurulumu.
+  * enableRotate = false (döndürme KESİNLİKLE KAPALI).
+  * enablePan = true (sağa-sola kaydırma AÇIK).
+  * enableZoom = true (zoom AÇIK).
+  * minDistance = 20, maxDistance = 120 (zoom limitleri).
+  * maxPolarAngle = Math.PI/3 (çok dik bakma engeli).
+  * Export: setupControls(camera, domElement) fonksiyonu.
+- js/interaction/raycaster.js: Temel tıklama algılama.
+  * Raycaster + mouse pozisyon hesaplama.
+  * onClick(event, camera, scene, callback) fonksiyonu: Tıklanan nesneyi bul, callback'e gönder.
+  * Sadece userData.objectType olan nesneleri algıla.
+- Bitirdiğinde prodetayi/faz_A4_1_kamera_raycaster.txt oluştur.
+
+PROMPT A4-2:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/interact.js
+2. shared/contracts/objectRegistry.js'deki nesne isimlerini AYNEN kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-2: Nesne Etkileşim Dosyaları (DALGA 2)
+- Her nesne için interact.js oluştur:
+  * objects/senate/interact.js: onSelect() → detay paneli aç, onDeselect() → kapat.
+  * objects/colosseum/interact.js: onSelect(), onDeselect().
+  * objects/house/interact.js: onSelect(), onDeselect().
+  * objects/wall/interact.js: onSelect() (yükseltme yok, sadece bilgi).
+  * objects/tower/interact.js: onSelect(), onDeselect().
+  * objects/tree/interact.js: onSelect() (dekoratif, sadece bilgi).
+  * objects/road/interact.js: onSelect() (altyapı bilgisi).
+- Her interact.js: { onSelect(mesh, detailPanel), onDeselect(mesh), isUpgradeable: boolean }
+- Bitirdiğinde prodetayi/faz_A4_2_nesne_etkilesim.txt oluştur.
+
+PROMPT A4-3:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/interaction/selection.js, js/interaction/animations.js, js/interaction/raycaster.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-3: Seçim Sistemi + GSAP Animasyonları (DALGA 3)
+- js/interaction/selection.js: Bina seçim yönetimi.
+  * selectBuilding(mesh): Seçim halkasını göster, önceki seçimi kaldır, interact.js onSelect çağır.
+  * deselectBuilding(): Seçim halkasını gizle, interact.js onDeselect çağır, detay paneli kapat.
+  * Boş alana tıklayınca deselect.
+- js/interaction/animations.js: GSAP animasyonları.
+  * bounceAnimation(mesh): Tıklanan bina hafifçe zıplasın (y ekseni yukarı-aşağı, 0.3sn, ease: "back.out").
+  * selectionPulse(ring): Seçim halkası hafif pulse efekti (scale 1→1.1→1, tekrarlı).
+  * panelSlideIn(): Detay paneli alttan kayarak gelsin.
+  * panelSlideOut(): Detay paneli aşağı kayarak gitsin.
+- js/interaction/raycaster.js güncelle: Tıklama → selection.js çağır → animasyon tetikle.
+- Bitirdiğinde prodetayi/faz_A4_3_secim_animasyon.txt oluştur.
+
+PROMPT A4-4:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/interaction/selection.js, js/interaction/animations.js, objects/*/interact.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-4: Yükseltme Etkileşimi + Animasyon (DALGA 4)
+- "Yükselt" butonu tıklama akışı:
+  1. resourceManager.canAfford(cost) kontrol et.
+  2. Yeterliyse: resourceManager.spendResource() çağır.
+  3. Bina mesh'ini güncelle (eski sil, yeni seviye ekle).
+  4. GSAP yükseltme animasyonu: scale 1→1.3→1 (büyüyüp küçülme), parıltı efekti (emissive flash).
+  5. Kalkan etiketi seviye güncelle.
+  6. Yetersizse: Kırmızı flash uyarı, "Yetersiz kaynak" toast.
+- objects/*/interact.js güncelle: onUpgrade(level) fonksiyonu ekle.
+- Bitirdiğinde prodetayi/faz_A4_4_yukseltme.txt oluştur.
+
+PROMPT A4-5:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/interaction/*.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-5: Hover Efektleri + Kamera Smooth + Parçacık (DALGA 5)
+- Hover efekti: Bina üzerine mouse gelince hafif outline/glow (emissive artışı), cursor pointer.
+- Kamera smooth geçişler: Binaya tıklayınca kamera hafifçe o binaya doğru pan (GSAP ile smooth).
+- Yükseltme parçacık efekti: Basit particle sistemi (küçük altın yıldızlar yukarı uçar, 1sn sonra kaybolur). Three.js Points veya sprite ile.
+- Bitirdiğinde prodetayi/faz_A4_5_hover_particle.txt oluştur.
+
+PROMPT A4-6:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/interaction/*.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-6: Touch Desteği + Error Handling + Polish (DALGA 6)
+- Touch desteği: Mobil'de dokunma ile pan/zoom (OrbitControls zaten destekler, doğrula). Dokunma ile bina seçme (touchstart → raycaster).
+- Error handling: WebGL context lost durumunda kullanıcıya mesaj göster. Try-catch tüm kritik fonksiyonlarda.
+- Performans throttle: Raycaster'ı her frame yerine throttle ile çalıştır (mousemove için). requestAnimationFrame optimizasyonu.
+- Bitirdiğinde prodetayi/faz_A4_6_touch_error.txt oluştur.

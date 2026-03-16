@@ -1,0 +1,117 @@
+PROMPT A2-1:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesinin 3D nesne modellerini oluşturuyorsun.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js, objects/*/config.json, js/objectLoader.js
+2. Başka hiçbir dosyaya DOKUNAMAZSIN (js/scene.js, js/main.js, index.html YASAK).
+3. Her nesne KENDİ KLASÖRÜNDE olmalı: objects/<nesne_adi>/
+4. Three.js geometri + MeshLambertMaterial kullan. Gölge KAPALI.
+5. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-1: Zemin + Senato + Ev İskeleti (DALGA 1)
+- objects/ground/model.js: createGround() fonksiyonu. 200x200 yeşil düzlem (PlaneGeometry, rotation.x = -Math.PI/2, color: 0x4CAF50). Mesh döndür.
+- objects/ground/config.json: { "name": "Zemin", "size": 200, "color": "0x4CAF50" }
+- objects/senate/model.js: createSenate(level) fonksiyonu. Devasa kubbeli bina: Dikdörtgen taban (BoxGeometry 16x8x12, beyaz mermer 0xFAF0E6), üstünde yarım küre kubbe (SphereGeometry, yarım, kiremit kırmızı 0xB7410E), ön cephede 4 sütun (CylinderGeometry). Group olarak döndür.
+- objects/senate/config.json: { "name": "Senato", "type": "building", "levels": [{"level":1,"scale":1,"cost":{"wood":0,"wheat":0,"gold":0}}], "position": [0,0,0] }
+- objects/house/model.js: createHouse(level) fonksiyonu. Basit Roma evi: Küçük kutu taban (BoxGeometry 4x3x4, beyaz 0xFAF0E6), üçgen çatı (ConeGeometry veya custom, kiremit 0xB7410E). Group döndür.
+- objects/house/config.json: { "name": "Roma Evi", "type": "building", "levels": [...], "positions": [[10,0,10],[-15,0,8],...] }
+- Bitirdiğinde prodetayi/faz_A2_1_temel_nesneler.txt oluştur.
+
+PROMPT A2-2:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js, objects/*/config.json, js/objectLoader.js
+2. Her nesne KENDİ KLASÖRÜNDE.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-2: Kolezyum + Sur + Kule (DALGA 2)
+- objects/colosseum/model.js: createColosseum(level) fonksiyonu. Oval arena: Dış duvar (TorusGeometry veya CylinderGeometry oval, beyaz mermer), iç kademeli oturma sıraları (iç içe silindirler, her biri biraz daha küçük), kemerli açıklıklar (küçük BoxGeometry boşluklar simüle). Group döndür.
+- objects/colosseum/config.json: { "name": "Kolezyum", "type": "building", "levels": [...], "position": [40,0,10] }
+- objects/wall/model.js: createWall(length) fonksiyonu. Sur duvarı: Uzun dikdörtgen (BoxGeometry, beyaz-gri 0xD4C5A9), üstünde mazgallar (küçük BoxGeometry'ler sıralı). Parametrik uzunluk.
+- objects/wall/config.json: { "name": "Sur", "type": "defense", "segments": [...] }
+- objects/tower/model.js: createTower(level) fonksiyonu. Kule: Silindirik gövde (CylinderGeometry, gri-beyaz), üstünde konik çatı (ConeGeometry, kiremit), mazgallı üst platform.
+- objects/tower/config.json: { "name": "Kule", "type": "defense", "levels": [...], "positions": [...] }
+- Bitirdiğinde prodetayi/faz_A2_2_kolezyum_sur.txt oluştur.
+
+PROMPT A2-3:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js, objects/*/config.json, js/objectLoader.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-3: Ağaç + Yol + ObjectLoader (DALGA 2)
+- objects/tree/model.js: createTree(type) fonksiyonu. Akdeniz servisi: İnce uzun silindir gövde (kahverengi 0x8B4513), üstünde uzun konik yaprak (koyu yeşil 0x2E7D32). Çam: Daha geniş, katmanlı koniler. type parametresi ile seçim.
+- objects/tree/config.json: { "name": "Ağaç", "type": "decoration", "variants": ["cypress","pine"], "count": 20 }
+- objects/road/model.js: createRoad(startX, startZ, endX, endZ, width) fonksiyonu. Taş döşeli yol: Düz PlaneGeometry, gri-bej renk (0xC4B59B), hafif yükseltilmiş (y=0.05).
+- objects/road/config.json: { "name": "Roma Yolu", "type": "infrastructure", "paths": [...] }
+- js/objectLoader.js: loadAllObjects() fonksiyonu. Tüm objects/*/model.js'leri import et, config.json'ları oku, nesneleri oluştur ve bir dizi olarak döndür. Her nesneye userData.objectType ve userData.objectName ata (raycaster için).
+- Bitirdiğinde prodetayi/faz_A2_3_agac_yol_loader.txt oluştur.
+
+PROMPT A2-4:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/senate/model.js, objects/colosseum/model.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-4: Senato + Kolezyum Detaylandırma (DALGA 3)
+- objects/senate/model.js güncelle: Daha detaylı kubbe (segment sayısı artır), ön cephe merdivenleri (basamaklı BoxGeometry'ler), sütun başlıkları (küçük BoxGeometry sütun tepesinde), yan duvar pencereleri (girintili BoxGeometry).
+- objects/colosseum/model.js güncelle: Daha detaylı kemerler (her katta kemer sıraları), iç arena zemini (kum rengi daire), giriş kapıları (ön/arka/yan 4 büyük kemer).
+- Bitirdiğinde prodetayi/faz_A2_4_detay_binalar.txt oluştur.
+
+PROMPT A2-5:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js, objects/*/config.json
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-5: Seviye Sistemi + Config Güncelleme (DALGA 4)
+- Tüm bina config.json'larına seviye verileri ekle (level 1-5):
+  * Her seviye için: scale çarpanı, ek geometri detayı, maliyet (wood, wheat, gold, population).
+  * Senato: Lv1 basit → Lv5 devasa kubbe + altın süslemeler.
+  * Kolezyum: Lv1 küçük arena → Lv5 tam kademeli dev arena.
+  * Ev: Lv1 kulübe → Lv5 villa (bahçeli, sütunlu).
+  * Kule: Lv1 basit → Lv5 yüksek + bayraklı.
+- Her model.js'de createX(level) fonksiyonu seviyeye göre farklı geometri döndürsün.
+- Bitirdiğinde prodetayi/faz_A2_5_seviye_sistemi.txt oluştur.
+
+PROMPT A2-6:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-6: Görsel İyileştirme + Detay Nesneler (DALGA 5)
+- Tüm modellerde görsel iyileştirme: Mermer doku efekti (MeshLambertMaterial + hafif emissive), çatı kiremit deseni (renk varyasyonları), sütun detayları.
+- Opsiyonel dekoratif nesneler (varsa ekle, yoksa mevcut modelleri güzelleştir): Çeşme (objects/fountain/), Roma heykeli (objects/statue/).
+- Bitirdiğinde prodetayi/faz_A2_6_gorsel_iyilestirme.txt oluştur.
+
+PROMPT A2-7:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js, js/objectLoader.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-7: LOD + Instanced Mesh (DALGA 6)
+- LOD (Level of Detail): Uzaktaki nesneler için basitleştirilmiş geometri. Three.js LOD sınıfı kullan. Yakın: tam detay, Orta: yarı detay, Uzak: basit kutu.
+- Instanced Mesh: Aynı nesneden çok sayıda olan ağaçlar ve evler için InstancedMesh kullan (performans).
+- objectLoader.js güncelle: LOD ve instanced mesh desteği.
+- Bitirdiğinde prodetayi/faz_A2_7_lod_instanced.txt oluştur.
+
+PROMPT A2-8:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: objects/*/model.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-8: Final Polish + Geometry Optimizasyon (DALGA 6)
+- Tüm modellerde gereksiz vertex azaltma (polygon sayısını düşür, görsel kaliteyi koru).
+- Material paylaşımı: Aynı renk/özellikte materyalleri tek instance olarak paylaş.
+- Geometry dispose: Kullanılmayan geometrileri temizle.
+- Bitirdiğinde prodetayi/faz_A2_8_final_polish.txt oluştur.

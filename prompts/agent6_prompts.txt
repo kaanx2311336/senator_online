@@ -1,0 +1,122 @@
+PROMPT A6-1:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. Roma City Builder projesinin orkestratör ve mimarısın. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm agent'ların dosyalarını OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt, AGENT_KOORDINASYON_LOGU.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-1: Proje Tutarlılık Tarayıcısı (DALGA 1)
+- [HTML ↔ JS UYUMU] index.html'deki script tag'leri ve container div'leri kontrol et. js/*.js dosyalarındaki DOM erişimleri ile eşleşiyor mu?
+- [NESNE KAYIT UYUMU] shared/contracts/objectRegistry.js'deki nesne isimleri ile objects/ klasöründeki klasör isimleri eşleşiyor mu?
+- [MODÜL UYUMU] js/main.js'deki import'lar ile mevcut dosyalar eşleşiyor mu?
+- [RENDERER KURALLARI] renderer.shadowMap.enabled = false mi? setPixelRatio(1) mi? setClearColor var mı?
+- agent6_orchestrator/tutarlilik_raporu.txt oluştur.
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_1.txt dosyasını MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY kelimelerinden biri MUTLAKA geçmeli.
+
+PROMPT A6-2:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm dosyaları OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-2: Görsel Test - Dalga 2 Sonrası
+- TEST 1: index.html tarayıcıda açılıyor mu? Siyah ekran yok mu?
+- TEST 2: Yeşil zemin görünüyor mu?
+- TEST 3: Senato, Kolezyum, evler, surlar, kuleler, ağaçlar haritada mı?
+- TEST 4: Üst kaynak barı görünüyor mu? Kaynaklar doğru mu?
+- TEST 5: Kalkan etiketleri bina tepelerinde mi?
+- TEST 6: Kamera pan/zoom çalışıyor mu? Rotate kapalı mı?
+- agent6_orchestrator/gorsel_test_dalga_2.txt oluştur.
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_2.txt MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.
+
+PROMPT A6-3:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm dosyaları OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-3: Etkileşim Testi (DALGA 3)
+- Tam etkileşim testi: Binaya tıkla → Zıplama animasyonu var mı? → Sarı seçim halkası çıktı mı? → Detay paneli açıldı mı? → Bina adı ve seviye doğru mu? → Boş alana tıkla → Panel kapandı mı? → Halkası kayboldu mu?
+- Her bina tipi için tıklama testi (Senato, Kolezyum, Ev, Kule).
+- agent6_orchestrator/etkilesim_test_dalga_3.txt oluştur.
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_3.txt MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.
+
+PROMPT A6-4:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm dosyaları OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-4: Kaynak + Yükseltme Testi (DALGA 4)
+- Test: Bina seç → "Yükselt" tıkla → Kaynaklar azaldı mı? → Bina seviyesi arttı mı? → Kalkan etiketi güncellendi mi? → Yükseltme animasyonu çalıştı mı?
+- Yetersiz kaynak testi: Kaynak bitince "Yükselt" tıkla → Uyarı gösteriliyor mu? → Kaynak değişmedi mi?
+- Tüm bina tipleri için yükseltme testi.
+- agent6_orchestrator/kaynak_test_dalga_4.txt oluştur.
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_4.txt MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.
+
+PROMPT A6-5:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm dosyaları OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-5: Görsel + Atmosfer Review (DALGA 5)
+- Görsel review: Binalar detaylı mı? Mermer doku var mı? Çatılar kiremit mi?
+- Atmosfer: Fog efekti var mı? Gökyüzü gradient mi? Genel aydınlık ve ferah mı?
+- UI review: Tooltip çalışıyor mu? Bildirimler görünüyor mu? Responsive mi?
+- Hover efekti var mı? Parçacık efekti çalışıyor mu?
+- agent6_orchestrator/gorsel_review_dalga_5.txt oluştur.
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_5.txt MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.
+
+PROMPT A6-6:
+Sen AGENT 6: ORCHESTRATOR_ARCHITECT olarak çalışıyorsun. KOD YAZMIYORSUN.
+
+KURALLAR:
+1. HİÇBİR KOD DOSYASINA YAZAMAZSIN. Tüm dosyaları OKUYABİLİRSİN.
+2. SADECE şu dosyalara YAZABİLİRSİN: agent6_orchestrator/*.txt
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-6: Final Entegrasyon + Yayın Raporu (DALGA 6)
+- GERÇEK final entegrasyon testi:
+  1. index.html aç → 3D sahne yükleniyor mu? Siyah ekran yok mu?
+  2. Tüm binalar görünüyor mu? Doğru pozisyonlarda mı?
+  3. Tıklama → Seçim → Panel → Yükselt → Kaynak azalma → Seviye artış: Tam akış çalışıyor mu?
+  4. Mobil'de touch pan/zoom/seçim çalışıyor mu?
+  5. Loading ekranı var mı? Erişilebilirlik kontrolleri?
+  6. Performans: 60fps masaüstü, 30fps mobil?
+- GERÇEK yayın raporu: agent6_orchestrator/yayin_raporu.txt
+  □ Tüm 6 dalga tamamlandı mı?
+  □ 0 kritik bug var mı?
+  □ 3D sahne sorunsuz mu?
+  □ Mobil responsive mi?
+  □ Console'da 0 error var mı?
+  □ Siyah ekran sorunu yok mu?
+  SONUÇ: YAYINA HAZIR / YAYINA HAZIR DEĞİL
+
+KRİTİK TALİMAT - DALGA GEÇİŞ ONAYI:
+agent6_orchestrator/dalga_gecis_raporu_6.txt MUTLAKA oluştur.
+İçinde GECILEBILIR veya KOSULLU GECIS veya GECIS ONAY MUTLAKA geçmeli.

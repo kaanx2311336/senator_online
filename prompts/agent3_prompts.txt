@@ -1,0 +1,97 @@
+PROMPT A3-1:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesinin HTML/Tailwind arayüzünü tasarlıyorsun.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: css/ui.css, js/ui/topBar.js, js/ui/detailPanel.js, js/ui/shieldLabels.js, js/ui/resourceManager.js
+2. Başka hiçbir dosyaya DOKUNAMAZSIN (index.html sadece Agent 1, objects/ YASAK).
+3. Tailwind CSS CDN + minimal custom CSS. Framework YASAK.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-1: Üst Kaynak Barı (DALGA 1)
+- js/ui/topBar.js: Üst kaynak barı oluştur ve DOM'a ekle.
+  * Kırmızı (bg-red-800) ve altın sarısı (border-yellow-500) tema.
+  * 4 kaynak göstergesi: Odun (ağaç ikonu), Buğday (başak ikonu), Nüfus (insan ikonu), Altın (sikke ikonu).
+  * Her kaynak: İkon + sayı (başlangıç: Odun:500, Buğday:300, Nüfus:50, Altın:1000).
+  * Tailwind sınıfları ile stil. Sabit üstte (fixed top-0).
+  * updateResource(type, value) fonksiyonu export et.
+- css/ui.css: Tailwind'in kapsamadığı ek stiller (özel font, ikon boyutları, altın border efekti).
+- Bitirdiğinde prodetayi/faz_A3_1_ust_bar.txt oluştur.
+
+PROMPT A3-2:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/ui/shieldLabels.js, css/ui.css
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-2: Kalkan Etiketleri (DALGA 2)
+- js/ui/shieldLabels.js: Bina tepesinde kamerayı takip eden mavi kalkan şeklinde seviye numaraları.
+  * CSS2DObject kullanarak HTML element oluştur.
+  * Kalkan şekli: Mavi arka plan (bg-blue-600), beyaz sayı, kalkan outline (border + border-radius ile kalkan formu).
+  * createShieldLabel(level, position) fonksiyonu: Yeni kalkan oluştur, sahneye ekle.
+  * updateShieldLabel(id, newLevel) fonksiyonu: Seviye güncelle.
+  * Kalkan boyutu: ~40x45px, font-bold, text-white.
+- css/ui.css güncelle: .shield-label sınıfı (kalkan şekli CSS ile - clip-path veya border-radius kombinasyonu).
+- Bitirdiğinde prodetayi/faz_A3_2_kalkan_etiket.txt oluştur.
+
+PROMPT A3-3:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/ui/detailPanel.js, css/ui.css
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-3: Detay Paneli (DALGA 3)
+- js/ui/detailPanel.js: Binaya tıklayınca alttan açılan detay paneli.
+  * Panel içeriği: Bina adı (büyük font), mevcut seviye, "Yükselt" butonu (altın sarısı bg-yellow-500, hover efekti).
+  * Yükseltme maliyeti gösterimi (Odun: X, Buğday: Y, Altın: Z).
+  * showPanel(buildingData) fonksiyonu: Paneli göster, veriyi doldur.
+  * hidePanel() fonksiyonu: Paneli gizle (slide-down animasyonu).
+  * Tailwind: fixed bottom-0, bg-gray-900/90 backdrop-blur, rounded-t-2xl.
+  * Kapatma butonu (X) sağ üstte.
+- css/ui.css güncelle: Panel açılma/kapanma transition (transform translateY).
+- Bitirdiğinde prodetayi/faz_A3_3_detay_paneli.txt oluştur.
+
+PROMPT A3-4:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/ui/resourceManager.js, js/ui/topBar.js, css/ui.css
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-4: Kaynak Yönetimi + Animasyonlu Güncelleme (DALGA 4)
+- js/ui/resourceManager.js: Kaynak yönetim sistemi.
+  * resources = { wood: 500, wheat: 300, population: 50, gold: 1000 }
+  * addResource(type, amount): Kaynak ekle.
+  * spendResource(type, amount): Kaynak harca (yetersizse false döndür).
+  * canAfford(cost): Maliyet karşılanabilir mi? { wood: X, wheat: Y, gold: Z }
+  * getResources(): Mevcut kaynakları döndür.
+  * Her değişiklikte topBar.updateResource() çağır.
+- js/ui/topBar.js güncelle: Kaynak değişiminde animasyonlu sayı geçişi (GSAP ile sayı yukarı/aşağı kayma), yetersiz kaynak kırmızı yanıp sönme.
+- Bitirdiğinde prodetayi/faz_A3_4_kaynak_yonetimi.txt oluştur.
+
+PROMPT A3-5:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/ui/*.js, css/ui.css
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-5: Tooltip + Bildirim + Responsive (DALGA 5)
+- Tooltip sistemi: Bina üzerine hover'da küçük bilgi kutusu (bina adı, seviye, üretim).
+- Bildirim sistemi: "Senato Lv.3'e yükseltildi!" gibi toast bildirimleri (sağ üstte, 3sn sonra kaybolur, GSAP fade).
+- Responsive düzen: Mobil'de üst bar küçülsün, detay paneli tam genişlik, kalkan etiketleri küçülsün.
+- Bitirdiğinde prodetayi/faz_A3_5_tooltip_bildirim.txt oluştur.
+
+PROMPT A3-6:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: js/ui/*.js, css/ui.css
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-6: Loading Ekranı + Erişilebilirlik + Polish (DALGA 6)
+- Loading ekranı: Sayfa açılırken Roma temalı loading (SPQR yazısı + dönen sütun animasyonu), 3D sahne hazır olunca kaybol.
+- Erişilebilirlik: Tüm butonlarda aria-label, keyboard navigation (Tab ile bina seçme), yeterli renk kontrastı (WCAG AA).
+- Son polish: Tüm UI elementlerinde tutarlı spacing, font boyutları, renk paleti kontrolü.
+- Bitirdiğinde prodetayi/faz_A3_6_loading_erisim.txt oluştur.

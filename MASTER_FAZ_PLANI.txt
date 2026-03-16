@@ -1,0 +1,165 @@
+================================================================================
+🏛️ ROMA CITY BUILDER - MASTER FAZ PLANI
+================================================================================
+PROJE: Roma İmparatorluğu Şehir Kurma (3D City Builder)
+TEKNOLOJİ: Three.js + Tailwind CSS + GSAP + Vanilla JS
+FRAMEWORK: YASAK (React, Vue, Angular vb. kullanılamaz)
+SUNUCU: YOK (tamamen client-side, tek HTML sayfası)
+
+6 AGENT SİSTEMİ:
+  Agent 1 - SCENE_MASTER:    Three.js sahne, kamera, renderer, ışık
+  Agent 2 - OBJECT_ENGINE:   3D nesne modelleri (her nesne ayrı klasör)
+  Agent 3 - UI_DESIGNER:     HTML/Tailwind arayüz tasarımı
+  Agent 4 - INTERACTION:     Tıklama, seçim, animasyon, kamera kontrol
+  Agent 5 - RESEARCHER_QA:   Araştırma, test, dokümantasyon
+  Agent 6 - ORCHESTRATOR:    Denetim, dalga geçiş onayı (KOD YAZMAZ)
+
+KRİTİK PRENSIP: HER NESNE = AYRI KLASÖR
+  objects/<nesne_adi>/model.js     → 3D geometri oluşturma
+  objects/<nesne_adi>/config.json  → Parametreler (boyut, renk, seviye, maliyet)
+  objects/<nesne_adi>/interact.js  → Tıklama/seçim/yükseltme mantığı
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 1: SAHNE İSKELETİ + TEMEL NESNELER (Temel Yapı)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Three.js sahne çalışsın, zemin görünsün, temel nesneler yerleşsin.
+
+  ADIM 1 (PARALEL):
+  Agent 1: index.html (Three.js + Tailwind + GSAP CDN), js/scene.js (sahne),
+           js/renderer.js (WebGL renderer, gölge kapalı, pixelRatio=1),
+           js/camera.js (izometrik kamera), js/lights.js (ambient+directional),
+           js/ground.js (yeşil çimen düzlemi), js/main.js (init tetikleyici)
+  Agent 2: objects/ground/model.js + config.json (yeşil düzlem),
+           objects/senate/model.js + config.json (kubbeli senato iskeleti),
+           objects/house/model.js + config.json (basit Roma evi iskeleti)
+  Agent 3: Tailwind ile üst kaynak barı (Odun, Buğday, Nüfus, Altın),
+           css/ui.css (ek stiller), js/ui/topBar.js
+  Agent 5: Roma mimarisi araştırma dokümanı, shared/contracts/objectRegistry.js
+           (tüm nesne isimleri ve tipleri), shared/types/gameTypes.js
+
+  ADIM 2 (Agent 1+2+3+5 sonrası):
+  Agent 4: js/interaction/cameraControls.js (pan+zoom, rotate kapalı),
+           js/interaction/raycaster.js (temel tıklama algılama)
+
+  ÇIKIŞ KRİTERİ: Sahne açılıyor, yeşil zemin görünüyor, temel binalar var.
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 2: ANA BİNALAR + DETAYLI MODELLER (İçerik)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Tüm ana binalar detaylı modellenir, haritaya yerleştirilir.
+
+  ADIM 1 (PARALEL):
+  Agent 2: objects/colosseum/model.js + config.json (oval arena, kemer sıraları),
+           objects/wall/model.js + config.json (sur duvarları),
+           objects/tower/model.js + config.json (kule, sur köşeleri),
+           objects/tree/model.js + config.json (servi/çam ağaçları),
+           objects/road/model.js + config.json (taş döşeli yollar),
+           js/objectLoader.js (tüm nesneleri yükle ve sahneye ekle)
+  Agent 5: Nesne yerleşim planı araştırması, boyut oranları doğrulama
+
+  ADIM 2 (Agent 2 sonrası):
+  Agent 1: js/main.js güncelle - objectLoader entegrasyonu, sahne
+           kompozisyonu (nesneleri doğru pozisyonlara yerleştir)
+  Agent 3: js/ui/shieldLabels.js (bina tepesinde mavi kalkan + seviye no,
+           CSS2DRenderer ile kamerayı takip eden HTML etiketler)
+
+  ADIM 3 (Agent 1+3 sonrası):
+  Agent 4: objects/*/interact.js dosyaları (her nesne için tıklama davranışı)
+
+  ÇIKIŞ KRİTERİ: Tüm binalar haritada, ağaçlar ve surlar yerleşik.
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 3: ETKİLEŞİM + ANİMASYON (Oynanabilirlik)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Binalara tıklanabilsin, seçim halkası çıksın, GSAP animasyonları.
+
+  ADIM 1 (PARALEL):
+  Agent 2: Senato ve Kolezyum modellerini detaylandır (kubbe, kemerler,
+           sütunlar), objects/senate/model.js + objects/colosseum/model.js
+           güncelle
+  Agent 5: Etkileşim akış diyagramı, GSAP animasyon parametreleri araştırma
+
+  ADIM 2 (Agent 2 sonrası):
+  Agent 1: js/scene.js güncelle - seçim halkası mesh'i (sarı torus),
+           CSS2DRenderer entegrasyonu
+  Agent 3: js/ui/detailPanel.js (alttan açılan detay paneli - bina adı,
+           seviye, "Yükselt" butonu, Tailwind ile stil)
+
+  ADIM 3 (Agent 1+3 sonrası):
+  Agent 4: js/interaction/selection.js (tıklama → seçim halkası göster),
+           js/interaction/animations.js (GSAP zıplama, seçim efekti),
+           raycaster güncelle (bina tıklama → detay paneli aç)
+
+  ÇIKIŞ KRİTERİ: Binaya tıklayınca zıplıyor, halka çıkıyor, panel açılıyor.
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 4: KAYNAK SİSTEMİ + YÜKSELTMELer (Oyun Mekaniği)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Kaynaklar çalışsın, binalar yükseltilebilsin, seviye sistemi.
+
+  ADIM 1 (PARALEL):
+  Agent 2: Her nesnenin config.json'una seviye verileri ekle (level 1-5,
+           her seviye için boyut/renk değişimi, maliyet)
+  Agent 3: js/ui/resourceManager.js (kaynak yönetimi - Odun, Buğday,
+           Nüfus, Altın başlangıç değerleri, artış/azalış),
+           üst bar güncelle (animasyonlu kaynak değişimi)
+  Agent 5: Oyun dengesi araştırması (kaynak üretim/tüketim oranları)
+
+  ADIM 2 (Agent 2+3 sonrası):
+  Agent 1: js/main.js güncelle - kaynak sistemi entegrasyonu,
+           yükseltme sonrası sahne güncelleme (eski mesh sil, yeni ekle)
+
+  ADIM 3 (Agent 1 sonrası):
+  Agent 4: "Yükselt" butonu tıklama → kaynak kontrolü → bina yükseltme
+           animasyonu (GSAP scale up + parıltı efekti), seviye label güncelle
+
+  ÇIKIŞ KRİTERİ: Binalar yükseltilebiliyor, kaynaklar azalıyor/artıyor.
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 5: GÖRSEL İYİLEŞTİRME + DETAY (Polish)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Görsel kalite artışı, detay ekleme, atmosfer.
+
+  ADIM 1 (PARALEL):
+  Agent 2: Tüm modelleri detaylandır (daha fazla geometri detayı,
+           mermer doku efekti, çatı kiremit deseni), dekoratif nesneler
+           (çeşme, heykel, pazar tezgahı - opsiyonel)
+  Agent 3: Tooltip sistemi (hover'da bina bilgisi), mini-map (opsiyonel),
+           bildirim sistemi ("Senato Lv.3'e yükseltildi!"),
+           responsive düzen (mobil uyum)
+  Agent 5: Görsel review raporu, performans profiling, mobil test
+
+  ADIM 2 (Agent 2+3 sonrası):
+  Agent 1: Sahne atmosferi (fog efekti - hafif), skybox veya gradient
+           gökyüzü, kamera sınırları (harita dışına çıkma engeli)
+
+  ADIM 3 (Agent 1 sonrası):
+  Agent 4: Hover efektleri (bina üzerine gelince outline), kamera smooth
+           geçişler, yükseltme parçacık efekti (basit particle)
+
+  ÇIKIŞ KRİTERİ: Görsel olarak parlak, detaylı, atmosferik sahne.
+
+════════════════════════════════════════════════════════════════════════════════
+DALGA 6: OPTİMİZASYON + MOBİL + FİNAL (Yayın)
+════════════════════════════════════════════════════════════════════════════════
+HEDEF: Performans, mobil uyum, hata giderme, yayına hazır.
+
+  ADIM 1 (PARALEL - Herkes bağımsız):
+  Agent 1: Performans optimizasyonu (geometry merge, frustum culling),
+           dispose/cleanup, memory leak kontrolü
+  Agent 2: LOD (Level of Detail) - uzaktaki nesneler basit geometri,
+           instanced mesh (aynı nesneden çok sayıda)
+  Agent 3: Responsive son kontrol (320px-1920px), loading ekranı,
+           erişilebilirlik (aria-label, keyboard nav)
+  Agent 4: Touch desteği (mobil pan/zoom), performans throttle,
+           error handling (WebGL context lost recovery)
+  Agent 5: Tam entegrasyon testi, performans raporu, mobil cihaz testi
+
+  ÇIKIŞ KRİTERİ: Mobil+masaüstü sorunsuz, 0 console error, 60fps hedef.
+
+════════════════════════════════════════════════════════════════════════════════
+TAHMİNİ SÜRE: ~10-15 gün
+MVP = Dalga 1+2+3 (~5-7 gün) → Sahne görünüyor, tıklama çalışıyor
+BETA = MVP + Dalga 4 (~8-10 gün) → Kaynak sistemi, yükseltme çalışıyor
+FULL = BETA + Dalga 5+6 (~10-15 gün) → Yayına hazır
+================================================================================

@@ -1,0 +1,118 @@
+PROMPT A1-1:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesinin sunucu tarafını geliştiriyorsun.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: server.js, package.json, .env, sockets/*.js, routes/*.js, middleware/*.js, roomManager.js, sqlm.js, dbConfig.js
+2. Başka hiçbir dosyaya DOKUNAMAZSIN (index.html, css/, public/js/, services/, data/ YASAK).
+3. shared/contracts/socketEvents.js ve shared/types/gameTypes.js dosyalarını OKU ama DEĞİŞTİRME.
+4. Teknoloji: Node.js, Express, Socket.IO, MySQL (mysql2). Framework YASAK.
+5. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-1: Express + Socket.IO İskeleti (DALGA 1)
+- package.json oluştur: express, socket.io, mysql2, cors, dotenv, jsonwebtoken, bcryptjs bağımlılıkları.
+- server.js: Express başlatıcı, Socket.IO entegrasyonu, static dosya servisi /public klasöründen.
+- .env şablonu: DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, JWT_SECRET, PORT=3000
+- Klasör yapısı: sockets/lobbySocket.js, sockets/gameSocket.js, sockets/chatSocket.js, routes/authRoutes.js, middleware/authMiddleware.js
+- dbConfig.js: .env'den DB bilgilerini oku.
+- Bitirdiğinde prodetayi/faz_A1_1_express_iskelet.txt oluştur.
+
+PROMPT A1-2:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: sqlm.js, dbConfig.js, server.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-2: Veritabanı Katmanı (DALGA 1)
+- sqlm.js: MySQL bağlantı havuzu, otomatik reconnect.
+- Tablolar: users (id, username, password_hash, avatar, elo_rating, gold, games_played, games_won, total_score, created_at), rooms (id, name, owner_id, status ENUM('waiting','playing','finished'), max_players=4, bet_amount, created_at), games (id, room_id, hand_number, indicator_tile, okey_tile, current_turn, status, started_at, ended_at), game_players (id, game_id, user_id, seat_position 0-3, tiles JSON, score, is_connected), game_moves (id, game_id, user_id, move_type ENUM('draw_pile','draw_discard','discard','declare_win'), tile_data JSON, created_at), stats (id, user_id, wins, losses, highest_score, total_hands, pairs_won, runs_won).
+- CRUD fonksiyonları: ekle(), getir(), guncelle(), sil(), listele().
+- Bitirdiğinde prodetayi/faz_A1_2_veritabani.txt oluştur.
+
+PROMPT A1-3:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: routes/authRoutes.js, middleware/authMiddleware.js, server.js
+2. shared/contracts/socketEvents.js'deki event isimlerini AYNEN kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-3: Kimlik Doğrulama (DALGA 2)
+- routes/authRoutes.js: POST /register (bcrypt hash), POST /login (JWT token döner), POST /guest (misafir girişi guest_XXXX).
+- middleware/authMiddleware.js: JWT doğrulama, Socket.IO handshake'te token kontrolü.
+- Bitirdiğinde prodetayi/faz_A1_3_auth.txt oluştur.
+
+PROMPT A1-4:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: sockets/lobbySocket.js, roomManager.js
+2. shared/contracts/socketEvents.js'deki LOBBY_EVENTS ve ROOM_EVENTS isimlerini AYNEN kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-4: Oda Sistemi Socket Event'leri (DALGA 2)
+- roomManager.js: Oda oluştur, katıl, ayrıl, listele. Max 4 oyuncu. Oda durumu (waiting/playing/finished).
+- sockets/lobbySocket.js: 'create_room' → oda oluştur, 'room_created' emit. 'join_room' → katıl, 'player_joined' broadcast. 'leave_room' → ayrıl, 'player_left' broadcast. 'room_list' → aktif odaları listele. 'player_ready' → hazır işaretle. 4 oyuncu hazır → 'game_starting' emit.
+- Bitirdiğinde prodetayi/faz_A1_4_oda_sistemi.txt oluştur.
+
+PROMPT A1-5:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: sockets/gameSocket.js
+2. services/OkeyEngine.js'i require ile çağır ama DEĞİŞTİRME.
+3. shared/contracts/socketEvents.js'deki GAME_EVENTS ve GAME_RESPONSES isimlerini AYNEN kullan.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-5: Temel Oyun Socket Event'leri (DALGA 3)
+- 'game_started': OkeyEngine.startGame() çağır, taşları dağıt, her oyuncuya kendi taşlarını gönder (diğerlerinin taşlarını GÖNDERMEMELİ), gösterge taşını ve okey taşını herkese bildir.
+- 'draw_tile': Yığından veya yere atılan taştan çekme. OkeyEngine.drawTile() ile validasyon. Çekilen taşı oyuncuya gönder, diğerlerine 'opponent_drew' emit.
+- 'discard_tile': Taş atma. OkeyEngine.discardTile() ile validasyon. Atılan taşı herkese göster, sırayı değiştir, 'turn_changed' emit.
+- 'sort_tiles': Oyuncunun istakaındaki taşları sıralaması (sunucu tarafı kaydet).
+- Sıra yönetimi: 30 saniye hamle süresi, süre dolunca otomatik taş at.
+- Bitirdiğinde prodetayi/faz_A1_5_oyun_eventleri.txt oluştur.
+
+PROMPT A1-6:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: sockets/gameSocket.js, sqlm.js
+2. services/OkeyEngine.js'i require ile çağır ama DEĞİŞTİRME.
+3. shared/contracts/socketEvents.js'deki GAME_EVENTS isimlerini AYNEN kullan.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-6: El Bitirme + Skor Event'leri (DALGA 4)
+- 'declare_win': Oyuncu bitirme ilanı → OkeyEngine.validateWin() ile kontrol → Geçerliyse tüm elleri aç, skoru hesapla. Geçersizse ceza puanı.
+- 'hand_result': El sonucu herkese broadcast (kazanan, skor, eller).
+- 'new_hand': Yeni el başlat (aynı masada), taşları yeniden dağıt.
+- 'match_result': Hedef skora ulaşıldığında maç sonucu.
+- Tüm sonuçları DB'ye kaydet (games, game_players, stats tabloları).
+- Bitirdiğinde prodetayi/faz_A1_6_bitirme_skor.txt oluştur.
+
+PROMPT A1-7:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: sockets/chatSocket.js, routes/authRoutes.js, sqlm.js
+2. shared/contracts/socketEvents.js'deki CHAT_EVENTS, PROFILE_EVENTS isimlerini AYNEN kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-7: Sohbet + Profil + İstatistik (DALGA 5)
+- sockets/chatSocket.js: 'room_chat' → oda içi mesaj, 'quick_message' → hazır mesajlar ("İyi oyunlar", "Geçmiş olsun" vb.).
+- Profil endpoint'leri: GET /profile/:id, PUT /profile/avatar.
+- İstatistik: GET /stats/:id, GET /leaderboard (ELO sıralaması).
+- Bitirdiğinde prodetayi/faz_A1_7_sosyal.txt oluştur.
+
+PROMPT A1-8:
+Sen AGENT 1: BACKEND_MASTER olarak çalışıyorsun. Okey Online projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: server.js, sockets/*.js, middleware/*.js, Dockerfile, docker-compose.yml, nginx.conf, package.json
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A1-8: Güvenlik + Reconnect + Deployment (DALGA 6)
+- Rate limiting: Saniyede max 10 socket event, dakikada max 100.
+- CORS kısıtla. Input validation tüm event'lerde (tip kontrolü, uzunluk limiti).
+- Reconnect: Oyun sırasında bağlantı kopunca 60sn içinde geri dönebilme. Token ile otomatik giriş, oyun state'ini geri yükle.
+- Dockerfile, docker-compose.yml (app + mysql), nginx.conf (WebSocket proxy, gzip).
+- Bitirdiğinde prodetayi/faz_A1_8_guvenlik_deployment.txt oluştur.

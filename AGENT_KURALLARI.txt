@@ -1,0 +1,27 @@
+================================================================================
+ROMA CITY BUILDER - AGENT KURALLARI
+================================================================================
+
+GENEL KURALLAR:
+1. Her agent SADECE kendi dosyalarına dokunabilir.
+2. shared/contracts/ ve shared/types/ dosyalarını SADECE Agent 5 değiştirebilir.
+3. Agent 6 HİÇBİR kod dosyasına yazamaz, sadece rapor yazar.
+4. Framework YASAK: Three.js + Tailwind CSS + GSAP + Vanilla JS.
+5. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+6. Her 3D nesne kendi klasöründe olmalı: objects/<nesne_adi>/
+7. Gölgeler KAPALI: renderer.shadowMap.enabled = false
+8. window.onload KULLANMA, init() anında tetikle.
+
+DOSYA SAHİPLİĞİ:
+  Agent 1: index.html, js/scene.js, js/camera.js, js/renderer.js,
+           js/lights.js, js/ground.js, js/main.js
+  Agent 2: objects/*/model.js, objects/*/config.json, js/objectLoader.js
+  Agent 3: css/ui.css, js/ui/topBar.js, js/ui/detailPanel.js,
+           js/ui/shieldLabels.js, js/ui/resourceManager.js
+  Agent 4: js/interaction/raycaster.js, js/interaction/selection.js,
+           js/interaction/cameraControls.js, js/interaction/animations.js,
+           objects/*/interact.js
+  Agent 5: research/*.txt, prodetayi/*.txt, test/*.js,
+           shared/contracts/objectRegistry.js, shared/types/gameTypes.js
+  Agent 6: agent6_orchestrator/*.txt, AGENT_KOORDINASYON_LOGU.txt
+================================================================================

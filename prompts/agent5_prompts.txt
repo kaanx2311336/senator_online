@@ -1,0 +1,117 @@
+PROMPT A5-1:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesinin araştırma ve kalite kontrol birimini yönetiyorsun.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt, test/*.js, shared/contracts/objectRegistry.js, shared/types/gameTypes.js
+2. Başka hiçbir dosyaya DOKUNAMAZSIN.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-1: Roma Mimarisi Araştırma + Shared Contracts (DALGA 1)
+- research/roma_mimarisi.txt: Roma İmparatorluğu mimarisi detaylı araştırma.
+  * Senato binası (Curia Julia) özellikleri, boyutları, mimari detaylar.
+  * Kolezyum (Flavian Amfitiyatrı) yapısı, katmanları, kemerler.
+  * Tipik Roma evi (Domus) planı, atrium, impluvium.
+  * Roma surları ve kuleleri, savunma yapıları.
+  * Akdeniz bitki örtüsü (servi, çam, zeytin ağacı).
+  * Roma yolları (Via) yapısı, taş döşeme.
+- shared/contracts/objectRegistry.js: Tüm nesne tipleri ve isimleri.
+  BUILDINGS: { SENATE: "senate", COLOSSEUM: "colosseum", HOUSE: "house" }
+  DEFENSE: { WALL: "wall", TOWER: "tower" }
+  DECORATION: { TREE: "tree", ROAD: "road" }
+  RESOURCES: { WOOD: "wood", WHEAT: "wheat", POPULATION: "population", GOLD: "gold" }
+- shared/types/gameTypes.js: Veri tipleri.
+  Building: { id, type, name, level, position, mesh }
+  Resource: { type, amount }
+  UpgradeCost: { wood, wheat, gold, population }
+  GameState: { buildings[], resources, selectedBuilding }
+- Bitirdiğinde prodetayi/faz_A5_1_arastirma_contracts.txt oluştur.
+
+PROMPT A5-2:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-2: Nesne Yerleşim Planı + Boyut Oranları (DALGA 2)
+- research/yerlesim_plani.txt: Harita üzerinde nesne yerleşim planı.
+  * Koordinat sistemi (x, z düzlemi, y yukarı).
+  * Senato: Merkez (0, 0, 0), en büyük bina.
+  * Kolezyum: Sağ taraf (40, 0, 10).
+  * Evler: Senato etrafında dağınık (en az 6 ev, koordinatları belirle).
+  * Surlar: Harita kenarlarında (x: -80 ile 80, z: -80 ile 80 arası).
+  * Kuleler: Sur köşelerinde (4 köşe).
+  * Ağaçlar: Rastgele serpiştirilmiş (en az 15, koordinat listesi).
+  * Yollar: Senato'dan Kolezyum'a, Senato'dan evlere.
+- research/boyut_oranlari.txt: Nesneler arası boyut oranları (Senato en büyük, ev en küçük).
+- Bitirdiğinde prodetayi/faz_A5_2_yerlesim_boyut.txt oluştur.
+
+PROMPT A5-3:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-3: Etkileşim Akış Diyagramı + GSAP Araştırma (DALGA 3)
+- research/etkilesim_akisi.txt: Kullanıcı etkileşim akış diyagramı.
+  * Tıklama → Raycaster → Nesne bulundu mu? → Evet: Seçim halkası + zıplama + panel aç. Hayır: Deselect.
+  * Yükselt butonu → Kaynak kontrol → Yeterliyse: Yükselt + animasyon. Yetersizse: Uyarı.
+  * Boş alan tıklama → Deselect → Panel kapat.
+- research/gsap_parametreleri.txt: GSAP animasyon parametreleri araştırma.
+  * Zıplama: duration 0.3, y offset, ease "back.out(1.7)"
+  * Seçim pulse: duration 0.8, scale 1-1.1, repeat -1, yoyo true
+  * Panel slide: duration 0.4, translateY, ease "power2.out"
+- Bitirdiğinde prodetayi/faz_A5_3_etkilesim_gsap.txt oluştur.
+
+PROMPT A5-4:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-4: Oyun Dengesi Araştırması (DALGA 4)
+- research/oyun_dengesi.txt: Kaynak üretim/tüketim oranları.
+  * Başlangıç kaynakları: Odun 500, Buğday 300, Nüfus 50, Altın 1000.
+  * Yükseltme maliyetleri (her bina, her seviye için tablo).
+  * Senato Lv2: Odun 100, Buğday 50, Altın 200. Lv3: Odun 250, Buğday 150, Altın 500. vb.
+  * Ev Lv2: Odun 30, Buğday 20, Altın 50. vb.
+  * Kolezyum Lv2: Odun 150, Buğday 100, Altın 300. vb.
+  * Kule Lv2: Odun 80, Buğday 40, Altın 150. vb.
+  * Denge prensibi: Oyuncu tüm binaları Lv3'e çıkarabilecek kadar kaynak olmalı ama Lv5 için stratejik seçim yapmalı.
+- Bitirdiğinde prodetayi/faz_A5_4_oyun_dengesi.txt oluştur.
+
+PROMPT A5-5:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-5: Görsel Review + Performans Profiling (DALGA 5)
+- research/gorsel_review.txt: Görsel kalite değerlendirmesi.
+  * Renk paleti tutarlılığı (mermer beyaz, kiremit kırmızı, çimen yeşili).
+  * Bina okunabilirliği (uzaktan ayırt edilebilirlik).
+  * UI okunabilirliği (font boyutu, kontrast).
+  * Mobil görünüm değerlendirmesi.
+- research/performans_raporu.txt: Performans profiling.
+  * Toplam polygon sayısı tahmini.
+  * Draw call sayısı.
+  * Hedef FPS: 60 (masaüstü), 30 (mobil).
+  * Darboğaz noktaları ve çözüm önerileri.
+- Bitirdiğinde prodetayi/faz_A5_5_gorsel_performans.txt oluştur.
+
+PROMPT A5-6:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE şu dosyalara dokunabilirsin: research/*.txt, prodetayi/*.txt, test/*.js
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-6: Tam Entegrasyon Testi + Mobil Test (DALGA 6)
+- Tam entegrasyon testi: Sayfa aç → 3D sahne yüklendi mi? → Binalar görünüyor mu? → Tıklama çalışıyor mu? → Seçim halkası çıkıyor mu? → Panel açılıyor mu? → Yükselt çalışıyor mu? → Kaynaklar azalıyor mu? → Seviye artıyor mu?
+- Mobil test: Touch pan/zoom çalışıyor mu? Touch ile bina seçme? Responsive UI?
+- Performans: 60fps masaüstü, 30fps mobil, 0 console error.
+- research/entegrasyon_test.txt, research/mobil_test.txt oluştur.
+- Bitirdiğinde prodetayi/faz_A5_6_entegrasyon_mobil.txt oluştur.

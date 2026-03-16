@@ -1,0 +1,143 @@
+================================================================================
+🏛️ ROMA CITY BUILDER - YENİ GÖREV OLUŞTURUCU - TAM SİSTEM REFERANS DOKÜMANI
+================================================================================
+Bu dosya, Roma City Builder otomasyon sisteminin TÜM iç mekanizmalarını açıklar.
+Herhangi bir AI'ya bu dosyayı referans gösterip yeni dalga/faz eklemesini
+isteyebilirsiniz.
+
+PROJE: Roma İmparatorluğu Şehir Kurma (3D City Builder)
+TEKNOLOJİ: Three.js + Tailwind CSS + GSAP + Vanilla JS (tek sayfa, sunucusuz)
+FRAMEWORK: React/Vue/Angular YASAK. Three.js + Tailwind CDN üzerinden.
+
+GÖRSEL TEMA:
+  - Ferah, aydınlık gündüz vakti, canlı yeşil çimen zemin
+  - Bembeyaz mermer duvarlı, kiremit (kırmızı) çatılı Roma mimarisi
+  - Gölgeler KAPALI, renkler temiz, Low-poly/Retro strateji tarzı
+  - renderer.shadowMap.enabled = false
+  - renderer.setPixelRatio(1)
+  - renderer.setClearColor() ile gökyüzü/çimen rengi sabit
+
+KRİTİK TEKNİK KURALLAR (Siyah Ekran Engelleme):
+  1. renderer.shadowMap.enabled = false (gölge tamamen kapalı)
+  2. renderer.setPixelRatio(1) (piksel oranı sabit)
+  3. renderer.setClearColor(0x87CEEB) ile arka plan rengi sabit
+  4. window.onload KULLANMA! init() kodu yüklenir yüklenmez anında tetikle
+  5. Mobil WebGL çökmesini önlemek için düşük polygon sayısı
+
+KAMERA:
+  - İzometrik (çapraz) açı
+  - Mouse ile sağa-sola kaydırma (Pan) ve zoom
+  - Döndürme (Rotate) KESİNLİKLE KAPALI
+  - OrbitControls: enableRotate = false
+
+ETKİLEŞİM:
+  - Binaya tıklayınca: GSAP ile hafif zıplama animasyonu
+  - Tıklanan binanın altında sarı seçim halkası
+  - Alttan/yandan detay paneli (bina adı + "Yükselt" butonu)
+
+HER NESNE = AYRI KLASÖR + AYRI KOD PRENSİBİ:
+  Her 3D nesne (bina, ağaç, sur, dekorasyon) kendi klasöründe:
+    objects/<nesne_adi>/
+      ├── model.js      → Three.js geometri + mesh oluşturma
+      ├── config.json    → Boyut, renk, seviye, maliyet parametreleri
+      └── interact.js    → Tıklama, seçim, yükseltme mantığı
+
+  Mevcut nesneler:
+    objects/senate/        → Senato binası (devasa kubbeli, harita ortası)
+    objects/colosseum/     → Kolezyum (sağ taraf)
+    objects/house/         → Roma evleri (etrafta, çoklu yerleşim)
+    objects/wall/          → Surlar (arka/yan taraf, şehri korur)
+    objects/tower/         → Kuleler (surların köşelerinde)
+    objects/tree/          → Akdeniz ağaçları (servi/çam, ince uzun)
+    objects/ground/        → Zemin (yeşil çimen düzlemi)
+    objects/road/          → Roma yolları (taş döşeli)
+
+ARAYÜZ (UI - Tailwind CSS):
+  1. Üst bar: Kırmızı + altın sarısı, kaynaklar (Odun, Buğday, Nüfus, Altın)
+  2. Bina tepesinde: Kamerayı takip eden mavi kalkan (HTML/CSS), seviye no
+  3. Detay paneli: Bina adı, seviye, "Yükselt" butonu (alttan açılır)
+
+6 AGENT SİSTEMİ:
+  Agent 1 - SCENE_MASTER:    Three.js sahne, kamera, renderer, ışık kurulumu
+  Agent 2 - OBJECT_ENGINE:   3D nesne modelleri (her nesne kendi klasöründe)
+  Agent 3 - UI_DESIGNER:     HTML/Tailwind arayüz (üst bar, paneller, kalkanlar)
+  Agent 4 - INTERACTION:     Tıklama, seçim, GSAP animasyon, kamera kontrol
+  Agent 5 - RESEARCHER_QA:   Araştırma, test, dokümantasyon, shared contracts
+  Agent 6 - ORCHESTRATOR:    Denetim, dalga geçiş onayı (KOD YAZMAZ)
+
+DOSYA SAHİPLİĞİ:
+  Agent 1: index.html, js/scene.js, js/camera.js, js/renderer.js,
+           js/lights.js, js/ground.js, js/main.js
+  Agent 2: objects/senate/model.js, objects/senate/config.json,
+           objects/colosseum/model.js, objects/colosseum/config.json,
+           objects/house/model.js, objects/house/config.json,
+           objects/wall/model.js, objects/wall/config.json,
+           objects/tower/model.js, objects/tower/config.json,
+           objects/tree/model.js, objects/tree/config.json,
+           objects/road/model.js, objects/road/config.json,
+           js/objectLoader.js
+  Agent 3: css/ui.css, js/ui/topBar.js, js/ui/detailPanel.js,
+           js/ui/shieldLabels.js, js/ui/resourceManager.js
+  Agent 4: js/interaction/raycaster.js, js/interaction/selection.js,
+           js/interaction/cameraControls.js, js/interaction/animations.js,
+           objects/*/interact.js (tüm nesnelerin interact dosyaları)
+  Agent 5: research/*.txt, prodetayi/*.txt, test/*.js,
+           shared/contracts/objectRegistry.js, shared/types/gameTypes.js
+  Agent 6: agent6_orchestrator/*.txt, AGENT_KOORDINASYON_LOGU.txt
+
+OTOMASYON DOSYALARI:
+  prompts/agentX_prompts.txt  → Prompt dosyaları (PROMPT AX-Y: formatı)
+  otomasyon_agentX.ps1        → PowerShell otomasyon scriptleri
+  otomasyon_master.ps1        → Tüm agent'ları başlatan master script
+
+AGENT 1-5 SCRİPT YAPISI ($dalgaAdimFaz):
+  $dalgaAdimFaz = @{
+      X = @{ adim=Y; fazlar=@("AX-Z"); bekle=@(agent_numaralari) }
+  }
+  adim: Bu agent bu dalgada kaçıncı adımda
+  fazlar: Çalıştırılacak faz kodları
+  bekle: Önceki adımdaki agent numaraları
+
+AGENT 6 SCRİPT YAPISI (FARKLI!):
+  $dalgaAdimHaritasi: Her dalga için adım-agent haritası
+  $dalgaFazlari: Her dalga için Agent 6'nın fazları
+
+SİNYAL SİSTEMİ:
+  sinyaller/dalga_X_adim_Y_agent_Z_tamam.txt → Adım sinyali
+  sinyaller/faz_AX-Y_tamam.txt → Faz sinyali
+  agent6_orchestrator/dalga_gecis_raporu_X.txt → Dalga geçiş onayı
+    (İçinde GECILEBILIR veya KOSULLU GECIS ZORUNLU)
+
+MEVCUT FAZ HARİTASI:
+  Agent 1: A1-1→A1-6 (6 faz, 6 dalga)
+  Agent 2: A2-1→A2-8 (8 faz, 6 dalga)
+  Agent 3: A3-1→A3-6 (6 faz, 6 dalga)
+  Agent 4: A4-1→A4-6 (6 faz, 6 dalga)
+  Agent 5: A5-1→A5-6 (6 faz, 6 dalga)
+  Agent 6: A6-1→A6-6 (6 faz, 6 dalga)
+
+DALGA ADIM YAPISI:
+  Dalga 1: Adım1(1,2,3,5) → Adım2(4)
+  Dalga 2: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 3: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 4: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 5: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 6: Adım1(1,2,3,4,5) → herkes paralel
+
+YENİ DALGA EKLEME:
+  1. Plan oluştur (hedef, agent görevleri, adım bağımlılıkları)
+  2. prompts/agentX_prompts.txt'e PROMPT ekle (6 dosya)
+  3. otomasyon_agentX.ps1'de $dalgaAdimFaz + $tumFazlar güncelle (6 dosya)
+  4. Agent 6'da $dalgaAdimHaritasi + $dalgaFazlari + foreach aralığı güncelle
+  5. Doğrulama kontrol listesini uygula
+  6. Git commit + push
+
+DOĞRULAMA KONTROL LİSTESİ:
+  □ Prompt token sırası = $tumFazlar sırası
+  □ $dalgaAdimFaz'daki fazlar $tumFazlar'da var
+  □ bekle dizisi önceki adımdaki agent'ları gösteriyor
+  □ Agent 6 $dalgaAdimHaritasi diğer agent'larla uyumlu
+  □ Agent 6 foreach döngüsü tüm dalgaları kapsıyor
+  □ Her nesne kendi objects/<isim>/ klasöründe (model.js + config.json + interact.js)
+  □ Yeni nesne eklendiğinde objectRegistry.js güncellendi
+================================================================================
