@@ -29,6 +29,11 @@ const ObjectRegistry = {
   TRADE: {
     PORT: "port",
     SHIP: "ship"
+  },
+  MILITARY: {
+    BARRACKS: "barracks",
+    ARCHERY_RANGE: "archery_range",
+    STABLE: "stable"
   }
 };
 

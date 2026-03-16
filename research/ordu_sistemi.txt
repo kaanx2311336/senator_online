@@ -1,0 +1,8 @@
+Roma ordu mekaniği.
+Asker tipleri:
+- Lejyoner (saldırı:10, savunma:8, maliyet: 50 altın + 20 buğday)
+- Okçu (saldırı:12, savunma:4, maliyet: 40 altın + 10 odun)
+- Süvari (saldırı:15, savunma:6, maliyet: 80 altın + 30 buğday)
+Eğitim süresi: Lejyoner 30sn, Okçu 20sn, Süvari 45sn.
+Savunma formülü: Toplam savunma = Σ(asker_savunma) + sur_seviyesi × 50 + kule_sayısı × 30.
+Saldırı olayları: Her 5 dakikada rastgele barbar saldırısı (güç: dakika × 10).

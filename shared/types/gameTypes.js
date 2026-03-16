@@ -48,4 +48,24 @@
  * @property {Buff[]} activeBuffs
  */
 
+/**
+ * @typedef {Object} Soldier
+ * @property {string} id
+ * @property {string} type
+ * @property {number} attack
+ * @property {number} defense
+ * @property {number} trainingTime
+ * @property {Object} cost
+ * @property {number} [cost.gold]
+ * @property {number} [cost.wheat]
+ * @property {number} [cost.wood]
+ */
+
+/**
+ * @typedef {Object} Army
+ * @property {Soldier[]} soldiers
+ * @property {number} totalDefense
+ * @property {number} totalAttack
+ */
+
 module.exports = {};
