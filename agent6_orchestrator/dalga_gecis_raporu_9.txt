@@ -1,0 +1,8 @@
+DALGA 9 DENETIM RAPORU: LİMAN & DENİZ TİCARETİ
+
+1. objects/harbor/ ve objects/ship/ klasörleri kontrol edildi: Tam ve eksiksiz olarak public/objects/ içinde mevcutlar.
+2. Su düzlemi ve dalga animasyonu kontrolü: public/js/main.js içerisinde su efekti ve su üzerinde hareket eden vertex animasyonu başarıyla çalışıyor.
+3. Gemi animasyonu kontrolü: animateShipMovement fonksiyonu başarıyla trade gemisine bağlanmış ve Yelken Aç butonuna tıklandığında çalışıyor.
+4. Ticaret rotası haritası UI: public/js/ui/tradeRouteMap.js dosyası eksiksiz ancak public/js/main.js içerisine import edilmemiş (bunun düzeltilmesi gerekli, KOSULLU GECIS onayı veriyorum).
+
+KOSULLU GECIS
