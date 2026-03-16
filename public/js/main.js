@@ -11,6 +11,123 @@ import './ui/tooltip.js';
 // Make gsap globally available for UI components that check window.gsap
 window.gsap = gsap;
 
+// Festival System Variables
+window.festivalActive = false;
+const particles = [];
+const maxParticles = 200;
+const festivalMaterials = [
+  new THREE.MeshBasicMaterial({ color: 0xff0000 }), // Red
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green
+  new THREE.MeshBasicMaterial({ color: 0x0000ff }), // Blue
+  new THREE.MeshBasicMaterial({ color: 0xffff00 }), // Yellow
+  new THREE.MeshBasicMaterial({ color: 0xff00ff }), // Magenta
+  new THREE.MeshBasicMaterial({ color: 0x00ffff }), // Cyan
+  new THREE.MeshBasicMaterial({ color: 0xffffff })  // White
+];
+const confettiGeo = new THREE.PlaneGeometry(0.5, 0.5);
+const fireworkGeo = new THREE.SphereGeometry(0.2, 4, 4);
+
+function createConfetti() {
+  if (particles.length >= maxParticles) return;
+  const mat = festivalMaterials[Math.floor(Math.random() * festivalMaterials.length)];
+  const mesh = new THREE.Mesh(confettiGeo, mat);
+  mesh.position.set(
+    (Math.random() - 0.5) * 200,
+    100 + Math.random() * 20,
+    (Math.random() - 0.5) * 200
+  );
+  mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+  
+  const particle = {
+    mesh: mesh,
+    type: 'confetti',
+    velocity: new THREE.Vector3(
+      (Math.random() - 0.5) * 0.5,
+      -0.5 - Math.random() * 0.5,
+      (Math.random() - 0.5) * 0.5
+    ),
+    rotSpeed: new THREE.Vector3(
+      Math.random() * 0.1,
+      Math.random() * 0.1,
+      Math.random() * 0.1
+    ),
+    life: 300
+  };
+  
+  scene.add(mesh);
+  particles.push(particle);
+}
+
+function createFirework() {
+  if (particles.length >= maxParticles) return;
+  
+  const startX = (Math.random() - 0.5) * 150;
+  const startY = 30 + Math.random() * 40;
+  const startZ = (Math.random() - 0.5) * 150;
+  
+  const burstCount = 10 + Math.floor(Math.random() * 15);
+  const mat = festivalMaterials[Math.floor(Math.random() * festivalMaterials.length)];
+  
+  for (let i = 0; i < burstCount; i++) {
+    if (particles.length >= maxParticles) break;
+    
+    const mesh = new THREE.Mesh(fireworkGeo, mat);
+    mesh.position.set(startX, startY, startZ);
+    
+    // Random spherical direction
+    const phi = Math.acos( -1 + ( 2 * i ) / burstCount );
+    const theta = Math.sqrt( burstCount * Math.PI ) * phi;
+    
+    const dir = new THREE.Vector3(
+      Math.cos(theta) * Math.sin(phi),
+      Math.cos(phi),
+      Math.sin(theta) * Math.sin(phi)
+    );
+    
+    const speed = 0.5 + Math.random() * 1.5;
+    
+    const particle = {
+      mesh: mesh,
+      type: 'firework',
+      velocity: dir.multiplyScalar(speed),
+      life: 60 + Math.random() * 40
+    };
+    
+    scene.add(mesh);
+    particles.push(particle);
+  }
+}
+
+function updateFestival() {
+  if (window.festivalActive) {
+    // Generate new particles occasionally
+    if (Math.random() < 0.1) createConfetti();
+    if (Math.random() < 0.02) createFirework();
+  }
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    
+    if (p.type === 'confetti') {
+      p.mesh.position.add(p.velocity);
+      p.mesh.rotation.x += p.rotSpeed.x;
+      p.mesh.rotation.y += p.rotSpeed.y;
+      p.mesh.rotation.z += p.rotSpeed.z;
+    } else if (p.type === 'firework') {
+      p.mesh.position.add(p.velocity);
+      p.velocity.y -= 0.05; // gravity
+    }
+    
+    p.life--;
+    
+    // Auto cleanup logic
+    if (p.life <= 0 || p.mesh.position.y < -10 || (!window.festivalActive && p.mesh.position.y < 0)) {
+      scene.remove(p.mesh);
+      particles.splice(i, 1);
+    }
+  }
+}
+
 // Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87CEEB);
@@ -118,6 +235,9 @@ function animate() {
     positions.setZ(i, v.z + offset * 0.5); // Z in PlaneGeometry is the normal when rotated
   }
   positions.needsUpdate = true;
+  
+  // Update Festival Particles
+  updateFestival();
 
   renderer.render(scene, camera);
 }

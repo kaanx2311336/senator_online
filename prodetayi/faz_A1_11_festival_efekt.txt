@@ -1,0 +1,8 @@
+FAZ A1-11: Festival Efektleri (DALGA 11) tamamlandı.
+
+Yapılan Değişiklikler:
+- `public/js/main.js` dosyasına konfeti ve havai fişek oluşturmak için `createConfetti` ve `createFirework` fonksiyonları eklendi.
+- Parçacıkların her frame'de güncellenmesi ve `window.festivalActive` flag'i ile kontrol edilmesi için `updateFestival` eklendi.
+- `updateFestival` fonksiyonu, `animate()` loop'una entegre edildi.
+- Performans sorunlarını engellemek adına maksimum 200 parçacık kısıtı (`maxParticles = 200`) eklendi ve ömrü (`life`) dolan veya yeri (-Y koordinatında) ekrandan düşen parçacıkların otomatik temizlenmesi (`scene.remove` ve `splice`) sağlandı.
+- Sadece `public/js/main.js` dosyasına dokunuldu.
