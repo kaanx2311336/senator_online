@@ -1,0 +1,16 @@
+Roma Festivalleri & Memnuniyet Araştırması (DALGA 11)
+
+Festivaller:
+- Saturnalia: Maliyet: 500 altın, Memnuniyet: +30, Süre: 120sn
+- Lupercalia: Maliyet: 300 altın + 200 buğday, Memnuniyet: +20, Süre: 90sn
+- Gladyatör Oyunları: Maliyet: 800 altın, Memnuniyet: +40, Süre: 150sn, Kolezyum gerekli.
+
+Memnuniyet Formülü:
+- Temel: Baz %50 + festival_bonus - vergi_oranı - kalabalık_cezası
+
+Memnuniyet Etkileri:
+- >%80 = üretim +%10
+- <%30 = isyan riski (kaynak kaybı)
+
+Cooldown (Bekleme Süresi):
+- Aynı festival tekrar 5dk sonra yapılabilir.
