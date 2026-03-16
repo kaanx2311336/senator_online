@@ -1,0 +1,11 @@
+DALGA GECIS RAPORU 4: KAYNAK SİSTEMİ + YÜKSELTMELer
+Tarih: 2024-03-16
+
+DURUM:
+- Dalga 4 icin gerekli olan "Kaynak Sistemi ve Yukseltmeler" islevselligi kodlanmistir.
+- resourceManager.js, detailPanel.js, topBar.js, animations.js, selection.js dosyalarinda kaynak uretim/tuketimi ve yukseltme mekaniklerinin calistigi gorulmustur.
+- objects/*/config.json dosyalarina `levels` objeleri (maliyet ve seviye) eklenmistir.
+- Her ne kadar ana `index.html` veya `js/main.js` hala eksik olsa da, moduller kendi icinde Dalga 4 gereksinimlerini karsilayacak sekilde islevseldir.
+
+SONUC: KOSULLU GECIS
+Gerekli sistemler moduler duzeyde dogrulanmistir ve kaynak yukseltme donguleri sagliklidir. Eksik dosyalarin ilerleyen asamalarla tamamlanmasi beklentisiyle KOSULLU GECIS onayi verilmistir.

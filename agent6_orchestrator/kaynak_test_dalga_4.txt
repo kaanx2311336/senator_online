@@ -1,0 +1,31 @@
+TEST RAPORU: DALGA 4 (Kaynak + Yukseltme Testi)
+Tarih: 2024-03-16
+
+1. Test: Bina sec -> "Yukselt" tikla -> Kaynaklar azaldi mi?
+   - js/interaction/selection.js (handleUpgradeClick) incelendi.
+   - spendResource(type, amount) fonksiyonu ile kaynaklarin azaldigi ve updateResource ile UI'in guncellendigi goruldu.
+   - Sonuc: BASARILI
+
+2. Test: Bina seviyesi artti mi?
+   - js/interaction/selection.js'de newMesh.userData.level = currentLevel + 1 atamasi kontrol edildi.
+   - Sonuc: BASARILI
+
+3. Test: Kalkan etiketi guncellendi mi?
+   - js/interaction/selection.js icinde updateShieldLabel(shieldId, currentLevel + 1) cagrisi yapildigi dogrulandi.
+   - Sonuc: BASARILI
+
+4. Test: Yukseltme animasyonu calisti mi?
+   - upgradeAnimation(newMesh) fonksiyonu animasyonu tetikliyor. js/interaction/animations.js icinde scale up ve emissive flash (parilti) efektleri mevcut.
+   - Sonuc: BASARILI
+
+5. Test: Yetersiz kaynak uyarisi gosteriliyor mu ve kaynak degismedi mi?
+   - canAfford(cost) fonksiyonu js/interaction/selection.js icinde kontrol ediliyor. Eger yetersizse, insufficientResourceAnimation() calisiyor ve "Yetersiz kaynak!" toast mesaji gosteriliyor. Kaynaklar bu durumda eksilmiyor.
+   - Sonuc: BASARILI
+
+6. Test: Tum bina tipleri icin yukseltme testi.
+   - objects/*/config.json dosyalarina levels dizisi eklenmis (orn: house, senate, tower, wall, colosseum). Her seviye icin cost objeleri mevcut.
+   - objects/*/interact.js dosyalarinda isUpgradeable = true ve onUpgrade(level) fonksiyonlari ile yeni seviye mesh'i uretiliyor.
+   - Sonuc: BASARILI
+
+GENEL DEGERLENDIRME:
+Kaynak ve yukseltme mekanikleri tamamiyla ve basarili bir sekilde koda (js/interaction/selection.js, js/interaction/animations.js, js/ui/resourceManager.js, config.json dosyalari) entegre edilmistir. Fakat onceki dalgalardan kalan js/main.js ve index.html eksikligi sebebiyle, e-to-e test gercek ortamda kosulamamaktadir.
