@@ -1,0 +1,36 @@
+OYUN DENGESİ ARAŞTIRMASI (DALGA 4)
+
+1. Başlangıç Kaynakları:
+- Odun: 500
+- Buğday: 300
+- Nüfus: 50
+- Altın: 1000
+
+2. Yükseltme Maliyetleri (Seviyelere Göre):
+
+- Senato:
+  * Lv2: Odun 100, Buğday 50, Altın 200
+  * Lv3: Odun 250, Buğday 150, Altın 500
+  * Lv4: Odun 600, Buğday 350, Altın 1200
+  * Lv5: Odun 1200, Buğday 700, Altın 2500
+
+- Ev:
+  * Lv2: Odun 30, Buğday 20, Altın 50
+  * Lv3: Odun 80, Buğday 50, Altın 120
+  * Lv4: Odun 150, Buğday 100, Altın 250
+  * Lv5: Odun 300, Buğday 200, Altın 500
+
+- Kolezyum:
+  * Lv2: Odun 150, Buğday 100, Altın 300
+  * Lv3: Odun 400, Buğday 250, Altın 800
+  * Lv4: Odun 900, Buğday 500, Altın 1800
+  * Lv5: Odun 1800, Buğday 1000, Altın 4000
+
+- Kule:
+  * Lv2: Odun 80, Buğday 40, Altın 150
+  * Lv3: Odun 200, Buğday 100, Altın 400
+  * Lv4: Odun 450, Buğday 250, Altın 900
+  * Lv5: Odun 1000, Buğday 500, Altın 2000
+
+3. Denge Prensibi:
+Oyuncu, başlangıç kaynakları ve temel üretim oranlarıyla tüm binaları Lv3'e çıkarabilecek kadar kaynağa sahip olmalıdır, ama Lv5 için stratejik seçimler yapmalıdır.

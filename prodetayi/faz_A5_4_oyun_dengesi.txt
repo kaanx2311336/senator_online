@@ -1,0 +1,11 @@
+RAPOR: FAZ A5-4 TAMAMLANDI
+
+Görev: Oyun Dengesi Araştırması (DALGA 4)
+
+Yapılan İşlemler:
+1. `research/oyun_dengesi.txt` dosyası oluşturuldu.
+2. Başlangıç kaynakları (Odun 500, Buğday 300, Nüfus 50, Altın 1000) belirlendi.
+3. Binaların (Senato, Ev, Kolezyum, Kule) yükseltme maliyetleri hesaplandı ve tablo halinde eklendi.
+4. "Oyuncu tüm binaları Lv3'e çıkarabilecek kadar kaynak olmalı ama Lv5 için stratejik seçim yapmalı" denge prensibi dokümana eklendi.
+
+Bütün işlemler kurallara ve hedeflere uygun olarak tamamlanmıştır.
