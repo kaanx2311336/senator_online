@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const materialBase = new THREE.MeshLambertMaterial({ color: 0xD3D3D3, emissive: 0x111111 }); // Gray stone base
+const materialStatue = new THREE.MeshLambertMaterial({ color: 0xFFFAFA, emissive: 0x151515 }); // White marble statue
+
 /**
  * Creates a Roman Statue model.
  * @returns {THREE.Group} The statue group.
@@ -7,9 +11,6 @@ import * as THREE from 'three';
 function createStatueHigh() {
     const group = new THREE.Group();
     group.name = 'Statue';
-
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xD3D3D3, emissive: 0x111111 }); // Gray stone base
-    const materialStatue = new THREE.MeshLambertMaterial({ color: 0xFFFAFA, emissive: 0x151515 }); // White marble statue
 
     // Pedestal Base
     const pedGeo = new THREE.BoxGeometry(2, 2.5, 2);
@@ -28,7 +29,8 @@ function createStatueHigh() {
     group.add(trimMesh);
 
     // Statue Body (abstract humanoid form)
-    const bodyGeo = new THREE.CylinderGeometry(0.5, 0.7, 3, 16);
+    // Geometry optimization: reduced segments from 16 to 8
+    const bodyGeo = new THREE.CylinderGeometry(0.5, 0.7, 3, 8);
     const bodyMesh = new THREE.Mesh(bodyGeo, materialStatue);
     bodyMesh.position.y = 4.4; // 2.9 (trim top) + 1.5 (half height)
     bodyMesh.castShadow = false;
@@ -44,7 +46,8 @@ function createStatueHigh() {
     group.add(shoulderMesh);
 
     // Head
-    const headGeo = new THREE.SphereGeometry(0.5, 16, 16);
+    // Geometry optimization: reduced segments from 16 to 8
+    const headGeo = new THREE.SphereGeometry(0.5, 8, 8);
     const headMesh = new THREE.Mesh(headGeo, materialStatue);
     headMesh.position.y = 6.2;
     headMesh.castShadow = false;
@@ -52,7 +55,8 @@ function createStatueHigh() {
     group.add(headMesh);
 
     // Arm (left, raised slightly)
-    const armLGeo = new THREE.CylinderGeometry(0.2, 0.25, 2, 8);
+    // Geometry optimization: reduced segments from 8 to 6
+    const armLGeo = new THREE.CylinderGeometry(0.2, 0.25, 2, 6);
     const armLMesh = new THREE.Mesh(armLGeo, materialStatue);
     armLMesh.position.set(-1, 4.6, 0);
     armLMesh.rotation.z = Math.PI / 8;
@@ -61,7 +65,8 @@ function createStatueHigh() {
     group.add(armLMesh);
 
     // Arm (right, pointing forward)
-    const armRGeo = new THREE.CylinderGeometry(0.2, 0.25, 1.8, 8);
+    // Geometry optimization: reduced segments from 8 to 6
+    const armRGeo = new THREE.CylinderGeometry(0.2, 0.25, 1.8, 6);
     const armRMesh = new THREE.Mesh(armRGeo, materialStatue);
     armRMesh.position.set(1, 5, 0.5);
     armRMesh.rotation.x = Math.PI / 2.5;
@@ -137,6 +142,22 @@ export function createStatue() {
     // Copy userData from high to LOD so raycasting and logic still works
     lod.userData = high.userData || {};
     lod.name = high.name || 'Statue';
+
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== materialBase && child.material !== materialStatue) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return lod;
 }

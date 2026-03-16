@@ -1,5 +1,11 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const materialBase = new THREE.MeshLambertMaterial({ color: 0xFDF5E6, emissive: 0x111111 }); // White/Cream
+const materialRoof = new THREE.MeshLambertMaterial({ color: 0x800000, emissive: 0x1a0000 }); // Dark Red
+const materialWindow = new THREE.MeshLambertMaterial({ color: 0x111122, emissive: 0x050510 }); // Dark windows
+const materialGold = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 }); // Gold
+
 /**
  * Creates a Senate model based on level.
  * @param {number} level - The level of the senate (1-5).
@@ -8,11 +14,6 @@ import * as THREE from 'three';
 function createSenateHigh(level = 1) {
     const group = new THREE.Group();
     group.name = 'Senate';
-
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x111111 }); // White marble
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xB7410E, emissive: 0x1a0b0b }); // Terracotta
-    const materialWindow = new THREE.MeshLambertMaterial({ color: 0x333333 }); // Dark windows
-    const materialGold = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 }); // Gold
 
     // Base Dimensions
     const baseWidth = 16;
@@ -54,7 +55,8 @@ function createSenateHigh(level = 1) {
         const startX = -(baseWidth - 4) / 2;
 
         for (let i = 0; i < numColumns; i++) {
-            const colGeo = new THREE.CylinderGeometry(columnRadius, columnRadius, columnHeight, 16);
+            // Geometry optimization: reduced segments from 16 to 8
+            const colGeo = new THREE.CylinderGeometry(columnRadius, columnRadius, columnHeight, 8);
             const colMesh = new THREE.Mesh(colGeo, materialBase);
             colMesh.castShadow = false;
             colMesh.receiveShadow = false;
@@ -67,7 +69,8 @@ function createSenateHigh(level = 1) {
             capMesh.receiveShadow = false;
             group.add(capMesh);
             
-            const capGeo2 = new THREE.CylinderGeometry(columnRadius * 1.5, columnRadius, 0.4, 16);
+            // Geometry optimization: reduced segments from 16 to 8
+            const capGeo2 = new THREE.CylinderGeometry(columnRadius * 1.5, columnRadius, 0.4, 8);
             const capMesh2 = new THREE.Mesh(capGeo2, level === 5 ? materialGold : materialBase);
             capMesh2.castShadow = false;
             capMesh2.receiveShadow = false;
@@ -79,7 +82,8 @@ function createSenateHigh(level = 1) {
             baseColMesh.receiveShadow = false;
             group.add(baseColMesh);
             
-            const baseColGeo2 = new THREE.CylinderGeometry(columnRadius, columnRadius * 1.5, 0.4, 16);
+            // Geometry optimization: reduced segments from 16 to 8
+            const baseColGeo2 = new THREE.CylinderGeometry(columnRadius, columnRadius * 1.5, 0.4, 8);
             const baseColMesh2 = new THREE.Mesh(baseColGeo2, materialBase);
             baseColMesh2.castShadow = false;
             baseColMesh2.receiveShadow = false;
@@ -115,7 +119,7 @@ function createSenateHigh(level = 1) {
 
         // Gold decoration on pediment for level 5
         if (level === 5) {
-            const decGeo = new THREE.CylinderGeometry(1, 1, 0.2, 16);
+            const decGeo = new THREE.CylinderGeometry(1, 1, 0.2, 12);
             const decMesh = new THREE.Mesh(decGeo, materialGold);
             decMesh.rotation.x = Math.PI / 2;
             decMesh.position.set(0, stepCount * stepHeight + 0.4 + baseHeight + 0.4 + 1, baseDepth / 2 + 1 + 0.1);
@@ -128,7 +132,8 @@ function createSenateHigh(level = 1) {
     // Level 4+ details: Dome
     if (level >= 4) {
         const domeRadius = level === 5 ? 8 : 6;
-        const domeSegments = level === 5 ? 64 : 32;
+        // Geometry optimization: reduced sphere segments
+        const domeSegments = level === 5 ? 32 : 16;
         const domeGeo = new THREE.SphereGeometry(domeRadius, domeSegments, domeSegments, 0, Math.PI * 2, 0, Math.PI / 2);
         const domeMesh = new THREE.Mesh(domeGeo, level === 5 ? materialGold : materialRoof);
         domeMesh.position.y = baseHeight;
@@ -252,5 +257,21 @@ export function createSenate(level = 1) {
     lod.userData = high.userData || {};
     lod.name = high.name || 'Senate';
     
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== materialBase && child.material !== materialRoof && child.material !== materialWindow && child.material !== materialGold) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
+
     return lod;
 }

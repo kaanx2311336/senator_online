@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const material = new THREE.MeshLambertMaterial({ color: 0xD4C5A9, emissive: 0x111111 }); // white-gray with faint glow
+const trimMaterial = new THREE.MeshLambertMaterial({ color: 0xB8A98D, emissive: 0x0a0a0a }); // slightly darker for details
+
 /**
  * Creates a Wall model.
  * @param {number} length - The length of the wall segment.
@@ -11,8 +15,6 @@ function createWallHigh(length = 10) {
 
     const thickness = 2;
     const height = 5;
-    const material = new THREE.MeshLambertMaterial({ color: 0xD4C5A9, emissive: 0x111111 }); // white-gray with faint glow
-    const trimMaterial = new THREE.MeshLambertMaterial({ color: 0xB8A98D, emissive: 0x0a0a0a }); // slightly darker for details
 
     // Main wall body
     const bodyGeo = new THREE.BoxGeometry(length, height, thickness);
@@ -124,6 +126,22 @@ export function createWall(length = 10) {
     // Copy userData from high to LOD so raycasting and logic still works
     lod.userData = high.userData || {};
     lod.name = high.name || 'Wall';
+
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== material && child.material !== trimMaterial) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return lod;
 }

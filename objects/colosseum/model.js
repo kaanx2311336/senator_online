@@ -1,5 +1,12 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const material = new THREE.MeshLambertMaterial({ color: 0xF0EAD6, emissive: 0x111111 }); // Off-white marble with slight emissive
+const arenaMaterial = new THREE.MeshLambertMaterial({ color: 0xD2B48C }); // Sand colored arena
+const archMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 }); // Dark gaps
+const gateMaterial = new THREE.MeshLambertMaterial({ color: 0x1A1A1A }); // Very dark gates
+const goldMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 });
+
 /**
  * Creates a Colosseum model based on level.
  * @param {number} level - The level of the colosseum (1-5).
@@ -14,14 +21,9 @@ function createColosseumHigh(level = 1) {
     const radiusZ = 8 + level * 1.5;
     const height = 4 + level * 2;
     
-    const material = new THREE.MeshLambertMaterial({ color: 0xF0EAD6, emissive: 0x111111 }); // Off-white marble with slight emissive
-    const arenaMaterial = new THREE.MeshLambertMaterial({ color: 0xD2B48C }); // Sand colored arena
-    const archMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 }); // Dark gaps
-    const gateMaterial = new THREE.MeshLambertMaterial({ color: 0x1A1A1A }); // Very dark gates
-    const goldMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 });
-
     // Outer Wall
-    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 32);
+    // Geometry optimization: reduced segments from 32 to 24
+    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 24);
     const outerWall = new THREE.Mesh(outerGeo, material);
     outerWall.scale.set(1, 1, radiusZ / radiusX);
     outerWall.position.y = height / 2;
@@ -36,7 +38,8 @@ function createColosseumHigh(level = 1) {
         const stepRadiusX = radiusX * (1 - (i * 0.15)) - 1;
         
         if (stepRadiusX > 0) {
-            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, 32);
+            // Geometry optimization: reduced segments from 32 to 24
+            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, 24);
             const stepMesh = new THREE.Mesh(stepGeo, material);
             stepMesh.scale.set(1, 1, radiusZ / radiusX);
             stepMesh.position.y = stepHeight / 2;
@@ -49,7 +52,8 @@ function createColosseumHigh(level = 1) {
     // Inner Arena Floor
     const arenaRadiusX = radiusX * (1 - (numSteps * 0.15)) - 1;
     if (arenaRadiusX > 0) {
-        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, 32);
+        // Geometry optimization: reduced segments from 32 to 24
+        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, 24);
         const arenaMesh = new THREE.Mesh(arenaGeo, arenaMaterial);
         arenaMesh.scale.set(1, 1, radiusZ / radiusX);
         arenaMesh.position.y = 0.1;
@@ -199,6 +203,25 @@ export function createColosseum(level = 1) {
     // Copy userData from high to LOD so raycasting and logic still works
     lod.userData = high.userData || {};
     lod.name = high.name || 'Colosseum';
+
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                // Material is shared, so don't dispose material to prevent issues with other instances,
+                // or handle material disposing at a higher level if needed. 
+                // But for LOD-specific materials like midMat, lowMat we should dispose them.
+                if (child.material && child.material !== material && child.material !== arenaMaterial && child.material !== archMaterial && child.material !== gateMaterial && child.material !== goldMaterial) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return lod;
 }

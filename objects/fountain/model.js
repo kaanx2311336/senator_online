@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const materialBase = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x111111 }); // White marble
+const materialWater = new THREE.MeshLambertMaterial({ color: 0x4B9CD3, emissive: 0x1a4b8c, transparent: true, opacity: 0.8 }); // Water
+
 /**
  * Creates a Fountain model.
  * @returns {THREE.Group} The fountain group.
@@ -8,11 +12,9 @@ function createFountainHigh() {
     const group = new THREE.Group();
     group.name = 'Fountain';
 
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x111111 }); // White marble
-    const materialWater = new THREE.MeshLambertMaterial({ color: 0x4B9CD3, emissive: 0x1a4b8c, transparent: true, opacity: 0.8 }); // Water
-
     // Base Pool
-    const poolGeo = new THREE.CylinderGeometry(3, 3, 0.5, 32);
+    // Geometry optimization: reduced segments from 32 to 16
+    const poolGeo = new THREE.CylinderGeometry(3, 3, 0.5, 16);
     const poolMesh = new THREE.Mesh(poolGeo, materialBase);
     poolMesh.position.y = 0.25;
     poolMesh.castShadow = false;
@@ -20,7 +22,8 @@ function createFountainHigh() {
     group.add(poolMesh);
 
     // Inner Water
-    const waterGeo = new THREE.CylinderGeometry(2.8, 2.8, 0.4, 32);
+    // Geometry optimization: reduced segments from 32 to 16
+    const waterGeo = new THREE.CylinderGeometry(2.8, 2.8, 0.4, 16);
     const waterMesh = new THREE.Mesh(waterGeo, materialWater);
     waterMesh.position.y = 0.3;
     waterMesh.castShadow = false;
@@ -28,7 +31,7 @@ function createFountainHigh() {
     group.add(waterMesh);
 
     // Center Pillar
-    const pillarGeo = new THREE.CylinderGeometry(0.5, 0.8, 2, 16);
+    const pillarGeo = new THREE.CylinderGeometry(0.5, 0.8, 2, 12);
     const pillarMesh = new THREE.Mesh(pillarGeo, materialBase);
     pillarMesh.position.y = 1.5;
     pillarMesh.castShadow = false;
@@ -36,7 +39,7 @@ function createFountainHigh() {
     group.add(pillarMesh);
 
     // Center Bowl
-    const bowlGeo = new THREE.CylinderGeometry(1.5, 0.5, 0.5, 16);
+    const bowlGeo = new THREE.CylinderGeometry(1.5, 0.5, 0.5, 12);
     const bowlMesh = new THREE.Mesh(bowlGeo, materialBase);
     bowlMesh.position.y = 2.5;
     bowlMesh.castShadow = false;
@@ -44,7 +47,7 @@ function createFountainHigh() {
     group.add(bowlMesh);
 
     // Water inside Center Bowl
-    const topWaterGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.1, 16);
+    const topWaterGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.1, 12);
     const topWaterMesh = new THREE.Mesh(topWaterGeo, materialWater);
     topWaterMesh.position.y = 2.7;
     topWaterMesh.castShadow = false;
@@ -52,7 +55,7 @@ function createFountainHigh() {
     group.add(topWaterMesh);
     
     // Spout (top)
-    const spoutGeo = new THREE.CylinderGeometry(0.2, 0.4, 0.6, 16);
+    const spoutGeo = new THREE.CylinderGeometry(0.2, 0.4, 0.6, 12);
     const spoutMesh = new THREE.Mesh(spoutGeo, materialBase);
     spoutMesh.position.y = 3;
     spoutMesh.castShadow = false;
@@ -135,6 +138,22 @@ export function createFountain() {
     // Copy userData from high to LOD so raycasting and logic still works
     lod.userData = high.userData || {};
     lod.name = high.name || 'Fountain';
+
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== materialBase && child.material !== materialWater) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return lod;
 }

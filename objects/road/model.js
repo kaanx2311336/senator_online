@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import config from './config.json' with { type: "json" };
 
+const material = new THREE.MeshLambertMaterial({ color: 0xC4B59B }); // grey-beige color
+
 export function createRoad(startX, startZ, endX, endZ, width) {
     const dx = endX - startX;
     const dz = endZ - startZ;
@@ -8,9 +10,6 @@ export function createRoad(startX, startZ, endX, endZ, width) {
     
     // Create road geometry
     const geometry = new THREE.PlaneGeometry(width, length);
-    const material = new THREE.MeshLambertMaterial({ 
-        color: 0xC4B59B // grey-beige color
-    });
     
     const road = new THREE.Mesh(geometry, material);
     
@@ -36,8 +35,7 @@ export function createRoad(startX, startZ, endX, endZ, width) {
     
     // Let's create the road so it starts at 0,0, goes along Z axis
     const localGeo = new THREE.PlaneGeometry(width, length);
-    const localMat = new THREE.MeshLambertMaterial({ color: 0xC4B59B });
-    const localRoad = new THREE.Mesh(localGeo, localMat);
+    const localRoad = new THREE.Mesh(localGeo, material);
     
     localRoad.rotation.x = -Math.PI / 2;
     
@@ -53,6 +51,21 @@ export function createRoad(startX, startZ, endX, endZ, width) {
     // Rotate group around Y axis
     const angle = Math.atan2(dx, dz);
     group.rotation.y = angle;
+
+    group.dispose = function() {
+        group.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== material) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
 
     return group;
 }

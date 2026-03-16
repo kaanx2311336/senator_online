@@ -1,5 +1,13 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const materialBase = new THREE.MeshLambertMaterial({ color: 0xE0CDA9, emissive: 0x111111 }); // Plaster/wood
+const materialRoof = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Terracotta
+const materialRoofAlt = new THREE.MeshLambertMaterial({ color: 0x9B4A4A, emissive: 0x1a0b0b }); // Alternate Terracotta
+const materialDoor = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Dark wood
+const materialGarden = new THREE.MeshLambertMaterial({ color: 0x228B22 }); // Grass/plants
+const materialPillar = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x222222 }); // Marble
+
 /**
  * Creates a House model based on level.
  * @param {number} level - The level of the house (1-5).
@@ -8,13 +16,6 @@ import * as THREE from 'three';
 export function createHouse(level = 1) {
     const group = new THREE.Group();
     group.name = 'House';
-
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xE0CDA9, emissive: 0x111111 }); // Plaster/wood
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Terracotta
-    const materialRoofAlt = new THREE.MeshLambertMaterial({ color: 0x9B4A4A, emissive: 0x1a0b0b }); // Alternate Terracotta
-    const materialDoor = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Dark wood
-    const materialGarden = new THREE.MeshLambertMaterial({ color: 0x228B22 }); // Grass/plants
-    const materialPillar = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x222222 }); // Marble
 
     // Level 1: Simple Hut
     let width = 4;
@@ -116,7 +117,8 @@ export function createHouse(level = 1) {
             const px = (i % 2 === 0 ? 1 : -1) * (width / 2 + 1);
             const pz = (i < 2 ? 1 : -1) * (depth / 2 + 1);
             
-            const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, height * 0.8, 8);
+            // Geometry optimization: reduced segments from 8 to 6
+            const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, height * 0.8, 6);
             const pillarMesh = new THREE.Mesh(pillarGeo, materialPillar);
             pillarMesh.position.set(px, height * 0.4, pz);
             pillarMesh.castShadow = false;
@@ -139,6 +141,22 @@ export function createHouse(level = 1) {
             group.add(pCapMesh);
         }
     }
+
+    // Geometry dispose
+    group.dispose = function() {
+        group.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== materialBase && child.material !== materialRoof && child.material !== materialRoofAlt && child.material !== materialDoor && child.material !== materialGarden && child.material !== materialPillar) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return group;
 }

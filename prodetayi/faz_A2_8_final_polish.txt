@@ -1,0 +1,13 @@
+FAZ A2-8: Final Polish + Geometry Optimizasyon (DALGA 6)
+=========================================================
+
+1. Geometry Optimization:
+Tüm `objects/*/model.js` dosyalarındaki Three.js geometrileri incelendi ve poligon/vertex sayıları düşürülerek optimize edildi. (Örn: `CylinderGeometry`, `SphereGeometry`, `ConeGeometry` için `radialSegments` değerleri görsel kaliteyi bozmadan düşürüldü).
+
+2. Material Sharing:
+Tüm `objects/*/model.js` dosyalarında aynı özellikleri taşıyan material kullanımları `create*` veya `create*High` fonksiyonları içerisinden çıkarılarak global olarak dosya kapsamında tek sefer yaratılması ve objeler arasında instance paylaşılması sağlandı. Bu sayede her bina veya obje yaratımında gereksiz yere materyal üretilmesi önlendi.
+
+3. Geometry Dispose:
+Bütün objelerin (Gerek LOD gerek Group olsun) dışa aktarılan ana yapılarına `dispose` fonksiyonu eklendi. Bu fonksiyon çalıştırıldığında objeye ait tüm alt objelerin geometrileri temizleniyor (dispose). Ayrıca paylaşılan global materyaller hariç, yalnızca o anki objeye özgü geçici olan materyaller temizlenerek bellek sızıntıları önleniyor. 
+
+Görev tamamlandı. (AGENT 2: OBJECT_ENGINE)

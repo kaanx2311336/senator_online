@@ -1,5 +1,12 @@
 import * as THREE from 'three';
 
+// Shared Materials
+const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xD4C5A9, emissive: 0x111111 }); // Gray-white with slight glow
+const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Tile red
+const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Wood
+const flagMaterial = new THREE.MeshLambertMaterial({ color: 0xCC0000, emissive: 0x330000 }); // Red flag
+const roofPatternMat = new THREE.MeshLambertMaterial({ color: 0x7a3030, emissive: 0x1a0b0b });
+
 /**
  * Creates a Tower model based on level.
  * @param {number} level - The level of the tower (1-5).
@@ -11,14 +18,10 @@ function createTowerHigh(level = 1) {
 
     const radius = 2 + level * 0.5;
     const height = 8 + level * 3;
-    
-    const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xD4C5A9, emissive: 0x111111 }); // Gray-white with slight glow
-    const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Tile red
-    const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Wood
-    const flagMaterial = new THREE.MeshLambertMaterial({ color: 0xCC0000, emissive: 0x330000 }); // Red flag
 
     // Main cylindrical body
-    const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 16);
+    // Geometry optimization: reduced segments from 16 to 12
+    const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 12);
     const bodyMesh = new THREE.Mesh(bodyGeo, bodyMaterial);
     bodyMesh.position.y = height / 2;
     bodyMesh.castShadow = false;
@@ -29,7 +32,8 @@ function createTowerHigh(level = 1) {
     if (level >= 2) {
         const numBands = level;
         for(let i = 1; i <= numBands; i++) {
-            const bandGeo = new THREE.CylinderGeometry(radius + 0.2, radius + 0.2, 0.5, 16);
+            // Geometry optimization: reduced segments from 16 to 12
+            const bandGeo = new THREE.CylinderGeometry(radius + 0.2, radius + 0.2, 0.5, 12);
             const bandMesh = new THREE.Mesh(bandGeo, woodMaterial);
             bandMesh.position.y = (height / (numBands + 1)) * i;
             bandMesh.castShadow = false;
@@ -41,7 +45,8 @@ function createTowerHigh(level = 1) {
     // Upper platform
     const platformRadius = radius * 1.2;
     const platformHeight = 1;
-    const platformGeo = new THREE.CylinderGeometry(platformRadius, platformRadius, platformHeight, 16);
+    // Geometry optimization: reduced segments from 16 to 12
+    const platformGeo = new THREE.CylinderGeometry(platformRadius, platformRadius, platformHeight, 12);
     const platformMesh = new THREE.Mesh(platformGeo, bodyMaterial);
     platformMesh.position.y = height + platformHeight / 2;
     platformMesh.castShadow = false;
@@ -75,7 +80,8 @@ function createTowerHigh(level = 1) {
     if (level >= 4) {
         const roofRadius = platformRadius * 1.1;
         const roofHeight = 4 + level;
-        const roofGeo = new THREE.ConeGeometry(roofRadius, roofHeight, 16);
+        // Geometry optimization: reduced segments from 16 to 12
+        const roofGeo = new THREE.ConeGeometry(roofRadius, roofHeight, 12);
         const roofMesh = new THREE.Mesh(roofGeo, roofMaterial);
         roofMesh.position.y = height + platformHeight + roofHeight / 2;
         roofMesh.castShadow = false;
@@ -83,8 +89,8 @@ function createTowerHigh(level = 1) {
         group.add(roofMesh);
 
         // Tile pattern effect
-        const roofPatternGeo = new THREE.ConeGeometry(roofRadius * 1.01, roofHeight * 0.98, 8);
-        const roofPatternMat = new THREE.MeshLambertMaterial({ color: 0x7a3030, emissive: 0x1a0b0b });
+        // Geometry optimization: reduced segments from 8 to 6
+        const roofPatternGeo = new THREE.ConeGeometry(roofRadius * 1.01, roofHeight * 0.98, 6);
         const roofPatternMesh = new THREE.Mesh(roofPatternGeo, roofPatternMat);
         roofPatternMesh.position.y = height + platformHeight + roofHeight * 0.98 / 2;
         roofPatternMesh.rotation.y = Math.PI / 8;
@@ -94,7 +100,8 @@ function createTowerHigh(level = 1) {
         
         // Level 5: Flag
         if (level === 5) {
-            const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 4, 8);
+            // Geometry optimization: reduced segments from 8 to 4
+            const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 4, 4);
             const poleMesh = new THREE.Mesh(poleGeo, woodMaterial);
             poleMesh.position.y = height + platformHeight + roofHeight + 2;
             poleMesh.castShadow = false;
@@ -178,6 +185,22 @@ export function createTower(level = 1) {
     // Copy userData from high to LOD so raycasting and logic still works
     lod.userData = high.userData || {};
     lod.name = high.name || 'Tower';
+
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== bodyMaterial && child.material !== roofMaterial && child.material !== woodMaterial && child.material !== flagMaterial && child.material !== roofPatternMat) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
     
     return lod;
 }
