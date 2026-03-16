@@ -4,3 +4,4 @@ ROMA CITY BUILDER - AGENT KOORDİNASYON LOGU
 Proje başlangıç tarihi: 2026-03-16
 Proje değişikliği: Okey Online → Roma City Builder
 ================================================================================
+[AGENT 6 - FAZ A6-1] Dalga 1 Tutarlilik Kontrolü Yapildi. KOSULLU GECIS verildi.

@@ -1,0 +1,11 @@
+DALGA 1: PROJE TUTARLILIK RAPORU
+
+- [HTML ↔ JS UYUMU] KONTROL EDİLEMEDİ. `index.html` dosyası mevcut değil. `js/ui/topBar.js` dosyası document ve body üzerinden DOM erişimi yapıyor, fakat index.html dosyası olmadığı için eşleşme kontrolü yapılamıyor.
+
+- [NESNE KAYIT UYUMU] KONTROL EDİLEMEDİ. `objects/` klasörü henüz projede oluşturulmamış. `shared/contracts/objectRegistry.js` içerisindeki nesne isimleri (senate, colosseum, vb.) objects altındaki klasörlerle eşleşmesi gerekiyor ancak objects klasörü olmadığı için doğrulanmadı.
+
+- [MODÜL UYUMU] KONTROL EDİLEMEDİ. `js/main.js` dosyası henüz oluşturulmamış. Mevcut modüller (`js/ui/topBar.js`, `js/interaction/cameraControls.js`, vb.) arasında import/export yapısı var, ancak ana giriş noktası eksik.
+
+- [RENDERER KURALLARI] KONTROL EDİLEMEDİ. Renderer ayarları (`shadowMap.enabled = false`, `setPixelRatio(1)`, `setClearColor`) `js/scene.js` veya `js/main.js` içerisinde bulunmalıdır, ancak bu dosyalar henüz mevcut değildir.
+
+SONUÇ: Proje henüz başlangıç evresinde olduğundan ana mimari dosyalar (index.html, js/main.js, objects/) oluşturulmamıştır. Bu durum erken aşama için beklenen bir senaryodur.

@@ -1,0 +1,6 @@
+FAZ A6-1: DALGA GEÇİŞ ONAYI - DALGA 1
+SONUÇ: KOSULLU GECIS
+
+Proje henüz erken aşamada olduğu için `index.html`, `objects/` klasörü ve `js/main.js` gibi temel mimari dosyalar bulunmamaktadır.
+Ancak `shared/contracts/objectRegistry.js` gibi kuralları belirleyen dosyalar mevcuttur.
+Eksik dosyaların sonraki fazlarda oluşturulması beklenmektedir, bu nedenle bu aşama için KOSULLU GECIS onayı verilmiştir.
