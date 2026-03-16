@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+.roman-ui {
+    font-family: 'Cinzel', serif;
+}
+
+.resource-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gold-border {
+    border: 2px solid #eab308; /* Tailwind yellow-500 */
+    box-shadow: 0 0 5px #ca8a04, inset 0 0 5px #ca8a04; /* Glowing gold effect */
+}
+
+.resource-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fef08a; /* Tailwind yellow-200 */
+    text-shadow: 1px 1px 2px #000;
+}

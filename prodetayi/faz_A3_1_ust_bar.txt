@@ -1,0 +1,3 @@
+FAZ A3-1 Tamamlandı.
+Üst kaynak barı (topBar.js) oluşturuldu ve css/ui.css stilleri eklendi.
+updateResource fonksiyonu kullanıma hazır.
