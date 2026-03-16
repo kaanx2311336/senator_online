@@ -46,6 +46,19 @@
     outline: none;
 }
 
+/* Army Panel Specific Styles */
+#army-panel {
+    transition: transform 0.3s ease-in-out;
+}
+
+#army-panel.translate-x-full {
+    transform: translateX(110%);
+}
+
+#army-panel-tab {
+    transition: background-color 0.2s;
+}
+
 /* Tooltip */
 #roman-tooltip {
     /* Tooltip stilini Tailwind sınıflarıyla JS'de oluşturduk ancak ek ince ayarlar buraya gelebilir */

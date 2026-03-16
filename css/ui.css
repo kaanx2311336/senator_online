@@ -105,6 +105,19 @@
     animation: flashRed 0.1s ease-in-out 3;
 }
 
+/* Army Panel Specific Styles */
+#army-panel {
+    transition: transform 0.3s ease-in-out;
+}
+
+#army-panel.translate-x-full {
+    transform: translateX(110%);
+}
+
+#army-panel-tab {
+    transition: background-color 0.2s;
+}
+
 /* Trade Route Map Specific Styles */
 #trade-route-map-container {
     transition: opacity 0.3s ease-in-out;

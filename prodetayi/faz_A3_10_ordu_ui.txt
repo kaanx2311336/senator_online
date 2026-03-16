@@ -1,0 +1,13 @@
+FAZ A3-10: Ordu Paneli UI (DALGA 10) TAMAMLANDI
+
+1. public/js/ui/armyPanel.js dosyası oluşturuldu.
+- Ordu yönetim paneli (Lejyoner, Okçu, Süvari sayısı göstergeleri) eklendi.
+- Eğitim butonları eklendi. (Resource harcama simülasyonu yapıldı)
+- Savunma gücü barı (toplam savunma puanı) hesaplaması ile eklendi.
+- Saldırı/Savunma modu geçişi toggle ile eklendi.
+- Panel window.RomanUI.ArmyPanel namespace'i üzerinden erişilebilir kılındı.
+
+2. css/ui.css ve public/css/ui.css dosyalarına ordu paneli stilleri eklendi.
+- Panel animasyonları ve kırmızı/bronz tema kurallarına uyuldu.
+
+Görev başarıyla tamamlandı.
