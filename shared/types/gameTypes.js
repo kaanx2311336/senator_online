@@ -32,4 +32,20 @@
  * @property {Building|null} selectedBuilding
  */
 
+/**
+ * @typedef {Object} Buff
+ * @property {string} id
+ * @property {string} type
+ * @property {number} multiplier
+ * @property {number} duration
+ * @property {number} startTime
+ */
+
+/**
+ * @typedef {Object} Faith
+ * @property {number} currentPoints
+ * @property {number} productionRate
+ * @property {Buff[]} activeBuffs
+ */
+
 module.exports = {};

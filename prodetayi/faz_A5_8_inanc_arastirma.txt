@@ -1,0 +1,4 @@
+GÖREV - FAZ A5-8: Roma İnanç Sistemi Araştırması (DALGA 8) tamamlandı.
+
+- `research/inanc_sistemi.txt` dosyası oluşturuldu ve inanç mekaniği detayları eklendi.
+- `shared/types/gameTypes.js` dosyasına `Buff` ve `Faith` veri tipleri (typedef) eklendi.

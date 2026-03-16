@@ -1,0 +1,5 @@
+Roma inanç mekaniği.
+İnanç puanı: Tapınak seviyesi × 10 puan/dakika üretim.
+Buff maliyeti: 100 inanç puanı = 1 buff aktivasyonu.
+Buff süreleri: Üretim +%20 (60sn), Savunma +%15 (90sn), Ticaret -%10 (45sn).
+Buff stack: Aynı anda max 2 farklı buff aktif olabilir.
