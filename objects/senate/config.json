@@ -1,0 +1,12 @@
+{
+  "name": "Senato",
+  "type": "building",
+  "levels": [
+    { "level": 1, "scale": 1.0, "detail": "basic", "cost": { "wood": 500, "wheat": 200, "gold": 100, "population": 50 } },
+    { "level": 2, "scale": 1.2, "detail": "columns", "cost": { "wood": 1000, "wheat": 400, "gold": 250, "population": 100 } },
+    { "level": 3, "scale": 1.5, "detail": "pediment", "cost": { "wood": 2000, "wheat": 800, "gold": 600, "population": 200 } },
+    { "level": 4, "scale": 1.8, "detail": "dome", "cost": { "wood": 4000, "wheat": 1600, "gold": 1500, "population": 400 } },
+    { "level": 5, "scale": 2.2, "detail": "massive_gold", "cost": { "wood": 8000, "wheat": 3200, "gold": 4000, "population": 800 } }
+  ],
+  "position": [0, 0, 0]
+}

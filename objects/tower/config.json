@@ -2,9 +2,11 @@
   "name": "Kule",
   "type": "defense",
   "levels": [
-    { "cost": 300, "defense": 50 },
-    { "cost": 650, "defense": 120 },
-    { "cost": 1500, "defense": 300 }
+    { "level": 1, "scale": 1.0, "detail": "simple", "defense": 50, "cost": { "wood": 200, "wheat": 50, "gold": 20, "population": 10 } },
+    { "level": 2, "scale": 1.2, "detail": "reinforced", "defense": 120, "cost": { "wood": 400, "wheat": 100, "gold": 50, "population": 20 } },
+    { "level": 3, "scale": 1.5, "detail": "crenellations", "defense": 300, "cost": { "wood": 800, "wheat": 200, "gold": 120, "population": 40 } },
+    { "level": 4, "scale": 1.8, "detail": "tall", "defense": 600, "cost": { "wood": 1600, "wheat": 400, "gold": 300, "population": 80 } },
+    { "level": 5, "scale": 2.2, "detail": "flag", "defense": 1200, "cost": { "wood": 3200, "wheat": 800, "gold": 800, "population": 150 } }
   ],
   "positions": []
 }

@@ -1,0 +1,12 @@
+FAZ A2-5: Seviye Sistemi + Config Güncelleme (DALGA 4) TAMAMLANDI
+
+Yapılan Değişiklikler:
+1. Tüm bina (Senato, Kolezyum, Ev, Kule) config.json dosyalarına "levels" dizisi eklendi (level 1'den 5'e kadar).
+2. Her seviye için scale çarpanı, detayı, maliyet (wood, wheat, gold, population) eklendi.
+3. Eskiden var olan capacity ve defense gibi objeye özel configuration ayarları ilgili binalara (Kolezyum ve Kule) tekrar dahil edildi.
+4. model.js dosyalarındaki createX(level) fonksiyonları, seviyeye göre değişen geometriler döndürecek şekilde güncellendi:
+  - Senato: Seviye 1'de basit, Seviye 5'te devasa kubbe ve altın süslemeler.
+  - Kolezyum: Seviye 1'de küçük arena, Seviye 5'te tam kademeli dev arena, kemerler ve altın kaplamalar.
+  - Ev: Seviye 1'de kulübe, Seviye 5'te villa (bahçeli, sütunlu).
+  - Kule: Seviye 1'de basit, Seviye 5'te yüksek, güçlendirilmiş, siperlikli ve bayraklı.
+5. Aşırı büyümeyi önlemek için model.js'deki ekstra `group.scale.set()` işlemleri temizlendi, büyüme işlemi ilgili boyut formüllerine ve oyun motoru dışından beslenen config `scale` parametrelerine bırakıldı.

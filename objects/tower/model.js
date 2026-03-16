@@ -2,18 +2,20 @@ import * as THREE from 'three';
 
 /**
  * Creates a Tower model based on level.
- * @param {number} level - The level of the tower.
+ * @param {number} level - The level of the tower (1-5).
  * @returns {THREE.Group} The tower group.
  */
-export function createTower(level) {
+export function createTower(level = 1) {
     const group = new THREE.Group();
     group.name = 'Tower';
 
-    const radius = 3;
-    const height = 10 + (level * 2); // Increases with level
+    const radius = 2 + level * 0.5;
+    const height = 8 + level * 3;
     
     const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xD4C5A9 }); // Gray-white
     const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x8B3A3A }); // Tile red
+    const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Wood
+    const flagMaterial = new THREE.MeshLambertMaterial({ color: 0xCC0000 }); // Red flag
 
     // Main cylindrical body
     const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 16);
@@ -23,7 +25,20 @@ export function createTower(level) {
     bodyMesh.receiveShadow = false;
     group.add(bodyMesh);
 
-    // Crenellations upper platform
+    // Level 2+: Reinforced bands
+    if (level >= 2) {
+        const numBands = level;
+        for(let i = 1; i <= numBands; i++) {
+            const bandGeo = new THREE.CylinderGeometry(radius + 0.2, radius + 0.2, 0.5, 16);
+            const bandMesh = new THREE.Mesh(bandGeo, woodMaterial);
+            bandMesh.position.y = (height / (numBands + 1)) * i;
+            bandMesh.castShadow = false;
+            bandMesh.receiveShadow = false;
+            group.add(bandMesh);
+        }
+    }
+
+    // Upper platform
     const platformRadius = radius * 1.2;
     const platformHeight = 1;
     const platformGeo = new THREE.CylinderGeometry(platformRadius, platformRadius, platformHeight, 16);
@@ -33,39 +48,57 @@ export function createTower(level) {
     platformMesh.receiveShadow = false;
     group.add(platformMesh);
 
-    // Conical Roof
-    const roofRadius = platformRadius * 1.1;
-    const roofHeight = 4;
-    const roofGeo = new THREE.ConeGeometry(roofRadius, roofHeight, 16);
-    const roofMesh = new THREE.Mesh(roofGeo, roofMaterial);
-    roofMesh.position.y = height + platformHeight + roofHeight / 2;
-    roofMesh.castShadow = false;
-    roofMesh.receiveShadow = false;
-    group.add(roofMesh);
+    // Level 3+: Crenellations
+    if (level >= 3) {
+        const numMerlons = 8 + level * 2;
+        for (let i = 0; i < numMerlons; i++) {
+            const angle = (i / numMerlons) * Math.PI * 2;
+            const merlonWidth = platformRadius * 0.4;
+            const merlonHeight = 1.5;
+            const merlonDepth = 0.5;
 
-    // Optional Merlons around platform
-    const numMerlons = 12;
-    for (let i = 0; i < numMerlons; i++) {
-        const angle = (i / numMerlons) * Math.PI * 2;
-        const merlonWidth = 1;
-        const merlonHeight = 1.5;
-        const merlonDepth = 0.5;
-
-        const merlonGeo = new THREE.BoxGeometry(merlonWidth, merlonHeight, merlonDepth);
-        const merlonMesh = new THREE.Mesh(merlonGeo, bodyMaterial);
-        
-        const x = Math.cos(angle) * (platformRadius - merlonDepth / 2);
-        const z = Math.sin(angle) * (platformRadius - merlonDepth / 2);
-        
-        merlonMesh.position.set(x, height + platformHeight + merlonHeight / 2, z);
-        
-        // Point outwards
-        merlonMesh.lookAt(new THREE.Vector3(x * 2, height + platformHeight + merlonHeight / 2, z * 2));
-
-        merlonMesh.castShadow = false;
-        merlonMesh.receiveShadow = false;
-        group.add(merlonMesh);
+            const merlonGeo = new THREE.BoxGeometry(merlonWidth, merlonHeight, merlonDepth);
+            const merlonMesh = new THREE.Mesh(merlonGeo, bodyMaterial);
+            
+            const x = Math.cos(angle) * (platformRadius - merlonDepth / 2);
+            const z = Math.sin(angle) * (platformRadius - merlonDepth / 2);
+            
+            merlonMesh.position.set(x, height + platformHeight + merlonHeight / 2, z);
+            merlonMesh.lookAt(new THREE.Vector3(x * 2, height + platformHeight + merlonHeight / 2, z * 2));
+            merlonMesh.castShadow = false;
+            merlonMesh.receiveShadow = false;
+            group.add(merlonMesh);
+        }
     }
 
+    // Conical Roof (Level 4+)
+    if (level >= 4) {
+        const roofRadius = platformRadius * 1.1;
+        const roofHeight = 4 + level;
+        const roofGeo = new THREE.ConeGeometry(roofRadius, roofHeight, 16);
+        const roofMesh = new THREE.Mesh(roofGeo, roofMaterial);
+        roofMesh.position.y = height + platformHeight + roofHeight / 2;
+        roofMesh.castShadow = false;
+        roofMesh.receiveShadow = false;
+        group.add(roofMesh);
+        
+        // Level 5: Flag
+        if (level === 5) {
+            const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 4, 8);
+            const poleMesh = new THREE.Mesh(poleGeo, woodMaterial);
+            poleMesh.position.y = height + platformHeight + roofHeight + 2;
+            poleMesh.castShadow = false;
+            poleMesh.receiveShadow = false;
+            group.add(poleMesh);
+            
+            const flagGeo = new THREE.PlaneGeometry(2, 1);
+            const flagMesh = new THREE.Mesh(flagGeo, flagMaterial);
+            flagMesh.position.set(1, height + platformHeight + roofHeight + 3.5, 0);
+            flagMesh.castShadow = false;
+            flagMesh.receiveShadow = false;
+            group.add(flagMesh);
+        }
+    }
+    
     return group;
 }
