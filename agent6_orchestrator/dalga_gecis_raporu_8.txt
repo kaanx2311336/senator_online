@@ -1,0 +1,13 @@
+DALGA 8 DENETİM RAPORU (TAPINAK & İNANÇ)
+
+1. objects/temple/ klasörü tam mı?
+- EVET. model.js, config.json ve interact.js dosyaları mevcut.
+
+2. İnanç barı ve buff sistemi UI'da görünüyor mu?
+- EVET. public/js/ui/faithBar.js ve public/js/ui/buffPanel.js dosyaları UI'da mevcut ve çalışıyor.
+
+3. Tapınak parçacık efekti çalışıyor mu?
+- HAYIR. objects/temple/interact.js içinde yükseltme (onUpgrade) sırasında sadece rotasyon animasyonu yapılmış, herhangi bir partikül efekti eklenmemiş (sadece temsili bir yorum satırı mevcut).
+
+SONUÇ:
+Tapınak parçacık efektinin eksik olması sebebiyle onay durumu: KOSULLU GECIS.
