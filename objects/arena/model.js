@@ -19,25 +19,25 @@ export function createArena(level) {
             radiusTop = 3;
             radiusBottom = 3;
             height = 1;
-            radialSegments = 16;
+            radialSegments = 8;
             break;
         case 2:
             radiusTop = 4;
             radiusBottom = 4;
             height = 1.5;
-            radialSegments = 24;
+            radialSegments = 8;
             break;
         case 3:
             radiusTop = 5;
             radiusBottom = 5;
             height = 2;
-            radialSegments = 32;
+            radialSegments = 8;
             break;
         default:
             radiusTop = 3;
             radiusBottom = 3;
             height = 1;
-            radialSegments = 16;
+            radialSegments = 8;
     }
 
     // Outer Wall

@@ -104,7 +104,7 @@ export function createStatue() {
     
     let midGeo, midMat, midMesh;
     if (isCylindrical) {
-        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 4); // fewer segments
     } else {
         midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
     }
@@ -130,6 +130,8 @@ export function createStatue() {
         lowMat.color.copy(midMat.color);
     }
     const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.castShadow = false;
+    lowMesh.receiveShadow = false;
     lowMesh.position.copy(center);
     low.add(lowMesh);
     

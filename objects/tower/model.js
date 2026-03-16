@@ -21,7 +21,7 @@ function createTowerHigh(level = 1) {
 
     // Main cylindrical body
     // Geometry optimization: reduced segments from 16 to 12
-    const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 12);
+    const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 8);
     const bodyMesh = new THREE.Mesh(bodyGeo, bodyMaterial);
     bodyMesh.position.y = height / 2;
     bodyMesh.castShadow = false;
@@ -33,7 +33,7 @@ function createTowerHigh(level = 1) {
         const numBands = level;
         for(let i = 1; i <= numBands; i++) {
             // Geometry optimization: reduced segments from 16 to 12
-            const bandGeo = new THREE.CylinderGeometry(radius + 0.2, radius + 0.2, 0.5, 12);
+            const bandGeo = new THREE.CylinderGeometry(radius + 0.2, radius + 0.2, 0.5, 8);
             const bandMesh = new THREE.Mesh(bandGeo, woodMaterial);
             bandMesh.position.y = (height / (numBands + 1)) * i;
             bandMesh.castShadow = false;
@@ -46,7 +46,7 @@ function createTowerHigh(level = 1) {
     const platformRadius = radius * 1.2;
     const platformHeight = 1;
     // Geometry optimization: reduced segments from 16 to 12
-    const platformGeo = new THREE.CylinderGeometry(platformRadius, platformRadius, platformHeight, 12);
+    const platformGeo = new THREE.CylinderGeometry(platformRadius, platformRadius, platformHeight, 8);
     const platformMesh = new THREE.Mesh(platformGeo, bodyMaterial);
     platformMesh.position.y = height + platformHeight / 2;
     platformMesh.castShadow = false;
@@ -64,6 +64,8 @@ function createTowerHigh(level = 1) {
 
             const merlonGeo = new THREE.BoxGeometry(merlonWidth, merlonHeight, merlonDepth);
             const merlonMesh = new THREE.Mesh(merlonGeo, bodyMaterial);
+            merlonMesh.castShadow = false;
+            merlonMesh.receiveShadow = false;
             
             const x = Math.cos(angle) * (platformRadius - merlonDepth / 2);
             const z = Math.sin(angle) * (platformRadius - merlonDepth / 2);
@@ -92,6 +94,8 @@ function createTowerHigh(level = 1) {
         // Geometry optimization: reduced segments from 8 to 6
         const roofPatternGeo = new THREE.ConeGeometry(roofRadius * 1.01, roofHeight * 0.98, 6);
         const roofPatternMesh = new THREE.Mesh(roofPatternGeo, roofPatternMat);
+        roofPatternMesh.castShadow = false;
+        roofPatternMesh.receiveShadow = false;
         roofPatternMesh.position.y = height + platformHeight + roofHeight * 0.98 / 2;
         roofPatternMesh.rotation.y = Math.PI / 8;
         roofPatternMesh.castShadow = false;
@@ -147,7 +151,7 @@ export function createTower(level = 1) {
     
     let midGeo, midMat, midMesh;
     if (isCylindrical) {
-        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 4); // fewer segments
     } else {
         midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
     }
@@ -173,6 +177,8 @@ export function createTower(level = 1) {
         lowMat.color.copy(midMat.color);
     }
     const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.castShadow = false;
+    lowMesh.receiveShadow = false;
     lowMesh.position.copy(center);
     low.add(lowMesh);
     

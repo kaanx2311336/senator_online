@@ -118,7 +118,7 @@ export function createHouse(level = 1) {
             const pz = (i < 2 ? 1 : -1) * (depth / 2 + 1);
             
             // Geometry optimization: reduced segments from 8 to 6
-            const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, height * 0.8, 6);
+            const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, height * 0.8, 6, 1, true);
             const pillarMesh = new THREE.Mesh(pillarGeo, materialPillar);
             pillarMesh.position.set(px, height * 0.4, pz);
             pillarMesh.castShadow = false;

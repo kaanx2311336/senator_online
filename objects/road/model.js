@@ -12,6 +12,8 @@ export function createRoad(startX, startZ, endX, endZ, width) {
     const geometry = new THREE.PlaneGeometry(width, length);
     
     const road = new THREE.Mesh(geometry, material);
+    road.castShadow = false;
+    road.receiveShadow = false;
     
     // Position exactly in the middle of start and end
     const midX = startX + dx / 2;

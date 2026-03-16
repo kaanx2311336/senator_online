@@ -1,0 +1,9 @@
+FAZ A2-14: Tüm Modellerde Polygon Azaltma (DALGA 12) TAMAMLANDI
+
+1. Tüm `model.js` dosyalarındaki `CylinderGeometry` segment sayıları maksimum 8 olacak şekilde sınırlandırıldı.
+2. `SphereGeometry` segment sayıları maksimum 12 olacak şekilde sınırlandırıldı.
+3. Gereksiz iç geometriler, silindirlerin taban veya tavan gibi görünmeyen yüzleri `openEnded: true` özelliği ile kaldırılarak optimize edildi (Örn: Colosseum adımları, Tapınak kolonları, Senato kubbe tabanları).
+4. Her modelin içerisindeki mesh objelerinin `castShadow = false` ve `receiveShadow = false` olduğundan emin olundu ve tümü düzeltildi.
+5. LOD (Level of Detail) 'mid' (orta) seviyelerinde geometri daha da agresif bir şekilde basitleştirilerek `CylinderGeometry` segmenti 4'e düşürüldü. 'low' (düşük) seviyelerde BoxGeometry veya en düşük seviye çokgen kullanılarak performans sağlandı.
+
+Tüm işlemler sadece `objects/` ve `public/objects/` klasörlerindeki `model.js` ve diğer objelere ait JS dosyalarında yapıldı. Package değişiklikleri veya geçici dosyalar projeden kaldırıldı ve temizlendi.

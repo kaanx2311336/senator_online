@@ -39,6 +39,8 @@ function createSenateHigh(level = 1) {
         
         const stepGeo = new THREE.BoxGeometry(currentStepWidth, currentStepHeight, currentStepDepth);
         const stepMesh = new THREE.Mesh(stepGeo, materialBase);
+        stepMesh.castShadow = false;
+        stepMesh.receiveShadow = false;
         
         stepMesh.position.set(0, currentStepHeight / 2 + (i * currentStepHeight), baseDepth / 2 + currentStepDepth / 2);
         stepMesh.castShadow = false;
@@ -56,7 +58,7 @@ function createSenateHigh(level = 1) {
 
         for (let i = 0; i < numColumns; i++) {
             // Geometry optimization: reduced segments from 16 to 8
-            const colGeo = new THREE.CylinderGeometry(columnRadius, columnRadius, columnHeight, 8);
+            const colGeo = new THREE.CylinderGeometry(columnRadius, columnRadius, columnHeight, 8, 1, true);
             const colMesh = new THREE.Mesh(colGeo, materialBase);
             colMesh.castShadow = false;
             colMesh.receiveShadow = false;
@@ -112,6 +114,8 @@ function createSenateHigh(level = 1) {
         const extrudeSettings = { depth: pedimentDepth, bevelEnabled: false };
         const pedimentGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
         const pedimentMesh = new THREE.Mesh(pedimentGeo, materialBase);
+        pedimentMesh.castShadow = false;
+        pedimentMesh.receiveShadow = false;
         pedimentMesh.position.set(0, stepCount * stepHeight + 0.4 + baseHeight + 0.4, baseDepth / 2 + 1 - pedimentDepth / 2);
         pedimentMesh.castShadow = false;
         pedimentMesh.receiveShadow = false;
@@ -119,8 +123,10 @@ function createSenateHigh(level = 1) {
 
         // Gold decoration on pediment for level 5
         if (level === 5) {
-            const decGeo = new THREE.CylinderGeometry(1, 1, 0.2, 12);
+            const decGeo = new THREE.CylinderGeometry(1, 1, 0.2, 8);
             const decMesh = new THREE.Mesh(decGeo, materialGold);
+            decMesh.castShadow = false;
+            decMesh.receiveShadow = false;
             decMesh.rotation.x = Math.PI / 2;
             decMesh.position.set(0, stepCount * stepHeight + 0.4 + baseHeight + 0.4 + 1, baseDepth / 2 + 1 + 0.1);
             decMesh.castShadow = false;
@@ -142,7 +148,7 @@ function createSenateHigh(level = 1) {
         group.add(domeMesh);
         
         // Base for dome
-        const domeBaseGeo = new THREE.CylinderGeometry(domeRadius, domeRadius, 2, domeSegments);
+        const domeBaseGeo = new THREE.CylinderGeometry(domeRadius, domeRadius, 2, 8);
         const domeBaseMesh = new THREE.Mesh(domeBaseGeo, materialBase);
         domeBaseMesh.position.y = baseHeight + 1;
         domeBaseMesh.castShadow = false;
@@ -179,6 +185,8 @@ function createSenateHigh(level = 1) {
         for (let i = 0; i < numWindows; i++) {
             const winGeo = new THREE.BoxGeometry(windowDepth, windowHeight, windowWidth);
             const winMesh = new THREE.Mesh(winGeo, materialWindow);
+            winMesh.castShadow = false;
+            winMesh.receiveShadow = false;
             const xPos = side * (baseWidth / 2 - windowDepth / 2);
             const zPos = startZ + (i * winSpacing);
             winMesh.position.set(xPos, baseHeight / 2 + 1, zPos);
@@ -218,7 +226,7 @@ export function createSenate(level = 1) {
     
     let midGeo, midMat, midMesh;
     if (isCylindrical) {
-        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 4); // fewer segments
     } else {
         midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
     }
@@ -244,6 +252,8 @@ export function createSenate(level = 1) {
         lowMat.color.copy(midMat.color);
     }
     const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.castShadow = false;
+    lowMesh.receiveShadow = false;
     lowMesh.position.copy(center);
     low.add(lowMesh);
     

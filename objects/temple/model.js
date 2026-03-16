@@ -11,7 +11,7 @@ const materials = {
 
 // Ortak geometri fonksiyonları
 function createColumn(radius, height) {
-    const geo = new THREE.CylinderGeometry(radius, radius, height, 8);
+    const geo = new THREE.CylinderGeometry(radius, radius, height, 8, 1, true);
     const mesh = new THREE.Mesh(geo, materials.marble);
     mesh.castShadow = false;
     mesh.receiveShadow = false;
@@ -106,6 +106,8 @@ export function createTemple(level) {
                 // PrismGeometry yerine Cylinder kullanarak üçgen çatı yapalım
                 const altRoofGeo = new THREE.CylinderGeometry(2, 2, 4.2, 3);
                 const roof3 = new THREE.Mesh(altRoofGeo, materials.roof);
+                roof3.castShadow = false;
+                roof3.receiveShadow = false;
                 roof3.position.y = 3;
                 roof3.rotation.z = Math.PI / 2;
                 roof3.rotation.y = Math.PI / 2;
@@ -137,7 +139,7 @@ export function createTemple(level) {
                 group.add(room4);
 
                 // Kubbe
-                const domeGeo4 = new THREE.SphereGeometry(1.5, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+                const domeGeo4 = new THREE.SphereGeometry(1.5, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2);
                 const dome4 = new THREE.Mesh(domeGeo4, materials.roof);
                 dome4.position.y = 3.1;
                 dome4.castShadow = false;
@@ -170,7 +172,7 @@ export function createTemple(level) {
                 group.add(room5);
 
                 // Altın Kubbe
-                const domeGeo5 = new THREE.SphereGeometry(1.8, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+                const domeGeo5 = new THREE.SphereGeometry(1.8, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2);
                 const dome5 = new THREE.Mesh(domeGeo5, materials.gold);
                 dome5.position.y = 4.05;
                 dome5.castShadow = false;

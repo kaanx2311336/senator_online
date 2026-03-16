@@ -23,7 +23,7 @@ function createColosseumHigh(level = 1) {
     
     // Outer Wall
     // Geometry optimization: reduced segments from 32 to 24
-    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 24);
+    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 8);
     const outerWall = new THREE.Mesh(outerGeo, material);
     outerWall.scale.set(1, 1, radiusZ / radiusX);
     outerWall.position.y = height / 2;
@@ -39,7 +39,7 @@ function createColosseumHigh(level = 1) {
         
         if (stepRadiusX > 0) {
             // Geometry optimization: reduced segments from 32 to 24
-            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, 24);
+            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, 8);
             const stepMesh = new THREE.Mesh(stepGeo, material);
             stepMesh.scale.set(1, 1, radiusZ / radiusX);
             stepMesh.position.y = stepHeight / 2;
@@ -53,7 +53,7 @@ function createColosseumHigh(level = 1) {
     const arenaRadiusX = radiusX * (1 - (numSteps * 0.15)) - 1;
     if (arenaRadiusX > 0) {
         // Geometry optimization: reduced segments from 32 to 24
-        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, 24);
+        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, 8);
         const arenaMesh = new THREE.Mesh(arenaGeo, arenaMaterial);
         arenaMesh.scale.set(1, 1, radiusZ / radiusX);
         arenaMesh.position.y = 0.1;
@@ -77,6 +77,8 @@ function createColosseumHigh(level = 1) {
 
                 const archGeo = new THREE.BoxGeometry(archWidth, archHeight, archDepth);
                 const archMesh = new THREE.Mesh(archGeo, archMaterial);
+                archMesh.castShadow = false;
+                archMesh.receiveShadow = false;
                 
                 const x = Math.cos(angle) * (radiusX - 0.5);
                 const z = Math.sin(angle) * (radiusZ - 0.5);
@@ -92,6 +94,8 @@ function createColosseumHigh(level = 1) {
                 // Add a small decorative ledge below each arch
                 const ledgeGeo = new THREE.BoxGeometry(archWidth * 1.2, 0.2, archDepth * 1.1);
                 const ledgeMesh = new THREE.Mesh(ledgeGeo, material);
+                ledgeMesh.castShadow = false;
+                ledgeMesh.receiveShadow = false;
                 ledgeMesh.position.set(x, yPos - archHeight / 2, z);
                 ledgeMesh.lookAt(new THREE.Vector3(x * 2, yPos - archHeight / 2, z * 2));
                 ledgeMesh.castShadow = false;
@@ -112,6 +116,8 @@ function createColosseumHigh(level = 1) {
         
         const gateGeo = new THREE.BoxGeometry(gateWidth, gateHeight, gateDepth);
         const gateMesh = new THREE.Mesh(gateGeo, gateMaterial);
+        gateMesh.castShadow = false;
+        gateMesh.receiveShadow = false;
         
         const x = Math.cos(angle) * (radiusX - 0.2);
         const z = Math.sin(angle) * (radiusZ - 0.2);
@@ -127,6 +133,8 @@ function createColosseumHigh(level = 1) {
         if (level === 5) {
             const trimGeo = new THREE.BoxGeometry(gateWidth + 0.4, gateHeight + 0.4, gateDepth - 1);
             const trimMesh = new THREE.Mesh(trimGeo, goldMaterial);
+            trimMesh.castShadow = false;
+            trimMesh.receiveShadow = false;
             trimMesh.position.set(x, gateHeight / 2, z);
             trimMesh.lookAt(new THREE.Vector3(x * 2, gateHeight / 2, z * 2));
             trimMesh.castShadow = false;
@@ -165,7 +173,7 @@ export function createColosseum(level = 1) {
     
     let midGeo, midMat, midMesh;
     if (isCylindrical) {
-        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 4); // fewer segments
     } else {
         midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
     }
@@ -191,6 +199,8 @@ export function createColosseum(level = 1) {
         lowMat.color.copy(midMat.color);
     }
     const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.castShadow = false;
+    lowMesh.receiveShadow = false;
     lowMesh.position.copy(center);
     low.add(lowMesh);
     

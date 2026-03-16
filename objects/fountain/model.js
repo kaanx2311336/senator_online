@@ -14,7 +14,7 @@ function createFountainHigh() {
 
     // Base Pool
     // Geometry optimization: reduced segments from 32 to 16
-    const poolGeo = new THREE.CylinderGeometry(3, 3, 0.5, 16);
+    const poolGeo = new THREE.CylinderGeometry(3, 3, 0.5, 8);
     const poolMesh = new THREE.Mesh(poolGeo, materialBase);
     poolMesh.position.y = 0.25;
     poolMesh.castShadow = false;
@@ -23,7 +23,7 @@ function createFountainHigh() {
 
     // Inner Water
     // Geometry optimization: reduced segments from 32 to 16
-    const waterGeo = new THREE.CylinderGeometry(2.8, 2.8, 0.4, 16);
+    const waterGeo = new THREE.CylinderGeometry(2.8, 2.8, 0.4, 8);
     const waterMesh = new THREE.Mesh(waterGeo, materialWater);
     waterMesh.position.y = 0.3;
     waterMesh.castShadow = false;
@@ -31,7 +31,7 @@ function createFountainHigh() {
     group.add(waterMesh);
 
     // Center Pillar
-    const pillarGeo = new THREE.CylinderGeometry(0.5, 0.8, 2, 12);
+    const pillarGeo = new THREE.CylinderGeometry(0.5, 0.8, 2, 8);
     const pillarMesh = new THREE.Mesh(pillarGeo, materialBase);
     pillarMesh.position.y = 1.5;
     pillarMesh.castShadow = false;
@@ -39,7 +39,7 @@ function createFountainHigh() {
     group.add(pillarMesh);
 
     // Center Bowl
-    const bowlGeo = new THREE.CylinderGeometry(1.5, 0.5, 0.5, 12);
+    const bowlGeo = new THREE.CylinderGeometry(1.5, 0.5, 0.5, 8);
     const bowlMesh = new THREE.Mesh(bowlGeo, materialBase);
     bowlMesh.position.y = 2.5;
     bowlMesh.castShadow = false;
@@ -47,7 +47,7 @@ function createFountainHigh() {
     group.add(bowlMesh);
 
     // Water inside Center Bowl
-    const topWaterGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.1, 12);
+    const topWaterGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.1, 8);
     const topWaterMesh = new THREE.Mesh(topWaterGeo, materialWater);
     topWaterMesh.position.y = 2.7;
     topWaterMesh.castShadow = false;
@@ -55,7 +55,7 @@ function createFountainHigh() {
     group.add(topWaterMesh);
     
     // Spout (top)
-    const spoutGeo = new THREE.CylinderGeometry(0.2, 0.4, 0.6, 12);
+    const spoutGeo = new THREE.CylinderGeometry(0.2, 0.4, 0.6, 8);
     const spoutMesh = new THREE.Mesh(spoutGeo, materialBase);
     spoutMesh.position.y = 3;
     spoutMesh.castShadow = false;
@@ -100,7 +100,7 @@ export function createFountain() {
     
     let midGeo, midMat, midMesh;
     if (isCylindrical) {
-        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 4); // fewer segments
     } else {
         midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
     }
@@ -126,6 +126,8 @@ export function createFountain() {
         lowMat.color.copy(midMat.color);
     }
     const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.castShadow = false;
+    lowMesh.receiveShadow = false;
     lowMesh.position.copy(center);
     low.add(lowMesh);
     
