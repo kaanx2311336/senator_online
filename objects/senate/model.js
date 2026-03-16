@@ -9,10 +9,10 @@ export function createSenate(level = 1) {
     const group = new THREE.Group();
     group.name = 'Senate';
 
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xFAF0E6 }); // White marble
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xB7410E }); // Terracotta
+    const materialBase = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x111111 }); // White marble
+    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xB7410E, emissive: 0x1a0b0b }); // Terracotta
     const materialWindow = new THREE.MeshLambertMaterial({ color: 0x333333 }); // Dark windows
-    const materialGold = new THREE.MeshLambertMaterial({ color: 0xFFD700 }); // Gold
+    const materialGold = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 }); // Gold
 
     // Base Dimensions
     const baseWidth = 16;
@@ -60,21 +60,36 @@ export function createSenate(level = 1) {
             colMesh.receiveShadow = false;
             group.add(colMesh);
 
-            const capGeo = new THREE.BoxGeometry(columnRadius * 3, 0.4, columnRadius * 3);
+            // Detailed capitals and bases for marble columns
+            const capGeo = new THREE.BoxGeometry(columnRadius * 3, 0.2, columnRadius * 3);
             const capMesh = new THREE.Mesh(capGeo, level === 5 ? materialGold : materialBase);
             capMesh.castShadow = false;
             capMesh.receiveShadow = false;
             group.add(capMesh);
             
-            const baseColGeo = new THREE.BoxGeometry(columnRadius * 3, 0.4, columnRadius * 3);
+            const capGeo2 = new THREE.CylinderGeometry(columnRadius * 1.5, columnRadius, 0.4, 16);
+            const capMesh2 = new THREE.Mesh(capGeo2, level === 5 ? materialGold : materialBase);
+            capMesh2.castShadow = false;
+            capMesh2.receiveShadow = false;
+            group.add(capMesh2);
+            
+            const baseColGeo = new THREE.BoxGeometry(columnRadius * 3, 0.3, columnRadius * 3);
             const baseColMesh = new THREE.Mesh(baseColGeo, materialBase);
             baseColMesh.castShadow = false;
             baseColMesh.receiveShadow = false;
             group.add(baseColMesh);
             
-            baseColMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.2, baseDepth / 2 + 1);
-            colMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.4 + columnHeight / 2, baseDepth / 2 + 1);
-            capMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.4 + columnHeight + 0.2, baseDepth / 2 + 1);
+            const baseColGeo2 = new THREE.CylinderGeometry(columnRadius, columnRadius * 1.5, 0.4, 16);
+            const baseColMesh2 = new THREE.Mesh(baseColGeo2, materialBase);
+            baseColMesh2.castShadow = false;
+            baseColMesh2.receiveShadow = false;
+            group.add(baseColMesh2);
+            
+            baseColMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.15, baseDepth / 2 + 1);
+            baseColMesh2.position.set(startX + (i * spacing), stepCount * stepHeight + 0.5, baseDepth / 2 + 1);
+            colMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight / 2, baseDepth / 2 + 1);
+            capMesh2.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight + 0.2, baseDepth / 2 + 1);
+            capMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight + 0.5, baseDepth / 2 + 1);
         }
     }
 
@@ -137,6 +152,14 @@ export function createSenate(level = 1) {
         roofMesh.castShadow = false;
         roofMesh.receiveShadow = false;
         group.add(roofMesh);
+
+        // Decorative roof trim
+        const trimGeo = new THREE.BoxGeometry(baseWidth + 1.2, 0.2, baseDepth + 1.2);
+        const trimMesh = new THREE.Mesh(trimGeo, materialBase);
+        trimMesh.position.y = baseHeight;
+        trimMesh.castShadow = false;
+        trimMesh.receiveShadow = false;
+        group.add(trimMesh);
     }
 
     // Side Wall Windows

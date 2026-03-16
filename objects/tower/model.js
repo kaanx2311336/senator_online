@@ -12,10 +12,10 @@ export function createTower(level = 1) {
     const radius = 2 + level * 0.5;
     const height = 8 + level * 3;
     
-    const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xD4C5A9 }); // Gray-white
-    const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x8B3A3A }); // Tile red
+    const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xD4C5A9, emissive: 0x111111 }); // Gray-white with slight glow
+    const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Tile red
     const woodMaterial = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Wood
-    const flagMaterial = new THREE.MeshLambertMaterial({ color: 0xCC0000 }); // Red flag
+    const flagMaterial = new THREE.MeshLambertMaterial({ color: 0xCC0000, emissive: 0x330000 }); // Red flag
 
     // Main cylindrical body
     const bodyGeo = new THREE.CylinderGeometry(radius, radius, height, 16);
@@ -81,6 +81,16 @@ export function createTower(level = 1) {
         roofMesh.castShadow = false;
         roofMesh.receiveShadow = false;
         group.add(roofMesh);
+
+        // Tile pattern effect
+        const roofPatternGeo = new THREE.ConeGeometry(roofRadius * 1.01, roofHeight * 0.98, 8);
+        const roofPatternMat = new THREE.MeshLambertMaterial({ color: 0x7a3030, emissive: 0x1a0b0b });
+        const roofPatternMesh = new THREE.Mesh(roofPatternGeo, roofPatternMat);
+        roofPatternMesh.position.y = height + platformHeight + roofHeight * 0.98 / 2;
+        roofPatternMesh.rotation.y = Math.PI / 8;
+        roofPatternMesh.castShadow = false;
+        roofPatternMesh.receiveShadow = false;
+        group.add(roofPatternMesh);
         
         // Level 5: Flag
         if (level === 5) {

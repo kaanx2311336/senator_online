@@ -14,11 +14,11 @@ export function createColosseum(level = 1) {
     const radiusZ = 8 + level * 1.5;
     const height = 4 + level * 2;
     
-    const material = new THREE.MeshLambertMaterial({ color: 0xF0EAD6 }); // Off-white marble
+    const material = new THREE.MeshLambertMaterial({ color: 0xF0EAD6, emissive: 0x111111 }); // Off-white marble with slight emissive
     const arenaMaterial = new THREE.MeshLambertMaterial({ color: 0xD2B48C }); // Sand colored arena
     const archMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 }); // Dark gaps
     const gateMaterial = new THREE.MeshLambertMaterial({ color: 0x1A1A1A }); // Very dark gates
-    const goldMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700 });
+    const goldMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 });
 
     // Outer Wall
     const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 32);
@@ -84,6 +84,15 @@ export function createColosseum(level = 1) {
                 archMesh.castShadow = false;
                 archMesh.receiveShadow = false;
                 group.add(archMesh);
+
+                // Add a small decorative ledge below each arch
+                const ledgeGeo = new THREE.BoxGeometry(archWidth * 1.2, 0.2, archDepth * 1.1);
+                const ledgeMesh = new THREE.Mesh(ledgeGeo, material);
+                ledgeMesh.position.set(x, yPos - archHeight / 2, z);
+                ledgeMesh.lookAt(new THREE.Vector3(x * 2, yPos - archHeight / 2, z * 2));
+                ledgeMesh.castShadow = false;
+                ledgeMesh.receiveShadow = false;
+                group.add(ledgeMesh);
             }
         }
     }

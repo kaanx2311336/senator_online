@@ -1,0 +1,10 @@
+FAZ A2-6 Görsel İyileştirme Tamamlandı.
+
+Gerçekleştirilen İşlemler:
+- `objects/house/model.js`, `objects/senate/model.js`, `objects/colosseum/model.js`, `objects/tower/model.js`, `objects/wall/model.js` dosyalarındaki mevcut binalara MeshLambertMaterial kullanılarak mermer dokusu hissi veren `emissive` efektleri eklendi ve çatı kiremit detayları/renk varyasyonları zenginleştirildi.
+- Sütun altlıkları ve başlıkları eklendi/iyileştirildi, gölgelendirmeler düzeltildi (`castShadow`, `receiveShadow` değeri `false` olarak tutuldu).
+- Opsiyonel dekoratif nesneler eklendi:
+  - `objects/fountain/model.js` (Çeşme)
+  - `objects/statue/model.js` (Roma Heykeli)
+
+Onay için bekliyor.

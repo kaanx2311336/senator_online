@@ -9,11 +9,12 @@ export function createHouse(level = 1) {
     const group = new THREE.Group();
     group.name = 'House';
 
-    const materialBase = new THREE.MeshLambertMaterial({ color: 0xE0CDA9 }); // Plaster/wood
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0x8B3A3A }); // Terracotta
+    const materialBase = new THREE.MeshLambertMaterial({ color: 0xE0CDA9, emissive: 0x111111 }); // Plaster/wood
+    const materialRoof = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Terracotta
+    const materialRoofAlt = new THREE.MeshLambertMaterial({ color: 0x9B4A4A, emissive: 0x1a0b0b }); // Alternate Terracotta
     const materialDoor = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Dark wood
     const materialGarden = new THREE.MeshLambertMaterial({ color: 0x228B22 }); // Grass/plants
-    const materialPillar = new THREE.MeshLambertMaterial({ color: 0xFAF0E6 }); // Marble
+    const materialPillar = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x222222 }); // Marble
 
     // Level 1: Simple Hut
     let width = 4;
@@ -53,6 +54,15 @@ export function createHouse(level = 1) {
         roofMesh.castShadow = false;
         roofMesh.receiveShadow = false;
         group.add(roofMesh);
+        
+        // Add some variation for tiles
+        const roofGeoAlt = new THREE.ConeGeometry(width * 0.71, 1.8, 4);
+        const roofMeshAlt = new THREE.Mesh(roofGeoAlt, materialRoofAlt);
+        roofMeshAlt.rotation.y = Math.PI / 4 + 0.05;
+        roofMeshAlt.position.y = height + 1;
+        roofMeshAlt.castShadow = false;
+        roofMeshAlt.receiveShadow = false;
+        group.add(roofMeshAlt);
     } else {
         const roofGeo = new THREE.ConeGeometry(width * 0.8, height * 0.5, 4);
         const roofMesh = new THREE.Mesh(roofGeo, materialRoof);
@@ -61,6 +71,15 @@ export function createHouse(level = 1) {
         roofMesh.castShadow = false;
         roofMesh.receiveShadow = false;
         group.add(roofMesh);
+
+        // Add some variation for tiles
+        const roofGeoAlt = new THREE.ConeGeometry(width * 0.81, height * 0.45, 4);
+        const roofMeshAlt = new THREE.Mesh(roofGeoAlt, materialRoofAlt);
+        roofMeshAlt.rotation.y = Math.PI / 4 + 0.05;
+        roofMeshAlt.position.y = height + height * 0.25;
+        roofMeshAlt.castShadow = false;
+        roofMeshAlt.receiveShadow = false;
+        group.add(roofMeshAlt);
     }
 
     // Door
@@ -103,6 +122,21 @@ export function createHouse(level = 1) {
             pillarMesh.castShadow = false;
             pillarMesh.receiveShadow = false;
             group.add(pillarMesh);
+
+            // Pillar bases and caps
+            const pBaseGeo = new THREE.BoxGeometry(0.8, 0.3, 0.8);
+            const pBaseMesh = new THREE.Mesh(pBaseGeo, materialPillar);
+            pBaseMesh.position.set(px, 0.25, pz);
+            pBaseMesh.castShadow = false;
+            pBaseMesh.receiveShadow = false;
+            group.add(pBaseMesh);
+
+            const pCapGeo = new THREE.BoxGeometry(0.8, 0.3, 0.8);
+            const pCapMesh = new THREE.Mesh(pCapGeo, materialPillar);
+            pCapMesh.position.set(px, height * 0.8 - 0.15, pz);
+            pCapMesh.castShadow = false;
+            pCapMesh.receiveShadow = false;
+            group.add(pCapMesh);
         }
     }
     
