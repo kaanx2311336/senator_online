@@ -1,0 +1,5 @@
+FAZ A4-7: Pazar Etkileşimi & Ticaret Animasyonları (DALGA 7)
+- public/objects/market/interact.js oluşturuldu ve pazar tezgahı seçim/kaldırma ve yükseltme işlemleri eklendi.
+- Ticaret animasyonları için GSAP ve Three.js Points kullanılarak altın parçacık uçuş animasyonları entegre edildi (tradeAnimation).
+- Seçim durumunda hafif sallanma animasyonu eklendi.
+- Görev tamamlandı.

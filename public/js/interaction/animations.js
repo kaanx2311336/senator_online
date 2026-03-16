@@ -319,3 +319,73 @@ export function showToast(msg) {
         }
     });
 }
+
+/**
+ * Ticaret animasyonu (altın parçacıklar uçuşsun)
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Vector3} position 
+ */
+export function tradeAnimation(scene, position) {
+    try {
+        if (!scene || !position) return;
+
+        const particleCount = 30;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = [];
+
+        for (let i = 0; i < particleCount; i++) {
+            // Rastgele pozisyon (merkeze yakın)
+            positions[i * 3] = position.x + (Math.random() - 0.5) * 3;
+            positions[i * 3 + 1] = position.y + 1 + Math.random() * 2;
+            positions[i * 3 + 2] = position.z + (Math.random() - 0.5) * 3;
+
+            // Rastgele hız (her yöne saçılma ve yukarı uçuş)
+            velocities.push({
+                x: (Math.random() - 0.5) * 4,
+                y: Math.random() * 4 + 2, // Yukarı yönlü
+                z: (Math.random() - 0.5) * 4
+            });
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // Parlak altın rengi
+        const material = new THREE.PointsMaterial({
+            color: 0xffd700, // Gold
+            size: 0.8,
+            transparent: true,
+            opacity: 1
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        const dummyObj = { t: 0 };
+        gsap.to(dummyObj, {
+            t: 1,
+            duration: 1.5,
+            ease: "power2.out",
+            onUpdate: () => {
+                const positionsArray = particles.geometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    positionsArray[i * 3] += velocities[i].x * 0.03;
+                    positionsArray[i * 3 + 1] += velocities[i].y * 0.03;
+                    positionsArray[i * 3 + 2] += velocities[i].z * 0.03;
+                    // Biraz yerçekimi (aşağı doğru ivme)
+                    velocities[i].y -= 0.05;
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+                // Fade out
+                particles.material.opacity = 1 - dummyObj.t;
+            },
+            onComplete: () => {
+                scene.remove(particles);
+                geometry.dispose();
+                material.dispose();
+            }
+        });
+    } catch (err) {
+        console.error("tradeAnimation error:", err);
+    }
+}
