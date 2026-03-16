@@ -1,0 +1,4 @@
+FAZ A5-1 TAMAMLANDI: Roma Mimarisi Araştırma + Shared Contracts (DALGA 1)
+- research/roma_mimarisi.txt oluşturuldu ve detaylı Roma mimarisi araştırması eklendi.
+- shared/contracts/objectRegistry.js oluşturuldu ve nesne tipleri eklendi.
+- shared/types/gameTypes.js oluşturuldu ve veri tipleri eklendi.
