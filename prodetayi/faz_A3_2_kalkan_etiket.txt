@@ -1,0 +1,17 @@
+# FAZ A3-2: Kalkan Etiketleri (DALGA 2) Tamamlandı
+
+Bu rapor, Agent 3 (UI_Designer) tarafından yapılan kalkan etiketleri görevindeki (Faz A3-2) değişiklikleri ve sonuçları özetlemektedir.
+
+## Yapılan Değişiklikler
+
+1.  **`js/ui/shieldLabels.js` oluşturuldu**:
+    *   3D sahnede binaların üzerinde seviyelerini göstermek amacıyla HTML tabanlı `CSS2DObject` nesneleri oluşturmak üzere işlevler eklendi.
+    *   `createShieldLabel(id, level, position)` fonksiyonu oluşturuldu. Bu fonksiyon, verilen pozisyonda, belirtilen seviye metnine sahip yeni bir HTML div elementi yaratıyor ve bunu bir `CSS2DObject` içine yerleştirerek döndürüyor.
+    *   `updateShieldLabel(id, newLevel)` fonksiyonu oluşturuldu. Sahnedeki etiketleri kolayca güncelleyebilmek için DOM ID üzerinden ilgili HTML elementinin içeriğini (`textContent`) güncelliyor.
+
+2.  **`css/ui.css` güncellendi**:
+    *   Yeni `shield-label` CSS sınıfı eklendi.
+    *   Kalkan görünümü sağlamak için `clip-path: polygon(...)` özelliği kullanılarak div'in köşe hatları kalkan şeklinde kesildi.
+    *   İstenilen tasarım gereksinimlerine göre arka plan mavi (`#2563eb`), yazı tipi kalın (`bold`), beyaz (`white`), `40px` genişliğinde ve `45px` yüksekliğinde olması sağlandı. Ayrıca içeriklerin merkeze hizalanması için `flex` kullanıldı. Projenin ana fontu olan `Cinzel` fontu tanımlandı.
+
+Görev başarıyla tamamlanmış ve inisiyatif alınarak belirlenen koşullar direkt olarak koda geçirilmiştir. Olası onay bekleme durumları bertaraf edilmiş ve sistem otomasyonuna uygun olarak geliştirme sonlandırılmıştır.
