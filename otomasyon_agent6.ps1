@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Continue"
-$env:PATH = "C:\Users\kaan\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;" + $env:PATH
+$env:PATH = "C:\Users\PC\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;" + $env:PATH
 
 $agentName = "AGENT6_ORCHESTRATOR"
 $agentNum = 6
@@ -101,7 +101,7 @@ function Jules-Oturum ($promptText, $dalgaNo, $fazKod) {
     $sessionId = $null; $julesRetry = 0
     while (-not $sessionId -and $julesRetry -lt 5) {
         if ($julesRetry -gt 0) { Start-Sleep -Seconds ($julesRetry * 20) }
-        $output = cmd.exe /c "chcp 65001 >nul & C:\Users\kaan\AppData\Roaming\npm\jules.cmd new < `"$taskFile`" 2>&1"
+        $output = cmd.exe /c "chcp 65001 >nul & C:\Users\PC\AppData\Roaming\npm\jules.cmd new < `"$taskFile`" 2>&1"
         foreach ($line in $output) { $s = Strip-Ansi $line; Write-Host "  > $s" -ForegroundColor DarkGray; if ($s -match "/session/(\d+)") { $sessionId = $matches[1] } }
         $julesRetry++
     }
@@ -111,7 +111,7 @@ function Jules-Oturum ($promptText, $dalgaNo, $fazKod) {
     $isCompleted = $false; $retryCount = 0; $awaitingHandled = $false
     while (-not $isCompleted) {
         Start-Sleep -Seconds 30
-        try { $statusOutput = cmd.exe /c "chcp 65001 >nul & C:\Users\kaan\AppData\Roaming\npm\jules.cmd remote list --session" } catch { continue }
+        try { $statusOutput = cmd.exe /c "chcp 65001 >nul & C:\Users\PC\AppData\Roaming\npm\jules.cmd remote list --session" } catch { continue }
         $sessionStatus = "Bilinmiyor"
         foreach ($line in $statusOutput) { $s = Strip-Ansi $line; if ($s -match "\b$sessionId\b") { if ($s -match "Completed") { $sessionStatus = "Completed" } elseif ($s -match "Failed") { $sessionStatus = "Failed" } elseif ($s -match "Running") { $sessionStatus = "Running" } elseif ($s -match "Awaiting") { $sessionStatus = "Awaiting User" }; break } }
         Write-Host "  [$sessionStatus]" -ForegroundColor Cyan
@@ -122,7 +122,7 @@ function Jules-Oturum ($promptText, $dalgaNo, $fazKod) {
             Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait("^v"); Start-Sleep -Milliseconds 800; [System.Windows.Forms.SendKeys]::SendWait("{ENTER}"); $awaitingHandled = $true
         } else { $retryCount++; if ($retryCount -gt 120) { return $null } }
     }
-    cmd.exe /c "chcp 65001 >nul & C:\Users\kaan\AppData\Roaming\npm\jules.cmd remote pull --session $sessionId --apply"
+    cmd.exe /c "chcp 65001 >nul & C:\Users\PC\AppData\Roaming\npm\jules.cmd remote pull --session $sessionId --apply"
     Start-Sleep -Seconds 5; git add .; git commit -m "[$agentName] DALGA $dalgaNo $fazKod (Session: $sessionId)"; git push origin main
     return $sessionId
 }
@@ -140,9 +140,9 @@ if (Test-Path $logFile) {
     if ($sessionMatches.Count -gt 0) {
         $sonSession = $sessionMatches[$sessionMatches.Count - 1].Groups[1].Value
         try {
-            $statusOutput = cmd.exe /c "chcp 65001 >nul & C:\Users\kaan\AppData\Roaming\npm\jules.cmd remote list --session 2>&1"
+            $statusOutput = cmd.exe /c "chcp 65001 >nul & C:\Users\PC\AppData\Roaming\npm\jules.cmd remote list --session 2>&1"
             foreach ($line in $statusOutput) { $s = Strip-Ansi $line; if ($s -match "\b$sonSession\b" -and $s -match "Completed") {
-                cmd.exe /c "chcp 65001 >nul & C:\Users\kaan\AppData\Roaming\npm\jules.cmd remote pull --session $sonSession --apply 2>&1" | Out-Null
+                cmd.exe /c "chcp 65001 >nul & C:\Users\PC\AppData\Roaming\npm\jules.cmd remote pull --session $sonSession --apply 2>&1" | Out-Null
                 Start-Sleep -Seconds 3; git add . 2>&1 | Out-Null; git commit -m "[$agentName] KURTARMA" 2>&1 | Out-Null; git push origin main 2>&1 | Out-Null; break
             } }
         } catch {}

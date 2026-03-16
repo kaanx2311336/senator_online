@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Continue"
-$env:PATH = "C:\Users\kaan\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;" + $env:PATH
+$env:PATH = "C:\Users\PC\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI;" + $env:PATH
 
 Write-Host "=================================================================" -ForegroundColor Yellow
 Write-Host " ROMA CITY BUILDER - 6 AGENT PARALEL OTOMASYON MASTER SCRIPTI   " -ForegroundColor Yellow
