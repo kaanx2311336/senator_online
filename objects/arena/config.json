@@ -1,0 +1,21 @@
+{
+  "name": "Arena",
+  "type": "entertainment",
+  "levels": [
+    {
+      "level": 1,
+      "cost": 1500,
+      "entertainment_value": 10
+    },
+    {
+      "level": 2,
+      "cost": 3000,
+      "entertainment_value": 25
+    },
+    {
+      "level": 3,
+      "cost": 6000,
+      "entertainment_value": 50
+    }
+  ]
+}

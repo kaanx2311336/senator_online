@@ -1,0 +1,18 @@
+FAZ A2-13: Arena Dekorasyon Varyantları (DALGA 11) TAMAMLANDI
+
+Yapılan İşlemler:
+1. `objects/arena` ve `public/objects/arena` klasörleri oluşturuldu.
+2. `objects/arena/config.json` dosyası oluşturuldu:
+   - name="Arena", type="entertainment", 3 seviye eklendi.
+3. `objects/arena/model.js` dosyası oluşturuldu:
+   - `createArena(level)` fonksiyonu ile Kolezyum'dan daha küçük bir mahalle arenası modeli yapıldı.
+   - Low-poly Three.js geometrileri kullanılarak dış duvar, zemin (kum) ve ahşap oturma alanları oluşturuldu.
+   - Tüm materyaller modül seviyesinde örneklendi.
+   - Gölgeler (castShadow, receiveShadow) devre dışı bırakıldı.
+   - `addFestivalDecorations(arenaGroup)` fonksiyonu ile Festival modunda renkli bayraklar ve çiçek süsleri eklendi.
+4. `objects/arena/interact.js` dosyası oluşturuldu:
+   - `onSelect`, `onDeselect` ve `onUpgrade` fonksiyonları tanımlandı.
+   - Seçim efekti olarak materyallerin `emissive` özelliğine glow (0x222222 eşdeğeri addScalar(0.1)) eklendi ve orijinal değerler `userData.originalEmissives` içerisinde saklandı/geri yüklendi.
+5. Tüm dosyalar `public/objects/arena/` dizinine kopyalandı.
+
+Durum: GÖREV TAMAMLANDI.
