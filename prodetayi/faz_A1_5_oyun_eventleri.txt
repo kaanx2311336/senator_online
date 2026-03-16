@@ -1,0 +1,13 @@
+FAZ A1-5: Temel Oyun Socket Event'leri (DALGA 3) Başarıyla Tamamlandı
+
+Gerçekleştirilen İşlemler:
+1. `sockets/gameSocket.js` dosyası güncellendi.
+2. `services/OkeyEngine.js` dosyası require ile eklendi ve game_started, draw_tile, discard_tile, sort_tiles eventlerinde kullanıldı.
+3. `shared/contracts/socketEvents.js` dosyasından `GAME_EVENTS` ve `GAME_RESPONSES` import edilerek kullanıldı. (Desteklenmeyen ortamlar için fallback eklendi)
+4. `game_started` event'i ile `OkeyEngine.startGame()` çağrıldı. Her oyuncuya sadece kendi taşları gönderildi. Gösterge ve okey taşları herkese bildirildi.
+5. `draw_tile` event'i ile `OkeyEngine.drawTile()` üzerinden validasyon yapıldı, çekilen taş oyuncuya gönderildi, diğer oyunculara 'opponent_drew' event'i ile bildirildi.
+6. `discard_tile` event'i ile `OkeyEngine.discardTile()` validasyonu sağlandı. Atılan taş herkese gösterildi, sıra değiştirildi ve 'turn_changed' emit edildi.
+7. `sort_tiles` event'i ile oyuncunun istakasındaki taş sıralaması `OkeyEngine.sortTiles()` aracılığıyla sunucu tarafına kaydedildi.
+8. 30 saniyelik hamle süresi (turn timer) `startTurnTimer` fonksiyonu ile eklendi. Süre dolduğunda `OkeyEngine.autoDiscardTile()` ile otomatik taş atma sağlandı.
+
+Bu işlemler sayesinde "Temel Oyun Socket Event'leri" görevi başarıyla yerine getirilmiştir.
