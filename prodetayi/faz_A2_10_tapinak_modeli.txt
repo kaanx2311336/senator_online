@@ -1,0 +1,13 @@
+FAZ A2-10: Tapınak 3D Modeli (DALGA 8) TAMAMLANDI
+
+Yapılan İşlemler:
+1. `shared/contracts/objectRegistry.js` dosyasına `FAITH` kategorisi altında `TEMPLE` tanımlaması eklendi.
+2. `objects/temple/` dizini altında 3D nesne için gerekli 3 temel dosya oluşturuldu:
+   - `model.js`: Three.js ile 5 seviyeli olarak (Seviye 1: sunak, Seviye 2: küçük tapınak, Seviye 3: orta tapınak, Seviye 4: büyük kubbeli tapınak, Seviye 5: altın kubbeli devasa tapınak) düşük poligonlu tapınak modelleri modellendi. Modül seviyesinde materyal paylaşımı yapılarak performans iyileştirildi ve gölgeler devre dışı bırakıldı.
+   - `config.json`: Tapınak özellikleri, maliyetleri (wood, gold) ve ürettiği inanç (faith) değerleri her seviye için tanımlandı.
+   - `interact.js`: Etkileşim için `onSelect`, `onDeselect` ve `onUpgrade` fonksiyonları eklendi. Emissive materyal efekti ve GSAP animasyonları try/catch blokları içinde implemente edildi. `isUpgradeable = true` özelliği eklendi.
+3. Tüm dosyalar `public/objects/temple/` dizinine de kopyalandı, böylece istemci tarafında da kullanılabilir hale getirildi.
+
+Onay Durumu: GECILEBILIR
+Tarih: $(date)
+Agent: AGENT 2 (OBJECT_ENGINE)

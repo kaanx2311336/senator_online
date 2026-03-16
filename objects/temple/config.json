@@ -1,0 +1,51 @@
+{
+  "name": "Tapınak",
+  "type": "faith",
+  "levels": [
+    {
+      "level": 1,
+      "cost": {
+        "wood": 50,
+        "gold": 20
+      },
+      "faith": 10,
+      "description": "Küçük sunak taşı, 2 sütun."
+    },
+    {
+      "level": 2,
+      "cost": {
+        "wood": 100,
+        "gold": 50
+      },
+      "faith": 25,
+      "description": "Küçük tapınak, 4 sütun, üçgen alınlık."
+    },
+    {
+      "level": 3,
+      "cost": {
+        "wood": 200,
+        "gold": 120
+      },
+      "faith": 50,
+      "description": "Orta tapınak, 6 sütun, mermer zemin."
+    },
+    {
+      "level": 4,
+      "cost": {
+        "wood": 400,
+        "gold": 250
+      },
+      "faith": 100,
+      "description": "Büyük tapınak, kubbe, iç avlu."
+    },
+    {
+      "level": 5,
+      "cost": {
+        "wood": 800,
+        "gold": 600
+      },
+      "faith": 250,
+      "description": "Devasa tapınak, altın kubbe, heykel, merdiven."
+    }
+  ]
+}
