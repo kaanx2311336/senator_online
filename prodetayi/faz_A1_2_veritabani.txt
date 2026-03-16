@@ -1,0 +1,19 @@
+FAZ A1-2 Veritabanı Katmanı (DALGA 1) Tamamlandı
+
+Yapılan İşlemler:
+1. sqlm.js ve dbConfig.js oluşturuldu/güncellendi:
+   - MySQL bağlantı havuzu yapılandırıldı ve otomatik reconnect eklendi (dbConfig.js üzerinden enableKeepAlive, vb. ve PROTOCOL_CONNECTION_LOST eventleri ile).
+   - initDatabase() fonksiyonu ile şu tablolar oluşturuldu:
+     - users: id, username, password_hash, avatar, elo_rating, gold, games_played, games_won, total_score, created_at
+     - rooms: id, name, owner_id, status, max_players, bet_amount, created_at
+     - games: id, room_id, hand_number, indicator_tile, okey_tile, current_turn, status, started_at, ended_at
+     - game_players: id, game_id, user_id, seat_position, tiles, score, is_connected
+     - game_moves: id, game_id, user_id, move_type, tile_data, created_at
+     - stats: id, user_id, wins, losses, highest_score, total_hands, pairs_won, runs_won
+   - CRUD fonksiyonları eklendi: ekle(), getir(), guncelle(), sil(), listele()
+   
+2. server.js güncellendi:
+   - sqlm.js import edildi.
+   - Sunucu başlatılmadan ÖNCE initDatabase() fonksiyonunun çağrılması sağlandı (veritabanı hazır olmadan HTTP server port açmıyor).
+
+Tüm işlemler başarıyla tamamlanmıştır.

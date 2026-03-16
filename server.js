@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const lobbySocket = require('./sockets/lobbySocket');
 const gameSocket = require('./sockets/gameSocket');
 const chatSocket = require('./sockets/chatSocket');
+const sqlm = require('./sqlm');
 
 const app = express();
 const server = http.createServer(app);
@@ -46,6 +47,12 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+
+sqlm.initDatabase().then(() => {
+  server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}).catch(error => {
+  console.error('Failed to initialize database:', error);
+  process.exit(1);
 });
