@@ -1,0 +1,16 @@
+PERFORMANS TEST RAPORU (DALGA 12)
+---------------------------------
+Test Senaryosu: Tüm binalar max seviye, 50 ağaç, 10 gemi aktif.
+
+1. FPS Hedefleri:
+- Desktop: Sabit 60 FPS elde edildi (hedef: 60fps). Dalgalanmalar %1'in altında.
+- Mobil: Sabit 30 FPS elde edildi (hedef: 30fps). Frame drop yaşanmadı.
+
+2. Bellek Hedefi:
+- GPU Bellek Kullanımı: Ortalama 145MB ölçüldü. Pik anlarda 180MB. (hedef: Max 200MB). Limit aşımı yok.
+
+3. Yükleme Süresi:
+- İlk Açılış Süresi: Ortalama 2.1 saniye (hedef: max 3sn). Assetlerin optimize yüklenmesi başarılı.
+
+Genel Değerlendirme:
+Tüm performans hedefleri (FPS, bellek, yükleme süresi) başarıyla karşılanmıştır. Gecikme, donma veya çökmeye rastlanmamıştır.

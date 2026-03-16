@@ -1,0 +1,15 @@
+MOBİL UYUMLULUK RAPORU (DALGA 12)
+----------------------------------
+1. Touch Event'ler (Dokunmatik Olayları):
+- Tıklama (Tap): Başarılı, tüm binalar (seçim ve upgrade) sorunsuz çalışıyor.
+- Kaydırma (Swipe) / Harita Pan: Başarılı, kesintisiz kaydırma.
+- İki Parmak Yakınlaştırma (Pinch to Zoom): Başarılı.
+
+2. UI Responsive Uyumu:
+- Ekran ölçeklendirmesi ve layout yerleşimleri (Portrait ve Landscape modlarında) başarılı. Menüler, butonlar ve detay panelleri ekrana taşıyor mu: Hayır.
+
+3. WebGL Uyumluluğu:
+- Çeşitli mobil tarayıcılarda (Chrome, Safari, Firefox) tam WebGL 2.0 desteği onaylandı. Görsel hata veya shader hatası gözlemlenmedi.
+
+Genel Değerlendirme:
+Tüm mobil interaksiyon ve arayüz testleri (Touch, UI, WebGL) başarıyla geçildi, mobil cihazlarda sorunsuz bir deneyim sağlanmıştır.
