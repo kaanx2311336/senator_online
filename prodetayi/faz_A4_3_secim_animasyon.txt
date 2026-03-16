@@ -1,0 +1,14 @@
+FAZ A4-3: Seçim Sistemi + GSAP Animasyonları TAMAMLANDI.
+
+1. js/interaction/selection.js oluşturuldu:
+   - selectBuilding ve deselectBuilding fonksiyonları eklendi.
+   - Seçim halkası eklendi ve tıklanan objenin pozisyonuna yerleştirildi.
+   - interact.js dinamik import edilerek onSelect ve onDeselect fonksiyonları çağrıldı.
+   
+2. js/interaction/animations.js oluşturuldu:
+   - GSAP kütüphanesi kullanılarak bounceAnimation (zıplama) ve selectionPulse (halka nabız) eklendi.
+   - Detay panelinin (detail-panel) aşağıdan kayarak gelmesi ve aşağı kayarak gitmesi için panelSlideIn ve panelSlideOut fonksiyonları yazıldı.
+   
+3. js/interaction/raycaster.js güncellendi:
+   - onClick içinde bina tıklaması algılandığında selection.js üzerinden selectBuilding tetiklendi.
+   - Boşluğa tıklandığında deselectBuilding tetiklendi.

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { selectBuilding, deselectBuilding } from './selection.js';
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -38,9 +39,13 @@ export function onClick(event, camera, scene, callback) {
             }
             
             if (found) {
-                callback(found);
+                selectBuilding(found);
+                if (callback) callback(found);
                 return; // İlk bulduğunda çık
             }
         }
     }
+    
+    // Boş alana tıklanmışsa deselect işlemi yap
+    deselectBuilding();
 }
