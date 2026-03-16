@@ -42,7 +42,7 @@ export function showNotification(message) {
             opacity: 1,
             x: 0,
             duration: 0.4,
-            ease: "back.out(1.7)"
+            ease: "power2.out"
         });
 
         // 3 saniye sonra çıkış animasyonu

@@ -65,7 +65,7 @@ export function addBuff(type, durationSeconds) {
     
     // Animation in
     if (window.gsap) {
-        gsap.fromTo(buffEl, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.7)" });
+        gsap.fromTo(buffEl, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" });
     }
     
     // Custom tooltip logic if RomanUI.Tooltip exists

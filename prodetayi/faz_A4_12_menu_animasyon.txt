@@ -1,0 +1,9 @@
+Görev: FAZ A4-12: Menü Geçiş Animasyonları (DALGA 12)
+
+Yapılan Değişiklikler:
+1. `startGameTransition`: Ana menüden oyuna geçişte 2sn'lik `power2.out` yumuşatma ile zoom efekti GSAP fonksiyonu (`animations.js`) dosyasına eklendi. UI_DESIGNER'ın tetiklemesi için `window.RomanUI.startGameTransition` olarak paylaşıldı.
+2. `openSettingsPanel` & `closeSettingsPanel`: Ayarlar paneli için arka planı blurlaştıran ve alttan yukarı kayma efektine (slide animasyonu) sahip yeni panel fonksiyonları `animations.js` içerisine eklendi. `window.RomanUI` üzerinden paylaşıldı.
+3. Tutarlı Easing (`power2.out`): Panel animasyonlarında kullanılan `sine.inOut`, `back.out(1.7)`, `power1.in` vb. easing metotları SADECE panel geçişleri için (`buffPanel.js`, `festivalPanel.js`, `notifications.js`, `animations.js` içerisindeki panelSlideIn vb.) `power2.out` ile değiştirildi. 3D nesne animasyonlarına dokunulmadı.
+4. Touch Delay Kaldırıldı: `raycaster.js` içerisine DOM Head elementine `<style>` enjekte edilerek `touch-action: manipulation` eklendi, böylece mobil cihazlardaki 300ms gecikme sorunu giderildi (Dosya sınırlamalarından ötürü JS ile enjekte edilmiştir).
+
+İşlemler başarıyla tamamlanmış ve inisiyatif alınarak bitirilmiştir.

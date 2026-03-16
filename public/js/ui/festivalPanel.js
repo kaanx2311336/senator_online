@@ -160,7 +160,7 @@ class FestivalPanel {
         // Pop animation
         const modal = this.container.querySelector('div');
         if (window.gsap) {
-            gsap.fromTo(modal, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+            gsap.fromTo(modal, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out' });
         }
     }
 
@@ -169,7 +169,7 @@ class FestivalPanel {
         
         const modal = this.container.querySelector('div');
         if (window.gsap) {
-            gsap.to(modal, { scale: 0.8, opacity: 0, duration: 0.2, ease: 'power1.in', onComplete: () => {
+            gsap.to(modal, { scale: 0.8, opacity: 0, duration: 0.2, ease: 'power2.out', onComplete: () => {
                 this.container.classList.remove('opacity-100', 'pointer-events-auto');
                 this.container.classList.add('opacity-0', 'pointer-events-none');
             }});

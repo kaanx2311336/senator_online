@@ -159,3 +159,12 @@ export function onClick(event, camera, scene, callback) {
         console.error("onClick error:", error);
     }
 }
+
+// Touch event'lerde 300ms delay kaldırma (touch-action: manipulation)
+const style = document.createElement('style');
+style.innerHTML = `
+  canvas, button, input, select, textarea {
+    touch-action: manipulation;
+  }
+`;
+document.head.appendChild(style);

@@ -134,7 +134,7 @@ export function panelSlideOut() {
             y: 500,
             opacity: 0,
             duration: 0.3,
-            ease: "power2.in",
+            ease: "power2.out",
             onComplete: () => {
                 panel.classList.remove('open');
                 panel.style.display = 'none';
@@ -837,3 +837,94 @@ export function startFestivalAnimation(scene, colosseumMesh) {
         console.error("startFestivalAnimation error:", err);
     }
 }
+
+/**
+ * Ana menüden oyuna geçiş: Kamera uzaktan yakına zoom animasyonu (GSAP, 2sn)
+ * @param {THREE.Camera} camera 
+ * @param {OrbitControls} controls 
+ */
+export function startGameTransition(camera, controls) {
+    if (!camera || !controls || !window.gsap) return;
+
+    // Hedef kameranın oyundaki konumu: (0, 50, 60) civarı, target: (0, 0, 0)
+    const targetCameraPos = new THREE.Vector3(0, 50, 60);
+    const targetControlsTarget = new THREE.Vector3(0, 0, 0);
+
+    // Başlangıç için kamerayı çok uzağa ve yukarıya alalım
+    const startCameraPos = new THREE.Vector3(0, 300, 300);
+    
+    // Anında başlangıç konumuna al
+    camera.position.copy(startCameraPos);
+    
+    // Zoom in animasyonu
+    gsap.to(camera.position, {
+        x: targetCameraPos.x,
+        y: targetCameraPos.y,
+        z: targetCameraPos.z,
+        duration: 2.0,
+        ease: "power2.out",
+        onUpdate: () => controls.update()
+    });
+
+    // Target animasyonu
+    gsap.to(controls.target, {
+        x: targetControlsTarget.x,
+        y: targetControlsTarget.y,
+        z: targetControlsTarget.z,
+        duration: 2.0,
+        ease: "power2.out",
+        onUpdate: () => controls.update()
+    });
+}
+
+/**
+ * Ayarlar paneli açılış/kapanış: Blur efekti + slide animasyonu
+ */
+export function openSettingsPanel(panel) {
+    if (!panel || !window.gsap) return;
+    
+    panel.style.display = 'block';
+    
+    gsap.fromTo(panel, 
+        { y: -50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }
+    );
+    
+    // Arka plan blur efekti için bir overlay ekle veya mevcut sahneyi bulanıklaştır
+    let overlay = document.getElementById('settings-blur-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'settings-blur-overlay';
+        overlay.className = 'fixed inset-0 z-[45] backdrop-blur-sm bg-black/30 opacity-0 pointer-events-none transition-opacity duration-300';
+        document.body.appendChild(overlay);
+    }
+    
+    overlay.classList.remove('opacity-0');
+    overlay.classList.add('opacity-100');
+}
+
+export function closeSettingsPanel(panel) {
+    if (!panel || !window.gsap) return;
+    
+    gsap.to(panel, {
+        y: -50,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: () => {
+            panel.style.display = 'none';
+        }
+    });
+    
+    const overlay = document.getElementById('settings-blur-overlay');
+    if (overlay) {
+        overlay.classList.remove('opacity-100');
+        overlay.classList.add('opacity-0');
+    }
+}
+
+// Make these interaction functions globally available for the UI Designer (Agent 3) to hook into
+window.RomanUI = window.RomanUI || {};
+window.RomanUI.startGameTransition = startGameTransition;
+window.RomanUI.openSettingsPanel = openSettingsPanel;
+window.RomanUI.closeSettingsPanel = closeSettingsPanel;
