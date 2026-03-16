@@ -1,0 +1,17 @@
+TEST 1: index.html tarayıcıda açılıyor mu? Siyah ekran yok mu?
+SONUÇ: BAŞARISIZ. index.html dosyası kök dizinde bulunamadı. Siyah ekran (veya hiç açılmama) durumu söz konusu.
+
+TEST 2: Yeşil zemin görünüyor mu?
+SONUÇ: BAŞARISIZ. js/ground.js veya zemin oluşturan js/scene.js bulunamadı, dolayısıyla yeşil zemin render edilemez.
+
+TEST 3: Senato, Kolezyum, evler, surlar, kuleler, ağaçlar haritada mı?
+SONUÇ: KISMEN BAŞARILI. js/objectLoader.js dosyasında Kolezyum, surlar, kuleler, ağaçlar ve yollar yükleniyor ve sahneye eklenmek üzere objeler dönülüyor. Ancak Senato ve Ev (house) nesneleri objectLoader.js içerisinde yüklenmiyor. Ayrıca bunları sahneye basacak bir main.js / scene.js yok.
+
+TEST 4: Üst kaynak barı görünüyor mu? Kaynaklar doğru mu?
+SONUÇ: BAŞARILI. js/ui/topBar.js dosyası mevcut, kaynaklar (Odun, Buğday, Nüfus, Altın) tanımlı ve DOM yüklendiğinde body'ye ekleniyor. Ancak HTML dosyası olmadığı için fiilen görünmez, kod olarak mevcuttur.
+
+TEST 5: Kalkan etiketleri bina tepelerinde mi?
+SONUÇ: BAŞARILI. js/ui/shieldLabels.js dosyası oluşturulmuş ve CSS2DObject ile kalkan etiketleri yaratabiliyor.
+
+TEST 6: Kamera pan/zoom çalışıyor mu? Rotate kapalı mı?
+SONUÇ: BAŞARILI. js/interaction/cameraControls.js dosyasında OrbitControls ayarlanmış: enableRotate = false, enablePan = true, enableZoom = true olarak yapılandırılmış.

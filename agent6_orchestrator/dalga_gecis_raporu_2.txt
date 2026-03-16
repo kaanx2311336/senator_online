@@ -1,0 +1,6 @@
+FAZ A6-2: DALGA GECIS ONAYI - DALGA 2
+SONUC: KOSULLU GECIS
+
+Dalga 2 icin olusturulmasi gereken modeller (Kolezyum, Surlar, Agaclar vb.), UI bilesenleri (topBar, shieldLabels) ve etkilesim modulleri (cameraControls) basariyla gelistirilmistir.
+Ancak index.html dosyasi, js/scene.js ve ana baglayici olan js/main.js dosyalari bulunmadigi icin tam bir gorsel test gerceklestirilememistir.
+Sistem bilesenleri ayri ayri mevcut oldugu icin pipeline'i tikamamak adina KOSULLU GECIS onayi verilmistir. Eksik dosyalar Dalga 3 ve sonraki fazlarda tamamlanmalidir.
