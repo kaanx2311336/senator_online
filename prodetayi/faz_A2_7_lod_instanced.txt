@@ -1,0 +1,5 @@
+FAZ A2-7 TAMAMLANDI: LOD + Instanced Mesh (DALGA 6)
+
+- Colosseum, Tower, Wall, Fountain, Senate ve Statue modelleri için `THREE.LOD` (Level of Detail) eklendi. Uzaklık seviyelerine göre (0, 50, 100) yüksek detay, orta detay (basitleştirilmiş) ve düşük detay (basit geometrik şekiller) kullanımı sağlandı.
+- objectLoader.js dosyası güncellenerek Ağaç (Tree) ve Ev (House) nesneleri için `THREE.InstancedMesh` yapısına geçildi. Binlerce nesne tek bir draw call ile çizilebilir hale getirildi, performans iyileştirildi.
+- İlgili objelerin raycasting işlemlerinin ve userData taşımasının LOD yapısında da sorunsuz çalışması garanti altına alındı.
