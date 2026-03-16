@@ -1,0 +1,9 @@
+{
+  "name": "Ağaç",
+  "type": "decoration",
+  "variants": [
+    "cypress",
+    "pine"
+  ],
+  "count": 20
+}

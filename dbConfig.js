@@ -1,4 +1,6 @@
 const mysql = require('mysql2');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const dbConfig = {
@@ -11,7 +13,11 @@ const dbConfig = {
   connectionLimit: 10,
   queueLimit: 0,
   enableKeepAlive: true,
-  keepAliveInitialDelay: 0
+  keepAliveInitialDelay: 0,
+  ssl: {
+    ca: fs.readFileSync(path.join(__dirname, 'ca.pem')),
+    rejectUnauthorized: false
+  }
 };
 
 let pool;

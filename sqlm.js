@@ -115,7 +115,7 @@ async function ekle(table, data) {
   const keys = Object.keys(data).join(', ');
   const placeholders = Object.keys(data).map(() => '?').join(', ');
   const values = Object.values(data);
-  const sql = \`INSERT INTO \${table} (\${keys}) VALUES (\${placeholders})\`;
+  const sql = `INSERT INTO ${table} (${keys}) VALUES (${placeholders})`;
   
   const [result] = await pool.query(sql, values);
   return result.insertId;
@@ -128,7 +128,7 @@ async function ekle(table, data) {
  * @returns {Promise<Object|null>} - The retrieved record or null if not found.
  */
 async function getir(table, id) {
-  const sql = \`SELECT * FROM \${table} WHERE id = ?\`;
+  const sql = `SELECT * FROM ${table} WHERE id = ?`;
   const [rows] = await pool.query(sql, [id]);
   return rows.length > 0 ? rows[0] : null;
 }
@@ -141,10 +141,10 @@ async function getir(table, id) {
  * @returns {Promise<boolean>} - True if the record was updated, false otherwise.
  */
 async function guncelle(table, id, data) {
-  const updates = Object.keys(data).map(key => \`\${key} = ?\`).join(', ');
+  const updates = Object.keys(data).map(key => `${key} = ?`).join(', ');
   const values = Object.values(data);
   values.push(id);
-  const sql = \`UPDATE \${table} SET \${updates} WHERE id = ?\`;
+  const sql = `UPDATE ${table} SET ${updates} WHERE id = ?`;
   
   const [result] = await pool.query(sql, values);
   return result.affectedRows > 0;
@@ -157,7 +157,7 @@ async function guncelle(table, id, data) {
  * @returns {Promise<boolean>} - True if the record was deleted, false otherwise.
  */
 async function sil(table, id) {
-  const sql = \`DELETE FROM \${table} WHERE id = ?\`;
+  const sql = `DELETE FROM ${table} WHERE id = ?`;
   const [result] = await pool.query(sql, [id]);
   return result.affectedRows > 0;
 }
@@ -169,13 +169,13 @@ async function sil(table, id) {
  * @returns {Promise<Array>} - An array of matching records.
  */
 async function listele(table, conditions = {}) {
-  let sql = \`SELECT * FROM \${table}\`;
+  let sql = `SELECT * FROM ${table}`;
   const values = [];
   
   const keys = Object.keys(conditions);
   if (keys.length > 0) {
-    const whereClause = keys.map(key => \`\${key} = ?\`).join(' AND ');
-    sql += \` WHERE \${whereClause}\`;
+    const whereClause = keys.map(key => `${key} = ?`).join(' AND ');
+    sql += ` WHERE ${whereClause}`;
     values.push(...Object.values(conditions));
   }
   

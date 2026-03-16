@@ -1,0 +1,277 @@
+import * as THREE from 'three';
+
+// Shared Materials
+const materialBase = new THREE.MeshLambertMaterial({ color: 0xFDF5E6, emissive: 0x111111 }); // White/Cream
+const materialRoof = new THREE.MeshLambertMaterial({ color: 0x800000, emissive: 0x1a0000 }); // Dark Red
+const materialWindow = new THREE.MeshLambertMaterial({ color: 0x111122, emissive: 0x050510 }); // Dark windows
+const materialGold = new THREE.MeshLambertMaterial({ color: 0xFFD700, emissive: 0x222200 }); // Gold
+
+/**
+ * Creates a Senate model based on level.
+ * @param {number} level - The level of the senate (1-5).
+ * @returns {THREE.Group} The senate group.
+ */
+function createSenateHigh(level = 1) {
+    const group = new THREE.Group();
+    group.name = 'Senate';
+
+    // Base Dimensions
+    const baseWidth = 16;
+    const baseHeight = 8 + (level > 2 ? 2 : 0); // taller base for level 3+
+    const baseDepth = 12;
+
+    // Base Building
+    const baseGeo = new THREE.BoxGeometry(baseWidth, baseHeight, baseDepth);
+    const baseMesh = new THREE.Mesh(baseGeo, materialBase);
+    baseMesh.position.y = baseHeight / 2;
+    baseMesh.castShadow = false;
+    baseMesh.receiveShadow = false;
+    group.add(baseMesh);
+
+    // Front Steps
+    const stepCount = level > 1 ? 4 : 2; // more steps for higher levels
+    const stepDepth = 1.5;
+    const stepHeight = 1;
+    for (let i = 0; i < stepCount; i++) {
+        const currentStepWidth = baseWidth - 4;
+        const currentStepDepth = stepDepth * (stepCount - i);
+        const currentStepHeight = stepHeight;
+        
+        const stepGeo = new THREE.BoxGeometry(currentStepWidth, currentStepHeight, currentStepDepth);
+        const stepMesh = new THREE.Mesh(stepGeo, materialBase);
+        
+        stepMesh.position.set(0, currentStepHeight / 2 + (i * currentStepHeight), baseDepth / 2 + currentStepDepth / 2);
+        stepMesh.castShadow = false;
+        stepMesh.receiveShadow = false;
+        group.add(stepMesh);
+    }
+
+    // Level 2+ details: Columns
+    if (level >= 2) {
+        const numColumns = level > 3 ? 8 : 6;
+        const columnRadius = 0.4;
+        const columnHeight = baseHeight;
+        const spacing = (baseWidth - 4) / (numColumns - 1);
+        const startX = -(baseWidth - 4) / 2;
+
+        for (let i = 0; i < numColumns; i++) {
+            // Geometry optimization: reduced segments from 16 to 8
+            const colGeo = new THREE.CylinderGeometry(columnRadius, columnRadius, columnHeight, 8);
+            const colMesh = new THREE.Mesh(colGeo, materialBase);
+            colMesh.castShadow = false;
+            colMesh.receiveShadow = false;
+            group.add(colMesh);
+
+            // Detailed capitals and bases for marble columns
+            const capGeo = new THREE.BoxGeometry(columnRadius * 3, 0.2, columnRadius * 3);
+            const capMesh = new THREE.Mesh(capGeo, level === 5 ? materialGold : materialBase);
+            capMesh.castShadow = false;
+            capMesh.receiveShadow = false;
+            group.add(capMesh);
+            
+            // Geometry optimization: reduced segments from 16 to 8
+            const capGeo2 = new THREE.CylinderGeometry(columnRadius * 1.5, columnRadius, 0.4, 8);
+            const capMesh2 = new THREE.Mesh(capGeo2, level === 5 ? materialGold : materialBase);
+            capMesh2.castShadow = false;
+            capMesh2.receiveShadow = false;
+            group.add(capMesh2);
+            
+            const baseColGeo = new THREE.BoxGeometry(columnRadius * 3, 0.3, columnRadius * 3);
+            const baseColMesh = new THREE.Mesh(baseColGeo, materialBase);
+            baseColMesh.castShadow = false;
+            baseColMesh.receiveShadow = false;
+            group.add(baseColMesh);
+            
+            // Geometry optimization: reduced segments from 16 to 8
+            const baseColGeo2 = new THREE.CylinderGeometry(columnRadius, columnRadius * 1.5, 0.4, 8);
+            const baseColMesh2 = new THREE.Mesh(baseColGeo2, materialBase);
+            baseColMesh2.castShadow = false;
+            baseColMesh2.receiveShadow = false;
+            group.add(baseColMesh2);
+            
+            baseColMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.15, baseDepth / 2 + 1);
+            baseColMesh2.position.set(startX + (i * spacing), stepCount * stepHeight + 0.5, baseDepth / 2 + 1);
+            colMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight / 2, baseDepth / 2 + 1);
+            capMesh2.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight + 0.2, baseDepth / 2 + 1);
+            capMesh.position.set(startX + (i * spacing), stepCount * stepHeight + 0.7 + columnHeight + 0.5, baseDepth / 2 + 1);
+        }
+    }
+
+    // Level 3+ details: Pediment
+    if (level >= 3) {
+        const pedimentWidth = baseWidth - 2;
+        const pedimentHeight = 3;
+        const pedimentDepth = 2;
+        
+        const shape = new THREE.Shape();
+        shape.moveTo(-pedimentWidth / 2, 0);
+        shape.lineTo(0, pedimentHeight);
+        shape.lineTo(pedimentWidth / 2, 0);
+        shape.lineTo(-pedimentWidth / 2, 0);
+
+        const extrudeSettings = { depth: pedimentDepth, bevelEnabled: false };
+        const pedimentGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        const pedimentMesh = new THREE.Mesh(pedimentGeo, materialBase);
+        pedimentMesh.position.set(0, stepCount * stepHeight + 0.4 + baseHeight + 0.4, baseDepth / 2 + 1 - pedimentDepth / 2);
+        pedimentMesh.castShadow = false;
+        pedimentMesh.receiveShadow = false;
+        group.add(pedimentMesh);
+
+        // Gold decoration on pediment for level 5
+        if (level === 5) {
+            const decGeo = new THREE.CylinderGeometry(1, 1, 0.2, 12);
+            const decMesh = new THREE.Mesh(decGeo, materialGold);
+            decMesh.rotation.x = Math.PI / 2;
+            decMesh.position.set(0, stepCount * stepHeight + 0.4 + baseHeight + 0.4 + 1, baseDepth / 2 + 1 + 0.1);
+            decMesh.castShadow = false;
+            decMesh.receiveShadow = false;
+            group.add(decMesh);
+        }
+    }
+
+    // Level 4+ details: Dome
+    if (level >= 4) {
+        const domeRadius = level === 5 ? 8 : 6;
+        // Geometry optimization: reduced sphere segments
+        const domeSegments = level === 5 ? 32 : 16;
+        const domeGeo = new THREE.SphereGeometry(domeRadius, domeSegments, domeSegments, 0, Math.PI * 2, 0, Math.PI / 2);
+        const domeMesh = new THREE.Mesh(domeGeo, level === 5 ? materialGold : materialRoof);
+        domeMesh.position.y = baseHeight;
+        domeMesh.castShadow = false;
+        domeMesh.receiveShadow = false;
+        group.add(domeMesh);
+        
+        // Base for dome
+        const domeBaseGeo = new THREE.CylinderGeometry(domeRadius, domeRadius, 2, domeSegments);
+        const domeBaseMesh = new THREE.Mesh(domeBaseGeo, materialBase);
+        domeBaseMesh.position.y = baseHeight + 1;
+        domeBaseMesh.castShadow = false;
+        domeBaseMesh.receiveShadow = false;
+        group.add(domeBaseMesh);
+        domeMesh.position.y = baseHeight + 2;
+    } else {
+        // Simple roof for level 1-3
+        const roofGeo = new THREE.BoxGeometry(baseWidth + 1, 1, baseDepth + 1);
+        const roofMesh = new THREE.Mesh(roofGeo, materialRoof);
+        roofMesh.position.y = baseHeight + 0.5;
+        roofMesh.castShadow = false;
+        roofMesh.receiveShadow = false;
+        group.add(roofMesh);
+
+        // Decorative roof trim
+        const trimGeo = new THREE.BoxGeometry(baseWidth + 1.2, 0.2, baseDepth + 1.2);
+        const trimMesh = new THREE.Mesh(trimGeo, materialBase);
+        trimMesh.position.y = baseHeight;
+        trimMesh.castShadow = false;
+        trimMesh.receiveShadow = false;
+        group.add(trimMesh);
+    }
+
+    // Side Wall Windows
+    const windowWidth = 1.5;
+    const windowHeight = 3;
+    const windowDepth = 0.5;
+    const numWindows = level > 2 ? 6 : 4;
+    const winSpacing = baseDepth / (numWindows + 1);
+    const startZ = -baseDepth / 2 + winSpacing;
+
+    for(let side of [-1, 1]) {
+        for (let i = 0; i < numWindows; i++) {
+            const winGeo = new THREE.BoxGeometry(windowDepth, windowHeight, windowWidth);
+            const winMesh = new THREE.Mesh(winGeo, materialWindow);
+            const xPos = side * (baseWidth / 2 - windowDepth / 2);
+            const zPos = startZ + (i * winSpacing);
+            winMesh.position.set(xPos, baseHeight / 2 + 1, zPos);
+            winMesh.castShadow = false;
+            winMesh.receiveShadow = false;
+            group.add(winMesh);
+        }
+    }
+    
+    return group;
+}
+
+
+
+
+/**
+ * Creates a Senate LOD model.
+ */
+export function createSenate(level = 1) {
+    const lod = new THREE.LOD();
+    
+    // High detail
+    const high = createSenateHigh(level);
+    
+    // To generate simpler versions, we will use bounding boxes and basic shapes
+    // Calculate bounding box from high detail model
+    const box = new THREE.Box3().setFromObject(high);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    
+    // Medium detail: A simplified version using just a few blocks or cylinder
+    const mid = new THREE.Group();
+    // For Colosseum/Tower/Fountain, cylinder is better. For others, box.
+    const isCylindrical = ['Colosseum', 'Tower', 'Fountain', 'Statue'].includes('Senate');
+    
+    let midGeo, midMat, midMesh;
+    if (isCylindrical) {
+        midGeo = new THREE.CylinderGeometry(size.x/2, size.z/2, size.y, 8); // fewer segments
+    } else {
+        midGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
+    }
+    
+    // Average color from high detail
+    midMat = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
+    if (high.children && high.children.length > 0 && high.children[0].material) {
+        if (high.children[0].material.color) {
+            midMat.color.copy(high.children[0].material.color);
+        }
+    }
+    
+    midMesh = new THREE.Mesh(midGeo, midMat);
+    midMesh.position.copy(center);
+    if (isCylindrical) midMesh.position.y = size.y / 2; // Adjust for cylinder origin
+    mid.add(midMesh);
+    
+    // Low detail: Very simple box
+    const low = new THREE.Group();
+    const lowGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
+    const lowMat = new THREE.MeshLambertMaterial({ color: 0x888888 }); // Generic gray
+    if (midMat.color) {
+        lowMat.color.copy(midMat.color);
+    }
+    const lowMesh = new THREE.Mesh(lowGeo, lowMat);
+    lowMesh.position.copy(center);
+    low.add(lowMesh);
+    
+    // Add levels to LOD
+    // High: 0-50, Mid: 50-100, Low: 100+
+    lod.addLevel(high, 0);
+    lod.addLevel(mid, 50);
+    lod.addLevel(low, 100);
+    
+    // Copy userData from high to LOD so raycasting and logic still works
+    lod.userData = high.userData || {};
+    lod.name = high.name || 'Senate';
+    
+    // Geometry dispose
+    lod.dispose = function() {
+        lod.traverse((child) => {
+            if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material && child.material !== materialBase && child.material !== materialRoof && child.material !== materialWindow && child.material !== materialGold) {
+                    if (Array.isArray(child.material)) {
+                        child.material.forEach(m => m.dispose());
+                    } else {
+                        child.material.dispose();
+                    }
+                }
+            }
+        });
+    };
+
+    return lod;
+}

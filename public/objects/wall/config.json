@@ -1,0 +1,9 @@
+{
+  "name": "Sur",
+  "type": "defense",
+  "segments": [
+    { "length": 10, "cost": 100 },
+    { "length": 20, "cost": 180 },
+    { "length": 30, "cost": 250 }
+  ]
+}
