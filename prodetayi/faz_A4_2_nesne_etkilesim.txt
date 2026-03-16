@@ -1,0 +1,12 @@
+# FAZ A4-2: Nesne Etkileşim Dosyaları (DALGA 2) Tamamlandı
+
+Aşağıdaki nesneler için `interact.js` dosyaları oluşturuldu:
+* `objects/senate/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: true`
+* `objects/colosseum/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: true`
+* `objects/house/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: true`
+* `objects/wall/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: false`
+* `objects/tower/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: true`
+* `objects/tree/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: false`
+* `objects/road/interact.js`: `onSelect()`, `onDeselect()`, `isUpgradeable: false`
+
+Tüm dosyalarda `onSelect` fonksiyonu seçilen nesnenin bilgilerini gösteren HTML içeriğini detailPanel elementine ekler ve gösterir. `onDeselect` fonksiyonu ise bu paneli gizler ve içeriğini temizler. `shared/contracts/objectRegistry.js`'deki nesne isimlerine uygun olarak adlandırmalar yapıldı.
