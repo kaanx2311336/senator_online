@@ -1,0 +1,17 @@
+FAZ A3-6 TAMAMLANMA RAPORU (DALGA 6)
+
+GÖREVLER:
+1. Loading Ekranı: `js/ui/loadingScreen.js` dosyası oluşturuldu ve `js/ui/topBar.js` içinden import edildi. SPQR yazısı ve dönen sütun animasyonu eklendi. Window 'load' event'i ile veya manuel olarak kaybolacak şekilde ayarlandı.
+2. Erişilebilirlik: Tüm butonlara (Yükselt, Kapat) `aria-label` eklendi. Kalkan etiketlerine `tabindex="0"`, `role="button"` ve `keydown` (Enter/Space tuşlarına basıldığında) dinleyicileri eklendi. Panellerde `role="dialog"` ve bildirimlerde `role="alert"` ayarları yapıldı. Tooltip okuyucular için `aria-hidden` state'i yönetildi.
+3. Son Polish: CSS `shield-label` tasarımına kırmızı/altın renk geçişleri ve `hover`/`focus` durumunda boyut büyüme efekti eklendi. `ui.css` ve Tailwind sınıfları üzerinden kontrast ve aralık (spacing) ayarları tamamlandı.
+
+TAMAMLANAN DOSYALAR:
+- js/ui/loadingScreen.js
+- js/ui/topBar.js
+- js/ui/detailPanel.js
+- js/ui/shieldLabels.js
+- js/ui/notifications.js
+- js/ui/tooltip.js
+- css/ui.css
+
+Tüm kısıtlamalara uyuldu (Sadece ui js/css klasörleri düzenlendi).

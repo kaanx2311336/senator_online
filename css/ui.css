@@ -27,16 +27,23 @@
 .shield-label {
     width: 40px;
     height: 45px;
-    background-color: #2563eb; /* Tailwind blue-600 */
-    color: white;
+    background-color: #dc2626; /* Tailwind red-600 */
+    color: #fef08a; /* Tailwind yellow-200 */
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
-    border: 2px solid white;
+    border: 2px solid #fef08a;
     box-sizing: border-box;
     font-family: 'Cinzel', serif;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.shield-label:hover, .shield-label:focus {
+    transform: scale(1.15);
+    background-color: #b91c1c; /* Tailwind red-700 */
+    outline: none;
 }
 
 /* Tooltip */

@@ -14,11 +14,11 @@ function initTopBar() {
         const currentResources = getResources();
         const topBar = document.createElement('div');
         topBar.id = 'roman-top-bar';
-        topBar.className = 'fixed top-0 left-0 w-full bg-red-800 border-b-2 border-yellow-500 gold-border p-2 flex justify-around items-center z-50 roman-ui shadow-lg text-white';
+        topBar.className = 'fixed top-0 left-0 w-full bg-red-800 border-b-2 border-yellow-500 gold-border p-3 flex justify-around items-center z-50 roman-ui shadow-lg text-white font-medium tracking-wide';
         
         for (const [key, meta] of Object.entries(resourceMeta)) {
             const item = document.createElement('div');
-            item.className = 'flex items-center relative';
+            item.className = 'flex items-center relative mx-2';
             
             const iconSpan = document.createElement('span');
             iconSpan.className = 'resource-icon text-2xl z-10';
@@ -116,3 +116,5 @@ if (document.readyState === 'loading') {
 } else {
     initTopBar();
 }
+// Inject Loading Screen
+import './loadingScreen.js';

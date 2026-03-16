@@ -5,11 +5,13 @@ export function initTooltip() {
         tooltipElement = document.createElement('div');
         tooltipElement.id = 'roman-tooltip';
         tooltipElement.className = 'roman-ui fixed pointer-events-none z-50 bg-gray-900/90 backdrop-blur border border-yellow-500 rounded-lg p-3 text-white shadow-xl opacity-0 transition-opacity duration-200 transform -translate-x-1/2 -translate-y-full mt-[-10px]';
+        tooltipElement.setAttribute('role', 'tooltip');
+        tooltipElement.setAttribute('aria-hidden', 'true');
         
         tooltipElement.innerHTML = `
             <div class="text-sm font-bold text-yellow-500 mb-1" id="tooltip-title">Bina Adı</div>
-            <div class="text-xs text-gray-300 mb-1">Seviye: <span id="tooltip-level" class="text-white">1</span></div>
-            <div class="text-xs text-gray-400" id="tooltip-production">Üretim: <span class="text-yellow-200">+0</span></div>
+            <div class="text-xs text-gray-100 mb-1">Seviye: <span id="tooltip-level" class="text-white">1</span></div>
+            <div class="text-xs text-gray-200" id="tooltip-production">Üretim: <span class="text-yellow-200">+0</span></div>
         `;
         
         document.body.appendChild(tooltipElement);
@@ -39,6 +41,7 @@ export function showTooltip(data, x, y) {
     tooltipElement.style.top = `${y}px`;
     tooltipElement.classList.remove('opacity-0');
     tooltipElement.classList.add('opacity-100');
+    tooltipElement.setAttribute('aria-hidden', 'false');
 }
 
 export function moveTooltip(x, y) {
@@ -52,6 +55,7 @@ export function hideTooltip() {
     if (tooltipElement) {
         tooltipElement.classList.remove('opacity-100');
         tooltipElement.classList.add('opacity-0');
+        tooltipElement.setAttribute('aria-hidden', 'true');
     }
 }
 
