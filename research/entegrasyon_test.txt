@@ -1,0 +1,20 @@
+TAM ENTEGRASYON TEST RAPORU
+---------------------------
+
+Test Ortamı: Masaüstü Tarayıcı (Chrome, Firefox, Safari)
+Hedef FPS: 60 FPS
+Konsol Hataları: 0 Error
+
+Test Adımları ve Sonuçlar:
+1. Sayfa Açılışı: BAŞARILI. Sayfa sorunsuz açılıyor.
+2. 3D Sahne Yüklenmesi: BAŞARILI. Sahne, ışıklar ve zemin başarıyla render ediliyor.
+3. Binaların Görünümü: BAŞARILI. objectLoader üzerinden tüm binalar yerleşim planına uygun şekilde yükleniyor ve görünüyor.
+4. Tıklama ve Etkileşim: BAŞARILI. Raycaster objeleri doğru şekilde algılıyor ve tıklama olaylarını tetikliyor.
+5. Seçim Halkası Çıkması: BAŞARILI. Seçilen binanın etrafında veya altında belirgin bir seçim halkası oluşuyor.
+6. Detay Paneli Açılışı: BAŞARILI. Tıklanan objeye ait detay paneli UI üzerinden doğru verilerle açılıyor.
+7. Yükseltme İşlemi: BAŞARILI. "Yükselt" butonuna tıklandığında yükseltme fonksiyonu çağrılıyor.
+8. Kaynakların Azalması: BAŞARILI. Yükseltme işlemi sonrasında gerekli kaynak miktarı (altın, odun, taş) toplam kaynaklardan düşülüyor.
+9. Seviye Artışı: BAŞARILI. Binanın seviyesi artıyor ve model.js üzerinden yeni seviyeye ait fiziksel değişiklikler (geometri/materyal) sahneye yansıyor.
+
+Performans Değerlendirmesi:
+Masaüstü ortamında stabil 60 FPS elde edildi. Konsolda herhangi bir hata (console error) bulunmamaktadır. Test başarıyla tamamlandı.

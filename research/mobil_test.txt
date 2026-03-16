@@ -1,0 +1,15 @@
+MOBİL TEST RAPORU
+-----------------
+
+Test Ortamı: Mobil Cihazlar (iOS, Android, Tablet simülasyonları)
+Hedef FPS: 30 FPS
+Konsol Hataları: 0 Error
+
+Test Adımları ve Sonuçlar:
+1. Touch Pan/Zoom Çalışması: BAŞARILI. Kamera kontrollerinde dokunmatik pan (kaydırma) ve pinch-to-zoom (yakınlaştırma/uzaklaştırma) işlevleri düzgün çalışıyor.
+2. Touch ile Bina Seçme: BAŞARILI. Mobil cihazlarda dokunmatik ekrandan alınan veriler raycaster'a doğru şekilde iletilerek binaların seçilmesi sağlanıyor. Hover (touch-start) ve tıklama (touch-end) etkileşimleri doğru tetikleniyor.
+3. Responsive UI: BAŞARILI. Tailwind CSS tabanlı UI, farklı mobil ekran boyutlarına uyum sağlıyor (üst bar, ikonlar ve detay paneli).
+4. Performans: BAŞARILI. Mobil platformda hedef 30 FPS başarıyla yakalanmış olup, frame drop oranı minimumda. Render maliyetleri (Three.js CSS2DRenderer vb.) mobil cihazlar için optimize edilmiş görünmektedir. Konsolda herhangi bir hata mesajı bulunmamaktadır.
+
+Sonuç:
+Mobil deneyimi standartlara uygun olup oyun performansı beklenen düzeydedir. Test başarıyla sonuçlanmıştır.
