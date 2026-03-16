@@ -38,6 +38,12 @@ export function initDetailPanel() {
                     </div>
                 </div>
                 
+                <div id="pray-btn-container" class="hidden mb-4 w-full flex-col items-center">
+                    <button id="pray-btn" aria-label="Dua Et" class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold py-2 px-8 rounded-full shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 text-md tracking-wider flex items-center gap-2">
+                        <span>🔮</span> Dua Et (İnanç Topla)
+                    </button>
+                </div>
+
                 <button id="upgrade-btn" aria-label="Binayı Yükselt" class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-extrabold py-3 px-12 rounded-full shadow-lg hover:shadow-yellow-500/50 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 text-lg tracking-wider">
                     Yükselt
                 </button>
@@ -50,6 +56,36 @@ export function initDetailPanel() {
         const closeBtn = document.getElementById('close-panel-btn');
         if (closeBtn) {
             closeBtn.addEventListener('click', hidePanel);
+        }
+
+        // Bind pray button event
+        const prayBtn = document.getElementById('pray-btn');
+        if (prayBtn) {
+            prayBtn.addEventListener('click', () => {
+                // Faith gathering logic (gives +10 faith per pray click or similar)
+                if (window.RomanUI && window.RomanUI.FaithBar) {
+                    window.RomanUI.FaithBar.update(10);
+                    
+                    if (window.RomanUI.Notifications) {
+                        window.RomanUI.Notifications.show('Tapınakta dua edildi. İnanç arttı!');
+                    }
+
+                    // Check if enough faith for buff
+                    const currentFaith = window.RomanUI.FaithBar.get();
+                    if (currentFaith >= 100) {
+                        window.RomanUI.FaithBar.update(-100);
+                        if (window.RomanUI.BuffPanel) {
+                            // Give a random buff or a specific one
+                            const buffs = ['production', 'defense', 'trade'];
+                            const randomBuff = buffs[Math.floor(Math.random() * buffs.length)];
+                            window.RomanUI.BuffPanel.addBuff(randomBuff, 60); // 60 seconds duration
+                            if (window.RomanUI.Notifications) {
+                                window.RomanUI.Notifications.show('Kutsal Buff kazanıldı!');
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 }
@@ -92,6 +128,22 @@ export function showPanel(buildingData) {
             if (woodEl) woodEl.textContent = 0;
             if (wheatEl) wheatEl.textContent = 0;
             if (goldEl) goldEl.textContent = 0;
+        }
+        
+        // Show/hide pray button based on building type (e.g., Tapınak)
+        const prayContainer = document.getElementById('pray-btn-container');
+        if (prayContainer) {
+            // Check if name contains Tapınak, or maybe buildingData type is temple
+            const isTemple = (buildingData.name && buildingData.name.toLowerCase().includes('tapınak')) || 
+                             buildingData.type === 'temple';
+            
+            if (isTemple) {
+                prayContainer.classList.remove('hidden');
+                prayContainer.classList.add('flex');
+            } else {
+                prayContainer.classList.remove('flex');
+                prayContainer.classList.add('hidden');
+            }
         }
     }
 

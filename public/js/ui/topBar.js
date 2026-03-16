@@ -118,3 +118,9 @@ if (document.readyState === 'loading') {
 }
 // Inject Loading Screen
 import './loadingScreen.js';
+
+// Inject Faith Bar
+import './faithBar.js';
+
+// Inject Buff Panel
+import './buffPanel.js';

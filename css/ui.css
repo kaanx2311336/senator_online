@@ -46,6 +46,27 @@
     outline: none;
 }
 
+/* Faith UI & Buffs */
+.faith-ui .text-shadow-md {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.buff-item {
+    min-width: 120px;
+    animation: fadeInRight 0.3s ease-out;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* Tooltip */
 #roman-tooltip {
     /* Tooltip stilini Tailwind sınıflarıyla JS'de oluşturduk ancak ek ince ayarlar buraya gelebilir */

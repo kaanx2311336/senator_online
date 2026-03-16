@@ -1,0 +1,11 @@
+FAZ A3-8: İnanç Barı & Buff UI (DALGA 8) TAMAMLANDI
+
+Yapılan Değişiklikler:
+1. public/js/ui/faithBar.js oluşturuldu. Üst bara entegre edilen "İnanç" barı (mor/altın renkli, GSAP animasyonlu) eklendi.
+2. public/js/ui/buffPanel.js oluşturuldu. Aktif buff'ları (Üretim Artışı, Savunma Bonusu, Ticaret İndirimi) ikon, süre ve açıklama (tooltip) ile gösteren bir panel eklendi.
+3. public/js/ui/detailPanel.js güncellendi. Bina adında "Tapınak" geçen binalar seçildiğinde "Dua Et" butonu gösterilmesi sağlandı. Tıklandığında inanç artıyor, 100 inanca ulaşıldığında rastgele bir kutsal buff veriliyor.
+4. css/ui.css dosyasına inanç barı metin gölgeleri ve buff ikonları için animasyon, stil kuralları eklendi.
+5. public/js/ui/topBar.js içerisinde faithBar ve buffPanel modülleri içe aktarıldı.
+
+Kurallara tam olarak uyuldu, yalnızca css/ui.css ve public/js/ui/ dizinindeki dosyalar düzenlendi.
+Onay beklenmeden inisiyatif alınarak görev direkt bitirildi.
