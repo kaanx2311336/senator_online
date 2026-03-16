@@ -1,0 +1,109 @@
+================================================================================
+🏛️ ROMA CITY BUILDER - DALGA 13-18 GENİŞLEME PLANI
+================================================================================
+ODAK: Görsel kalite düzeltme, kaynak üretim binaları, yeni yapılar, gameplay
+
+DALGA 13: GÖRSEL DÜZELTME & MODEL YENİDEN YAPIM
+  Hedef: Tüm binaların 3D modellerini güzelleştir, kötü görünen yapıları düzelt
+  Agent 1: Renderer ayarları düzelt (LOD mesafelerini artır 0-80/80-150/150+),
+           su düzlemini düzelt (zemin ile çakışma yok, sadece güney kenar),
+           CylinderGeometry segment sayılarını artır (min 16)
+  Agent 2: Senato modeli yeniden yap (kubbe MUTLAKA olsun level 1'de bile,
+           4 sütun ön cephede, mermer beyaz, kiremit kubbe).
+           Kolezyum modeli yeniden yap (oval şekil, segment=24 min,
+           kemerli yapı, kademeli oturma).
+           Ev modeli iyileştir (daha detaylı çatı, pencere, kapı).
+  Agent 3: Detay paneli UI güzelleştir (Roma temalı, altın kenarlık,
+           bina resmi/ikonu, yükseltme maliyeti tablo).
+           Üst bar'a kaynak üretim hızı göstergesi ekle (+X/dk).
+  Agent 4: Seçim halkası rengini sarıdan altın sarısına değiştir,
+           tıklama geri bildirimi iyileştir, hover efekti ekle.
+  Agent 5: Tüm model dosyalarını incele, segment sayılarını raporla,
+           görsel kalite kontrol listesi oluştur.
+  Agent 6: Dalga 13 görsel kalite denetimi.
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 14: ÇİFTLİK & KAYNAK ÜRETİM SİSTEMİ
+  Hedef: Çiftlik binası ekle, kaynakların zamanla artması, üretim sistemi
+  Agent 1: Kaynak üretim timer sistemi (her 10sn bina seviyesine göre üretim).
+           Çiftlik sahne entegrasyonu. objectLoader'a farm ekle.
+  Agent 2: objects/farm/ (model.js, config.json, interact.js) - Çiftlik 3D modeli.
+           Seviye 1: Küçük tarla + kulübe. Seviye 5: Büyük çiftlik kompleksi.
+           Buğday tarlası efekti (sarı PlaneGeometry).
+  Agent 3: Kaynak üretim paneli UI (hangi bina ne üretiyor, üretim hızı).
+           Üst bar'da kaynak artış animasyonu (+5 buğday gibi floating text).
+  Agent 4: Çiftlik etkileşimi (hasat animasyonu, buğday parçacıkları).
+           Kaynak toplama tıklama efekti.
+  Agent 5: Kaynak üretim dengesi araştırması (bina başına üretim tablosu).
+           Çiftlik: buğday, Ev: nüfus, Pazar: altın, Orman: odun.
+  Agent 6: Dalga 14 denetim.
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 15: HAMAM & SU KEMERİ & DEKORASYON
+  Hedef: Roma hamamı, su kemeri, çeşme, heykel gibi dekoratif yapılar
+  Agent 1: Hamam ve su kemeri sahne entegrasyonu, su kemeri boyunca
+           su akış efekti (mavi çizgi animasyonu).
+  Agent 2: objects/bathhouse/ (hamam modeli, kubbeli, havuzlu).
+           objects/aqueduct/ (su kemeri, kemerli uzun yapı).
+           objects/fountain/ modeli iyileştir (su efekti).
+           objects/statue/ modeli iyileştir (Roma heykeli detay).
+  Agent 3: Hamam detay paneli (sağlık bonusu göstergesi).
+           Dekorasyon yerleştirme mini UI (çeşme/heykel seç ve yerleştir).
+  Agent 4: Hamam etkileşimi (buhar parçacık efekti).
+           Su kemeri boyunca su akış animasyonu.
+  Agent 5: Roma hamamları ve su kemerleri araştırması.
+           Dekorasyon bonus sistemi (güzellik puanı → memnuniyet).
+  Agent 6: Dalga 15 denetim.
+  Adım Yapısı: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+
+DALGA 16: ODUNCU KAMPI & MADEN & EKONOMİ DENGESİ
+  Hedef: Odun ve altın üretim binaları, ekonomi dengesi
+  Agent 1: Oduncu kampı ve maden sahne entegrasyonu.
+           Ağaç kesme ve maden kazma animasyon desteği.
+  Agent 2: objects/lumbercamp/ (oduncu kampı, ağaç kütükleri, testere).
+           objects/mine/ (maden ocağı, mağara girişi, ray).
+           Her ikisi de 5 seviye.
+  Agent 3: Ekonomi paneli UI (tüm üretim/tüketim özeti, gelir/gider tablosu).
+           Bina inşa menüsü (yeni bina yerleştirme butonu).
+  Agent 4: Oduncu kampı etkileşimi (balta sallanma animasyonu).
+           Maden etkileşimi (kazma efekti, altın parçacıkları).
+  Agent 5: Ekonomi dengesi araştırması (üretim oranları, maliyet tablosu).
+           Tüm binaların kaynak üretim/tüketim dengesi.
+  Agent 6: Dalga 16 denetim.
+  Adım Yapısı: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+
+DALGA 17: BİNA İNŞA SİSTEMİ & HARİTA GENİŞLEME
+  Hedef: Oyuncunun yeni bina inşa edebilmesi, harita genişletme
+  Agent 1: Bina yerleştirme sistemi (grid snap, geçerli pozisyon kontrolü).
+           Harita sınırlarını genişlet (200→300).
+           Yeni bina yerleştirildiğinde sahneye ekleme.
+  Agent 2: Tüm binaların inşa edilebilir versiyonları (yarı saydam ghost mesh).
+           Grid sistemi (10x10 birimlik kareler).
+  Agent 3: Bina inşa menüsü UI (bina listesi, maliyet, gereksinimler).
+           Bina seçim çarkı veya alt bar menüsü.
+           İnşa onay/iptal butonları.
+  Agent 4: Bina yerleştirme etkileşimi (mouse takip, yeşil/kırmızı ghost).
+           İnşa tamamlanma animasyonu (yerden yükselme efekti).
+  Agent 5: Bina yerleşim kuralları araştırması (minimum mesafe, gereksinimler).
+           İnşa sistemi test senaryoları.
+  Agent 6: Dalga 17 denetim.
+  Adım Yapısı: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+
+DALGA 18: FINAL POLISH & GAMEPLAY DÖNGÜSÜ
+  Hedef: Oyun döngüsü tamamlama, ses, müzik, son rötuşlar
+  Agent 1: Gece/gündüz döngüsü (ışık rengi değişimi, 5dk cycle).
+           Ambient ses entegrasyonu (kuş, rüzgar).
+           FPS stabilizasyonu, bellek optimizasyonu.
+  Agent 2: Tüm modellerde son rötuş (tutarlı renk paleti, polygon kontrolü).
+           Gece versiyonu materyalleri (emissive pencereler).
+  Agent 3: Oyun istatistik ekranı (toplam bina, nüfus, gelir).
+           Başarım/achievement sistemi UI.
+           Ses kontrolleri (açık/kapalı, ses seviyesi).
+  Agent 4: Gece/gündüz geçiş animasyonu (GSAP ile ışık renk geçişi).
+           Tüm animasyonlarda son polish.
+  Agent 5: Final QA raporu, performans testi, mobil uyumluluk.
+           Tüm 18 dalganın tamamlanma durumu.
+  Agent 6: Final denetim, yayın raporu, tüm sistem doğrulama.
+  Adım Yapısı: Adım1(1,2,3,4,5) → herkes paralel
+
+================================================================================

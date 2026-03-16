@@ -227,3 +227,137 @@ GÖREV - FAZ A2-14: Tüm Modellerde Polygon Azaltma (DALGA 12)
 - Her modelde castShadow=false, receiveShadow=false doğrula.
 - LOD mid/low seviyelerinde daha agresif basitleştirme.
 - Bitirdiğinde prodetayi/faz_A2_14_polygon_azaltma.txt oluştur.
+
+PROMPT A2-15:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dokunabilirsin.
+2. Three.js MeshLambertMaterial, gölge KAPALI, low-poly ama GÜZEL.
+3. CylinderGeometry minimum 16 segment, SphereGeometry minimum 16 segment.
+4. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-15: Senato & Kolezyum Modeli YENİDEN YAPIM (DALGA 13)
+KRİTİK: Mevcut modeller çok kötü görünüyor. Tamamen yeniden yaz.
+
+SENATO (objects/senate/model.js ve public/objects/senate/model.js):
+- Level 1'de BİLE kubbe olsun (küçük yarım küre, kiremit kırmızı 0xB7410E).
+- Dikdörtgen taban (BoxGeometry 16x8x12, beyaz mermer 0xFAF0E6).
+- Ön cephede 4 sütun (CylinderGeometry r=0.5, h=7, segments=16).
+- Ön merdiven (3 basamak, BoxGeometry).
+- Üçgen alınlık (ExtrudeGeometry ile üçgen shape).
+- Level arttıkça: Daha büyük kubbe, daha çok sütun (6→8), altın süslemeler.
+
+KOLEZYUM (objects/colosseum/model.js ve public/objects/colosseum/model.js):
+- CylinderGeometry segment=24 minimum (şu an 8, sekizgen gibi görünüyor).
+- Oval yapı: scale.z ile oval yap (radiusX=12, radiusZ=9).
+- İç kademeli oturma sıraları (3 kademe, iç içe silindirler).
+- Kemerli açıklıklar (her katta 16+ kemer, BoxGeometry boşluklar).
+- Arena zemini (kum rengi daire, 0xD2B48C).
+- 4 büyük giriş kapısı (kuzey/güney/doğu/batı).
+
+EV (objects/house/model.js ve public/objects/house/model.js):
+- Çatıyı iyileştir: Düzgün üçgen çatı (kiremit kırmızı), çatı saçağı.
+- Pencere ekle (küçük koyu BoxGeometry, 2 adet yan duvarlarda).
+- Kapı daha belirgin (kahverengi, çerçeveli).
+- Bitirdiğinde prodetayi/faz_A2_15_model_yeniden_yapim.txt oluştur.
+
+PROMPT A2-16:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Her nesne: model.js + config.json + interact.js
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-16: Çiftlik 3D Modeli (DALGA 14)
+- objects/farm/model.js: createFarm(level) fonksiyonu. Seviye 1-5.
+  Seviye 1: Küçük ahşap kulübe (BoxGeo 3x2x3, kahverengi) + tarla (PlaneGeo 8x8, sarı-yeşil 0xCDB54A).
+  Seviye 2: Daha büyük kulübe + çit (ince BoxGeo'lar) + 2 tarla.
+  Seviye 3: Taş ev + ahır (BoxGeo) + 3 tarla + su kuyusu (CylinderGeo).
+  Seviye 4: Çiftlik kompleksi + değirmen (CylinderGeo + kanatlar).
+  Seviye 5: Büyük villa + 4 tarla + değirmen + hayvan ağılı.
+- objects/farm/config.json: name="Çiftlik", type="production", üretim: buğday.
+  Seviye maliyetleri ve üretim oranları.
+- objects/farm/interact.js: onSelect, onDeselect, onUpgrade.
+- public/objects/farm/ altına da kopyala.
+- shared/contracts/objectRegistry.js'e PRODUCTION.FARM ekle.
+- Bitirdiğinde prodetayi/faz_A2_16_ciftlik_modeli.txt oluştur.
+
+PROMPT A2-17:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-17: Hamam & Su Kemeri 3D Modelleri (DALGA 15)
+- objects/bathhouse/model.js: createBathhouse(level). Seviye 1-5.
+  Seviye 1: Küçük havuz (BoxGeo mavi) + duvarlar.
+  Seviye 3: Kubbeli hamam, sütunlu giriş, buhar efekti desteği.
+  Seviye 5: Büyük hamam kompleksi, çoklu havuz, mermer zemin.
+- objects/bathhouse/config.json: name="Hamam", type="wellness", sağlık bonusu.
+- objects/bathhouse/interact.js: onSelect, onDeselect, onUpgrade.
+- objects/aqueduct/model.js: createAqueduct(length). Kemerli su kemeri.
+  Tekrarlanan kemer yapısı (her 5 birimde bir kemer, BoxGeo + yarım daire).
+  Üstte su kanalı (ince BoxGeo, mavi materyal).
+- objects/aqueduct/config.json: name="Su Kemeri", type="infrastructure".
+- objects/aqueduct/interact.js: onSelect, onDeselect.
+- public/objects/ altına da kopyala.
+- Bitirdiğinde prodetayi/faz_A2_17_hamam_sukemeri.txt oluştur.
+
+PROMPT A2-18:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dosya oluşturabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-18: Oduncu Kampı & Maden 3D Modelleri (DALGA 16)
+- objects/lumbercamp/model.js: createLumbercamp(level). Seviye 1-5.
+  Seviye 1: Basit çadır + odun yığını (BoxGeo kahverengi silindirleri).
+  Seviye 3: Ahşap kulübe + testere tezgahı + odun deposu.
+  Seviye 5: Büyük kamp, çoklu depo, kütük yığınları.
+- objects/lumbercamp/config.json: name="Oduncu Kampı", type="production", üretim: odun.
+- objects/lumbercamp/interact.js: onSelect, onDeselect, onUpgrade.
+- objects/mine/model.js: createMine(level). Seviye 1-5.
+  Seviye 1: Mağara girişi (yarım daire kemer) + kazma.
+  Seviye 3: Destekli tünel girişi + ray + vagonet.
+  Seviye 5: Büyük maden kompleksi, çoklu giriş, altın yığınları.
+- objects/mine/config.json: name="Maden", type="production", üretim: altın.
+- objects/mine/interact.js: onSelect, onDeselect, onUpgrade.
+- public/objects/ altına da kopyala.
+- Bitirdiğinde prodetayi/faz_A2_18_oduncu_maden.txt oluştur.
+
+PROMPT A2-19:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-19: Ghost Mesh & Grid Sistemi (DALGA 17)
+- Her bina tipi için yarı saydam ghost versiyonu oluştur:
+  createGhostMesh(buildingType) fonksiyonu.
+  Gerçek modelin basitleştirilmiş versiyonu, MeshBasicMaterial transparent=true opacity=0.5.
+  Geçerli pozisyon: yeşil tint (0x00ff00). Geçersiz: kırmızı tint (0xff0000).
+- Grid helper: 10x10 birimlik grid çizgileri (GridHelper, sadece buildMode'da görünsün).
+- Tüm mevcut binaların inşa maliyetlerini config.json'larda doğrula.
+- Bitirdiğinde prodetayi/faz_A2_19_ghost_grid.txt oluştur.
+
+PROMPT A2-20:
+Sen AGENT 2: OBJECT_ENGINE olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE objects/ ve public/objects/ klasörlerine dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A2-20: Gece Modu & Son Rötuş (DALGA 18)
+- Tüm bina model.js dosyalarında gece modu desteği ekle:
+  setNightMode(group, isNight) fonksiyonu.
+  isNight=true: Pencere materyallerinde emissive=0xFFAA33 (sıcak sarı ışık).
+  Kapı materyallerinde hafif emissive.
+- Tüm modellerde renk paleti tutarlılığı kontrolü:
+  Mermer beyaz: 0xFAF0E6, Kiremit kırmızı: 0xB7410E, Çimen yeşil: 0x4CAF50.
+- Gereksiz vertex/polygon azaltma (görsel kaliteyi koruyarak).
+- Bitirdiğinde prodetayi/faz_A2_20_gece_son_rotus.txt oluştur.

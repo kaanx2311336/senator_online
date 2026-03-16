@@ -200,3 +200,85 @@ GÖREV - FAZ A6-12: Final Denetim & Yayın Raporu (DALGA 12)
 - Mobil uyumluluk raporunu incele.
 - Ana menü, ayarlar, ses kontrolleri çalışıyor mu?
 - agent6_orchestrator/yayin_raporu_final.txt oluştur: Yayına hazır mı, eksikler neler.
+
+PROMPT A6-13:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-13: Dalga 13 Denetim (GÖRSEL DÜZELTME)
+- Senato modeli düzeltildi mi? Kubbe var mı, sütunlar var mı?
+- Kolezyum oval görünüyor mu? Segment sayısı yeterli mi?
+- LOD mesafeleri düzeltildi mi (0-80/80-150/150+)?
+- Su düzlemi düzeltildi mi (zemin ile çakışma yok mu)?
+- Detay paneli Roma temalı mı?
+- agent6_orchestrator/dalga_gecis_raporu_13.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.
+
+PROMPT A6-14:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-14: Dalga 14 Denetim (ÇİFTLİK & KAYNAK ÜRETİM)
+- objects/farm/ klasörü tam mı (model.js + config.json + interact.js)?
+- Kaynak üretim timer çalışıyor mu? Kaynaklar zamanla artıyor mu?
+- Üretim paneli UI görünüyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_14.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.
+
+PROMPT A6-15:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-15: Dalga 15 Denetim (HAMAM & SU KEMERİ)
+- objects/bathhouse/ ve objects/aqueduct/ klasörleri tam mı?
+- Hamam buhar efekti çalışıyor mu?
+- Su kemeri modeli kemerli görünüyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_15.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.
+
+PROMPT A6-16:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-16: Dalga 16 Denetim (ODUNCU & MADEN & EKONOMİ)
+- objects/lumbercamp/ ve objects/mine/ klasörleri tam mı?
+- Ekonomi paneli çalışıyor mu?
+- Kaynak üretim dengesi makul mü?
+- agent6_orchestrator/dalga_gecis_raporu_16.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.
+
+PROMPT A6-17:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-17: Dalga 17 Denetim (BİNA İNŞA SİSTEMİ)
+- Bina inşa menüsü çalışıyor mu?
+- Ghost mesh görünüyor mu, grid snap çalışıyor mu?
+- Bina yerleştirme ve kaynak düşme çalışıyor mu?
+- agent6_orchestrator/dalga_gecis_raporu_17.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.
+
+PROMPT A6-18:
+Sen AGENT 6: ORCHESTRATOR olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. KOD YAZMAZSIN. Sadece denetim ve koordinasyon.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A6-18: Final Denetim & Yayın Raporu v2 (DALGA 18)
+- Gece/gündüz döngüsü çalışıyor mu?
+- Tüm 18 dalga tamamlandı mı?
+- Oyun döngüsü: İnşa → Üretim → Yükseltme → Genişleme çalışıyor mu?
+- FPS, bellek, yükleme süresi hedefleri karşılanıyor mu?
+- agent6_orchestrator/yayin_raporu_v2.txt oluştur.
+- agent6_orchestrator/dalga_gecis_raporu_18.txt oluştur. İçinde GECILEBILIR MUTLAKA geçmeli.

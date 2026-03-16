@@ -217,3 +217,104 @@ GÖREV - FAZ A5-12: Final QA & Performans Testi (DALGA 12)
   Touch event'ler çalışıyor mu, UI responsive mi, WebGL uyumlu mu.
 - prodetayi/faz_A5_12_final_qa.txt: Tüm fazların tamamlanma durumu özet tablosu.
 - Bitirdiğinde prodetayi/faz_A5_12_final_qa.txt oluştur.
+
+PROMPT A5-13:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-13: Görsel Kalite Kontrol Raporu (DALGA 13)
+- research/gorsel_kalite_kontrol.txt: Tüm model dosyalarını incele.
+  Her modelde CylinderGeometry segment sayısı (min 16 olmalı).
+  SphereGeometry segment sayısı (min 16 olmalı).
+  Renk paleti tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E).
+  LOD mesafeleri (0-80/80-150/150+ olmalı).
+  castShadow=false ve receiveShadow=false doğrulama.
+- research/model_segment_raporu.txt: Her model için segment sayıları tablosu.
+- Bitirdiğinde prodetayi/faz_A5_13_gorsel_kontrol.txt oluştur.
+
+PROMPT A5-14:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-14: Kaynak Üretim Dengesi Araştırması (DALGA 14)
+- research/kaynak_uretim_dengesi.txt: Bina başına kaynak üretim tablosu.
+  Çiftlik: Lv1=5 buğday/10sn, Lv2=8, Lv3=12, Lv4=18, Lv5=25.
+  Ev: Lv1=2 nüfus/10sn, Lv2=3, Lv3=5, Lv4=8, Lv5=12.
+  Pazar: Lv1=3 altın/10sn, Lv2=5, Lv3=8, Lv4=12, Lv5=18.
+  Oduncu: Lv1=5 odun/10sn, Lv2=8, Lv3=12, Lv4=18, Lv5=25.
+  Maden: Lv1=3 altın/10sn, Lv2=5, Lv3=8, Lv4=12, Lv5=18.
+  Denge: Oyuncu 5dk'da ilk yükseltmeyi, 15dk'da Lv3'leri yapabilmeli.
+- shared/contracts/objectRegistry.js'e PRODUCTION kategorisi ekle.
+- Bitirdiğinde prodetayi/faz_A5_14_uretim_dengesi.txt oluştur.
+
+PROMPT A5-15:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-15: Roma Hamamları & Dekorasyon Araştırması (DALGA 15)
+- research/hamam_dekorasyon.txt: Roma hamamları (thermae) yapısı.
+  Frigidarium (soğuk), Tepidarium (ılık), Caldarium (sıcak) bölümleri.
+  Dekorasyon bonus sistemi: Her dekorasyon +X güzellik puanı.
+  Güzellik puanı → memnuniyet bonusu formülü.
+- shared/contracts/objectRegistry.js'e WELLNESS ve DECORATION kategorileri ekle.
+- Bitirdiğinde prodetayi/faz_A5_15_hamam_arastirma.txt oluştur.
+
+PROMPT A5-16:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-16: Ekonomi Dengesi & İnşa Maliyetleri (DALGA 16)
+- research/ekonomi_dengesi.txt: Tüm binaların inşa ve yükseltme maliyetleri.
+  Yeni binalar: Oduncu Kampı, Maden, Çiftlik, Hamam, Su Kemeri.
+  İnşa maliyeti tablosu (her bina için).
+  Net gelir/gider hesaplaması.
+  Oyun ilerlemesi timeline (ne zaman hangi bina inşa edilmeli).
+- shared/types/gameTypes.js'e Production ve Economy typedef'leri ekle.
+- Bitirdiğinde prodetayi/faz_A5_16_ekonomi_arastirma.txt oluştur.
+
+PROMPT A5-17:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/, shared/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-17: Bina Yerleşim Kuralları & Test (DALGA 17)
+- research/yerlestirme_kurallari.txt: Bina yerleştirme kuralları.
+  Minimum mesafe: Binalar arası en az 5 birim.
+  Gereksinimler: Maden → dağ kenarı, Liman → su kenarı, Çiftlik → düz alan.
+  Harita sınırları: -140 ile +140 arası (x ve z).
+  Grid: 10x10 birimlik kareler.
+- research/insa_test_senaryolari.txt: Test senaryoları.
+  Geçerli pozisyona yerleştirme, geçersiz pozisyona deneme, kaynak yetersizliği.
+- Bitirdiğinde prodetayi/faz_A5_17_yerlestirme_test.txt oluştur.
+
+PROMPT A5-18:
+Sen AGENT 5: RESEARCHER_QA olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE research/, prodetayi/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A5-18: Final QA & Tüm Sistem Raporu (DALGA 18)
+- research/final_qa_18.txt: Tüm 18 dalganın tamamlanma durumu.
+  FPS hedefi: Desktop 60fps, Mobil 30fps.
+  Bellek: Max 200MB GPU.
+  Yükleme süresi: Max 3sn.
+  Tüm binalar çalışıyor mu, kaynak üretimi doğru mu, inşa sistemi çalışıyor mu.
+- research/gameplay_raporu.txt: Oyun döngüsü değerlendirmesi.
+  Oyuncu ilk 5dk'da ne yapabilir, 15dk'da ne yapabilir, 30dk'da ne yapabilir.
+  Sıkıcı anlar var mı, kaynak darboğazı var mı.
+- prodetayi/faz_A5_18_final_qa.txt oluştur.

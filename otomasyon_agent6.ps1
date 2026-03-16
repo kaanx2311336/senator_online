@@ -100,9 +100,55 @@ $dalgaAdimHaritasi = @{
             1 = @(1,2,3,4,5)
         }
     }
+    13 = @{
+        adimSayisi = 3
+        adimlar = @{
+            1 = @(2,5)
+            2 = @(1,3)
+            3 = @(4)
+        }
+    }
+    14 = @{
+        adimSayisi = 3
+        adimlar = @{
+            1 = @(2,5)
+            2 = @(1,3)
+            3 = @(4)
+        }
+    }
+    15 = @{
+        adimSayisi = 3
+        adimlar = @{
+            1 = @(2,5)
+            2 = @(1,3)
+            3 = @(4)
+        }
+    }
+    16 = @{
+        adimSayisi = 3
+        adimlar = @{
+            1 = @(2,3,5)
+            2 = @(1)
+            3 = @(4)
+        }
+    }
+    17 = @{
+        adimSayisi = 3
+        adimlar = @{
+            1 = @(2,3,5)
+            2 = @(1)
+            3 = @(4)
+        }
+    }
+    18 = @{
+        adimSayisi = 1
+        adimlar = @{
+            1 = @(1,2,3,4,5)
+        }
+    }
 }
 
-$tumFazlar = @("A6-1","A6-2","A6-3","A6-4","A6-5","A6-6","A6-7","A6-8","A6-9","A6-10","A6-11","A6-12")
+$tumFazlar = @("A6-1","A6-2","A6-3","A6-4","A6-5","A6-6","A6-7","A6-8","A6-9","A6-10","A6-11","A6-12","A6-13","A6-14","A6-15","A6-16","A6-17","A6-18")
 
 # Her dalga icin hangi fazlari calistiracak
 $dalgaFazlari = @{
@@ -118,6 +164,12 @@ $dalgaFazlari = @{
     10 = @("A6-10")
     11 = @("A6-11")
     12 = @("A6-12")
+    13 = @("A6-13")
+    14 = @("A6-14")
+    15 = @("A6-15")
+    16 = @("A6-16")
+    17 = @("A6-17")
+    18 = @("A6-18")
 }
 
 function Write-Log ($message) { $time = Get-Date -Format "HH:mm:ss"; Write-Host "[$time] [$agentName] $message" -ForegroundColor Magenta }
@@ -204,7 +256,7 @@ Write-Host "[KURTARMA] Tamamlandi.`n" -ForegroundColor Green
 
 $content = Get-Content -Path $promptFile -Raw -Encoding UTF8
 
-foreach ($dalgaNo in 1..12) {
+foreach ($dalgaNo in 1..18) {
     $gecisRaporu = "agent6_orchestrator/dalga_gecis_raporu_$dalgaNo.txt"
     if (Test-Path $gecisRaporu) {
         $icerik = Get-Content $gecisRaporu -Raw

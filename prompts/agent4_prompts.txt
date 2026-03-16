@@ -190,3 +190,93 @@ GÖREV - FAZ A4-12: Menü Geçiş Animasyonları (DALGA 12)
 - Tüm panel geçişlerinde tutarlı easing (power2.out).
 - Touch event'lerde 300ms delay kaldırma (touch-action: manipulation).
 - Bitirdiğinde prodetayi/faz_A4_12_menu_animasyon.txt oluştur.
+
+PROMPT A4-13:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. GSAP animasyonları kullan.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-13: Seçim & Hover İyileştirme (DALGA 13)
+- Seçim halkası rengini parlak altın sarısına değiştir (0xFFD700, emissive 0x332200).
+- Hover efekti ekle: Bina üzerine mouse gelince hafif emissive artışı (0x222222 → 0x444444).
+  Mouse ayrılınca normal emissive'e dön. GSAP ile smooth geçiş (0.2sn).
+- Cursor: Bina üzerinde pointer, boş alanda default.
+- Tıklama geri bildirimi: Tıklanan binada kısa scale pulse (1.0 → 1.05 → 1.0, 0.15sn).
+- Bitirdiğinde prodetayi/faz_A4_13_secim_hover.txt oluştur.
+
+PROMPT A4-14:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-14: Çiftlik Etkileşimi & Kaynak Toplama (DALGA 14)
+- public/objects/farm/interact.js: onSelect (üretim panelini aç), onDeselect, onUpgrade.
+- Hasat animasyonu: Çiftliğe tıklayınca buğday parçacıkları (sarı küçük kareler) yukarı uçsun.
+- Kaynak üretildiğinde floating "+5 🌾" text efekti (CSS animasyonu tetikle).
+- Tüm üretim binalarında (çiftlik, pazar, ev) üretim göstergesi: Bina üzerinde küçük ikon.
+- Bitirdiğinde prodetayi/faz_A4_14_ciftlik_etkilesim.txt oluştur.
+
+PROMPT A4-15:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-15: Hamam & Su Kemeri Etkileşimi (DALGA 15)
+- public/objects/bathhouse/interact.js: onSelect, onDeselect, onUpgrade.
+  Hamam tıklanınca buhar parçacık efekti (beyaz küçük küreler yukarı süzülsün).
+- public/objects/aqueduct/interact.js: onSelect (bilgi paneli), onDeselect.
+- Dekorasyon yerleştirme etkileşimi: Çeşme/heykel seçildiğinde mouse takip.
+- Bitirdiğinde prodetayi/faz_A4_15_hamam_etkilesim.txt oluştur.
+
+PROMPT A4-16:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/objects/*/interact.js dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-16: Oduncu & Maden Etkileşimi (DALGA 16)
+- public/objects/lumbercamp/interact.js: onSelect, onDeselect, onUpgrade.
+  Oduncu kampı tıklanınca balta sallanma animasyonu (GSAP rotation).
+  Odun parçacıkları (kahverengi küçük kareler).
+- public/objects/mine/interact.js: onSelect, onDeselect, onUpgrade.
+  Maden tıklanınca kazma efekti, altın parçacıkları (sarı küçük küreler).
+- Bitirdiğinde prodetayi/faz_A4_16_oduncu_maden_etkilesim.txt oluştur.
+
+PROMPT A4-17:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-17: Bina Yerleştirme Etkileşimi (DALGA 17)
+- İnşa modu etkileşimi:
+  Mouse hareketiyle ghost mesh zemin üzerinde takip etsin (raycaster ile zemin kesişimi).
+  Grid snap: En yakın 10x10 grid noktasına hizala.
+  Geçerli pozisyon: Ghost mesh yeşil tint. Geçersiz (çakışma): Kırmızı tint.
+  Sol tık: Bina yerleştir (ghost → gerçek bina, GSAP ile yerden yükselme animasyonu y=-5 → y=0).
+  Sağ tık veya ESC: İnşa modundan çık.
+- İnşa tamamlanma efekti: Toz bulutu parçacıkları + "İnşa Edildi!" bildirimi.
+- Bitirdiğinde prodetayi/faz_A4_17_yerlestirme_etkilesim.txt oluştur.
+
+PROMPT A4-18:
+Sen AGENT 4: INTERACTION olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE public/js/interaction/ ve public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A4-18: Gece/Gündüz Geçiş & Final Polish (DALGA 18)
+- Gece/gündüz geçiş animasyonu: GSAP ile ışık rengi ve intensity smooth geçiş (2sn).
+- Tüm panel açılış/kapanışlarında tutarlı easing (power2.out).
+- Touch event optimizasyonu: 300ms delay kaldırma.
+- Tüm animasyonlarda performans kontrolü (60fps hedef).
+- Bitirdiğinde prodetayi/faz_A4_18_gece_final.txt oluştur.

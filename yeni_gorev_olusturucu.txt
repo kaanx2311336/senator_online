@@ -51,6 +51,20 @@ HER NESNE = AYRI KLASÖR + AYRI KOD PRENSİBİ:
     objects/tree/          → Akdeniz ağaçları (servi/çam, ince uzun)
     objects/ground/        → Zemin (yeşil çimen düzlemi)
     objects/road/          → Roma yolları (taş döşeli)
+    objects/market/        → Pazar binası (ticaret)
+    objects/temple/        → Tapınak (inanç sistemi)
+    objects/harbor/        → Liman (deniz ticareti)
+    objects/ship/          → Gemi (ticaret/savaş)
+    objects/barracks/      → Kışla (ordu)
+    objects/soldier/       → Asker figürü
+    objects/arena/         → Arena (festival)
+    objects/farm/          → Çiftlik (buğday üretimi)
+    objects/bathhouse/     → Hamam (sağlık bonusu)
+    objects/aqueduct/      → Su kemeri (altyapı)
+    objects/lumbercamp/    → Oduncu kampı (odun üretimi)
+    objects/mine/          → Maden (altın üretimi)
+    objects/fountain/      → Çeşme (dekorasyon)
+    objects/statue/        → Heykel (dekorasyon)
 
 ARAYÜZ (UI - Tailwind CSS):
   1. Üst bar: Kırmızı + altın sarısı, kaynaklar (Odun, Buğday, Nüfus, Altın)
@@ -109,12 +123,12 @@ SİNYAL SİSTEMİ:
     (İçinde GECILEBILIR veya KOSULLU GECIS ZORUNLU)
 
 MEVCUT FAZ HARİTASI:
-  Agent 1: A1-1→A1-6 (6 faz, 6 dalga)
-  Agent 2: A2-1→A2-8 (8 faz, 6 dalga)
-  Agent 3: A3-1→A3-6 (6 faz, 6 dalga)
-  Agent 4: A4-1→A4-6 (6 faz, 6 dalga)
-  Agent 5: A5-1→A5-6 (6 faz, 6 dalga)
-  Agent 6: A6-1→A6-6 (6 faz, 6 dalga)
+  Agent 1: A1-1→A1-18 (18 faz, 18 dalga)
+  Agent 2: A2-1→A2-20 (20 faz, 18 dalga)
+  Agent 3: A3-1→A3-18 (18 faz, 18 dalga)
+  Agent 4: A4-1→A4-18 (18 faz, 18 dalga)
+  Agent 5: A5-1→A5-18 (18 faz, 18 dalga)
+  Agent 6: A6-1→A6-18 (18 faz, 18 dalga)
 
 DALGA ADIM YAPISI:
   Dalga 1: Adım1(1,2,3,5) → Adım2(4)
@@ -123,6 +137,18 @@ DALGA ADIM YAPISI:
   Dalga 4: Adım1(2,3,5) → Adım2(1) → Adım3(4)
   Dalga 5: Adım1(2,3,5) → Adım2(1) → Adım3(4)
   Dalga 6: Adım1(1,2,3,4,5) → herkes paralel
+  Dalga 7: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 8: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 9: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 10: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 11: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 12: Adım1(1,2,3,4,5) → herkes paralel
+  Dalga 13: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 14: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 15: Adım1(2,5) → Adım2(1,3) → Adım3(4)
+  Dalga 16: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 17: Adım1(2,3,5) → Adım2(1) → Adım3(4)
+  Dalga 18: Adım1(1,2,3,4,5) → herkes paralel
 
 YENİ DALGA EKLEME:
   1. Plan oluştur (hedef, agent görevleri, adım bağımlılıkları)

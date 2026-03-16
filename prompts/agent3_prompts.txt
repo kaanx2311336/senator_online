@@ -194,3 +194,105 @@ GÖREV - FAZ A3-12: Ana Menü & Ayarlar Ekranı (DALGA 12)
   Dil seçimi (TR/EN placeholder).
 - Roma temalı tasarım: Mermer arka plan, altın kenarlıklar, Cinzel font.
 - Bitirdiğinde prodetayi/faz_A3_12_menu_ayarlar.txt oluştur.
+
+PROMPT A3-13:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Tailwind CSS CDN + özel CSS. Framework YASAK.
+3. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-13: Detay Paneli & Üst Bar İyileştirme (DALGA 13)
+- Detay paneli yeniden tasarla: Roma temalı (mermer arka plan, altın kenarlık).
+  Bina adı büyük font (Cinzel veya serif), seviye yıldızlarla göster (★★★).
+  Yükseltme maliyeti tablo formatında (Odun: X | Buğday: Y | Altın: Z).
+  "Yükselt" butonu daha belirgin (büyük, altın, hover efekti).
+- Üst bar'a kaynak üretim hızı göstergesi ekle: Her kaynağın yanında (+X/dk) küçük yeşil text.
+- Üst bar responsive düzeltme (mobilde taşma olmasın).
+- css/ui.css'e yeni stiller ekle.
+- Bitirdiğinde prodetayi/faz_A3_13_panel_iyilestirme.txt oluştur.
+
+PROMPT A3-14:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-14: Kaynak Üretim Paneli UI (DALGA 14)
+- public/js/ui/productionPanel.js: Kaynak üretim özet paneli.
+  Hangi bina ne üretiyor listesi (ikon + bina adı + üretim miktarı).
+  Toplam üretim/dakika özeti.
+  Panel açılış: Üst bar'daki kaynak ikonuna tıklayınca.
+- Floating text efekti desteği: Kaynak üretildiğinde "+5 🌾" gibi text yukarı kayarak kaybolsun.
+  CSS animasyonu ile (translateY + opacity).
+- css/ui.css'e üretim paneli ve floating text stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_14_uretim_paneli.txt oluştur.
+
+PROMPT A3-15:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-15: Hamam & Dekorasyon UI (DALGA 15)
+- Hamam detay panelinde sağlık bonusu göstergesi (kalp ikonu + bonus yüzdesi).
+- Dekorasyon yerleştirme mini menüsü: Çeşme, heykel seçenekleri.
+  Küçük thumbnail ikonları, tıkla → yerleştirme moduna geç.
+- Güzellik puanı göstergesi (üst bar'da veya ayrı küçük panel).
+- css/ui.css'e dekorasyon menü stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_15_hamam_dekor_ui.txt oluştur.
+
+PROMPT A3-16:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-16: Ekonomi Paneli & Bina İnşa Menüsü (DALGA 16)
+- public/js/ui/economyPanel.js: Ekonomi özet paneli.
+  Tüm üretim/tüketim tablosu (gelir/gider).
+  Net kaynak değişimi/dakika.
+  Grafik yerine basit bar göstergeler.
+- Bina inşa menüsü alt bar: Ekranın altında yatay bina listesi.
+  Her bina: Küçük ikon + isim + maliyet. Tıkla → inşa moduna geç.
+  Karşılanamayan binalar gri/kilitli görünsün.
+- css/ui.css'e ekonomi ve inşa menü stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_16_ekonomi_insa_ui.txt oluştur.
+
+PROMPT A3-17:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/ dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-17: Bina İnşa Onay UI (DALGA 17)
+- İnşa modu aktifken: Ekranın altında "İnşa Et" (yeşil) ve "İptal" (kırmızı) butonları.
+  Seçili bina adı ve maliyeti göster.
+  Maliyet karşılanabiliyorsa yeşil, karşılanamıyorsa kırmızı text.
+- İnşa tamamlandığında: "Bina inşa edildi!" toast bildirimi.
+- ESC tuşu ile iptal desteği.
+- css/ui.css'e inşa modu stilleri ekle.
+- Bitirdiğinde prodetayi/faz_A3_17_insa_onay_ui.txt oluştur.
+
+PROMPT A3-18:
+Sen AGENT 3: UI_DESIGNER olarak çalışıyorsun. Roma City Builder projesi.
+
+KURALLAR:
+1. SADECE css/ ve public/css/, public/js/ui/, public/index.html dosyalarına dokunabilirsin.
+2. Herhangi bir onay sorma, inisiyatif al ve görevi direkt bitir.
+
+GÖREV - FAZ A3-18: İstatistik & Başarım UI (DALGA 18)
+- public/js/ui/statsPanel.js: Oyun istatistik ekranı.
+  Toplam bina sayısı, nüfus, gelir/dakika, oyun süresi.
+  Şehir seviyesi (toplam bina seviyelerine göre).
+- public/js/ui/achievementPanel.js: Başarım sistemi.
+  Başarımlar: "İlk Bina" (1 bina inşa et), "Zengin Senator" (10000 altın),
+  "Büyük Şehir" (20 bina), "Usta Mimar" (tüm binalar Lv5).
+  Başarım kazanıldığında altın toast bildirimi.
+- Ses kontrol ikonu (üst bar sağ köşe, açık/kapalı toggle).
+- Bitirdiğinde prodetayi/faz_A3_18_istatistik_basarim.txt oluştur.
