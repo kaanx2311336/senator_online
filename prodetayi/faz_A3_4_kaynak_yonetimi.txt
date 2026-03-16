@@ -1,0 +1,6 @@
+FAZ A3-4 Tamamlandı: Kaynak Yönetimi ve Animasyonlu Güncelleme (DALGA 4)
+
+Dosyalar:
+- js/ui/resourceManager.js: Kaynakları ve yönetim fonksiyonlarını (addResource, spendResource, canAfford, getResources) içerecek şekilde oluşturuldu. Harcamalarda yetersiz kaynak olması durumunda `topBar.js` içerisindeki `flashResource` fonksiyonunu çağırır.
+- js/ui/topBar.js: `initTopBar` kaynakları `resourceManager`'dan alacak şekilde güncellendi. `updateResource` fonksiyonu, animasyonlu sayı geçişleri (GSAP kullanılarak yeni değerlerin aşağıdan/yukarıdan gelerek eskilerinin kaybolması) ile güncellendi. Yetersiz kaynaklarda kırmızı yanıp sönme efekti için `flashResource` eklendi.
+- css/ui.css: GSAP'nin kullanılamadığı durumlar için `flashResource` fonksiyonuna kırmızı yanıp sönme fallback css animasyonu (`.flash-red`) eklendi.

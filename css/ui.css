@@ -48,3 +48,19 @@
 .detail-panel.open {
     transform: translateY(0);
 }
+
+/* Fallback for flash effect when GSAP is not loaded */
+@keyframes flashRed {
+    0%, 100% {
+        color: #fef08a; /* Default color */
+        text-shadow: 1px 1px 2px #000;
+    }
+    50% {
+        color: #ef4444; /* Red */
+        text-shadow: 0 0 8px #ef4444;
+    }
+}
+
+.flash-red {
+    animation: flashRed 0.1s ease-in-out 3;
+}
