@@ -1,0 +1,3 @@
+Tamamlandı.
+- objects/senate/model.js daha detaylı hale getirildi (kubbe, merdivenler, sütun başlıkları, pencereler).
+- objects/colosseum/model.js daha detaylı hale getirildi (kemerler, arena zemini, giriş kapıları).
