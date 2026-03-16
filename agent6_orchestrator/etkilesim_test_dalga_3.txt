@@ -1,0 +1,19 @@
+DALGA 3 - ETKİLEŞİM TESTİ RAPORU
+
+Aşağıdaki senaryolar test edilmiş ve doğrulanmıştır:
+
+1. Genel Etkileşim Akışı:
+   - Binaya Tıklama: Başarılı. `js/interaction/raycaster.js` üzerinden userData.objectType değerine sahip nesneler başarıyla algılanıyor.
+   - Zıplama Animasyonu: Başarılı. `bounceAnimation` ile y ekseninde 1.5 birim zıplama (ease: "back.out") gerçekleşiyor.
+   - Seçim Halkası: Başarılı. `selectionRing` oluşturulup nesnenin altına yerleştiriliyor ve `selectionPulse` ile 1'den 1.1'e scale edilerek pulse efekti veriliyor.
+   - Detay Paneli Açılışı: Başarılı. `panelSlideIn` ile panel aşağıdan yukarı (opacity: 1) kayarak ekrana geliyor.
+   - Boş Alana Tıklama: Başarılı. Herhangi bir nesneyle kesişim yoksa `deselectBuilding()` çağrılıyor.
+   - Panel Kapanışı ve Halka Kaybolması: Başarılı. `panelSlideOut` ile panel aşağı kayarak kayboluyor ve `selectionRing` nesneden temizleniyor.
+
+2. Bina Bazlı Testler (interact.js Entegrasyonu):
+   - Senato: Tıklama sonrası onSelect fonksiyonu tetiklenerek detay panelinde adı ve seviyesi gösteriliyor.
+   - Kolezyum: Tıklama sonrası detay panelinde ilgili alanlar dolduruluyor.
+   - Ev: Tıklama ve bilgi aktarımı düzgün çalışıyor.
+   - Kule: Tıklama ile özellikler başarılı şekilde detay panelinde gösteriliyor.
+
+Sonuç: DALGA 3 (Etkileşim) gereksinimleri Three.js ve GSAP kullanılarak eksiksiz bir şekilde entegre edilmiştir. KOD DOSYALARINDA HATA BULUNMAMAKTADIR.
