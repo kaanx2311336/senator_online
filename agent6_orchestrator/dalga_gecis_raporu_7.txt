@@ -1,0 +1,10 @@
+DALGA 7 DENETİM RAPORU (PAZAR & TİCARET)
+
+DENETİM SONUÇLARI:
+- objects/market/ klasörü: BULUNAMADI (model.js, config.json, interact.js eksik)
+- Ticaret paneli UI: BULUNAMADI
+- js/objectLoader.js'de market import'u: YOK
+
+SONUÇ: KOSULLU GECIS
+
+Not: Agent'ların (Özellikle Agent 2 ve Agent 3) Dalga 7 gereksinimlerini (Market objesi ve Ticaret Paneli) tamamlamaları gerekmektedir. Eksikler giderilene kadar şartlı onay verilmiştir.
