@@ -1,0 +1,10 @@
+FAZ A3-9: Ticaret Rotası Haritası UI (DALGA 9) tamamlandı.
+
+- public/js/ui/tradeRouteMap.js dosyası oluşturuldu ve 2D mini harita (canvas overlay) eklendi.
+- Liman noktası, ticaret rotaları (çizgiler) ve gemi ikonları eklendi.
+- Rota durumu için renk kodlamaları (Aktif: yeşil, Beklemede: sarı, Tehlikede: kırmızı) uygulandı.
+- Gemi ikonlarına tıklanınca Kargo, varış süresi ve kar tahmini detaylarını gösteren tooltip yapıldı.
+- css/ui.css ve public/css/ui.css dosyalarına harita ve tooltip için gerekli CSS transition'ları eklendi.
+
+AGENT 3: UI_DESIGNER
+Görev başarıyla tamamlanmıştır.

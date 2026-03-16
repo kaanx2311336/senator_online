@@ -105,6 +105,15 @@
     animation: flashRed 0.1s ease-in-out 3;
 }
 
+/* Trade Route Map Specific Styles */
+#trade-route-map-container {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#trade-ship-tooltip {
+    transition: left 0.1s linear, top 0.1s linear, opacity 0.2s;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     /* Üst barı küçült */
