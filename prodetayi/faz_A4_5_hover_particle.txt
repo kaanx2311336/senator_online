@@ -1,0 +1,8 @@
+FAZ A4-5 Tamamlanma Raporu
+
+Gerçekleştirilen Görevler:
+1. Hover Efektleri: `js/interaction/raycaster.js` dosyasına `onMouseMove` fonksiyonu eklendi. Tıklanabilir (userData.objectType özelliğine sahip) nesnelerin üzerine gelindiğinde emissive değeri (0x222222) artırılarak hafif bir parlama (glow) efekti uygulandı ve mouse imleci 'pointer' olarak ayarlandı.
+2. Kamera Smooth Pan: `js/interaction/animations.js` içerisine GSAP kullanan `panCameraTo` fonksiyonu eklendi. Global kamera ve controls referansları `cameraControls.js` ve `selection.js` entegrasyonu ile sağlanarak, bir binaya tıklandığında (selectBuilding) kameranın binaya doğru akıcı (smooth) bir şekilde kayması sağlandı.
+3. Yükseltme Parçacık Efekti: `js/interaction/animations.js` dosyasına `createUpgradeParticles` eklendi. THREE.Points kullanarak yükseltme sırasında altın renkli yıldızların yukarı doğru uçup kaybolduğu bir parçacık sistemi oluşturuldu. Bu efekt, `selection.js` içerisinde bina yükseltildiğinde tetiklenecek şekilde ayarlandı.
+
+Tüm geliştirmeler, GSAP ve Three.js temel araçları kullanılarak sadece `js/interaction/*.js` dosyalarında gerçekleştirilmiştir. Başka herhangi bir dosyaya müdahale edilmemiştir.

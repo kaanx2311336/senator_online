@@ -11,6 +11,81 @@ const mouse = new THREE.Vector2();
  * @param {THREE.Scene} scene 
  * @param {Function} callback 
  */
+let hoveredObject = null;
+
+export function onMouseMove(event, camera, scene) {
+    // Mouse pozisyon hesaplama
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children, true);
+
+    let found = null;
+    if (intersects.length > 0) {
+        for (let i = 0; i < intersects.length; i++) {
+            let current = intersects[i].object;
+            while (current && current !== scene) {
+                if (current.userData && current.userData.objectType) {
+                    found = current;
+                    break;
+                }
+                current = current.parent;
+            }
+            if (found) break;
+        }
+    }
+
+    if (found) {
+        if (hoveredObject !== found) {
+            // Revert old hovered
+            if (hoveredObject) clearHover(hoveredObject);
+            
+            // Apply new hover
+            hoveredObject = found;
+            applyHover(hoveredObject);
+        }
+    } else {
+        if (hoveredObject) {
+            clearHover(hoveredObject);
+            hoveredObject = null;
+        }
+    }
+}
+
+function applyHover(object) {
+    document.body.style.cursor = 'pointer';
+    object.traverse((child) => {
+        if (child.isMesh && child.material) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach(mat => {
+                if (mat.emissive !== undefined) {
+                    // Store original emissive if not exists
+                    if (!mat.userData.originalEmissive) {
+                        mat.userData.originalEmissive = mat.emissive.clone();
+                    }
+                    // Add slight glow
+                    mat.emissive.add(new THREE.Color(0x222222));
+                }
+            });
+        }
+    });
+}
+
+function clearHover(object) {
+    document.body.style.cursor = 'default';
+    object.traverse((child) => {
+        if (child.isMesh && child.material) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach(mat => {
+                if (mat.emissive !== undefined && mat.userData.originalEmissive) {
+                    mat.emissive.copy(mat.userData.originalEmissive);
+                }
+            });
+        }
+    });
+}
+
 export function onClick(event, camera, scene, callback) {
     // Mouse pozisyon hesaplama (normalized device coordinates: -1 to +1)
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;

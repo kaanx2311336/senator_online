@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { setCameraAndControls } from './selection.js';
 
 /**
  * OrbitControls kurulumu
@@ -9,6 +10,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
  */
 export function setupControls(camera, domElement) {
     const controls = new OrbitControls(camera, domElement);
+    
+    // Setup references for selection logic
+    setCameraAndControls(camera, controls);
     
     // enableRotate = false (döndürme KESİNLİKLE KAPALI)
     controls.enableRotate = false;

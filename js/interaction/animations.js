@@ -31,6 +31,45 @@ export function bounceAnimation(mesh) {
 }
 
 /**
+ * Kamera smooth pan efekti (GSAP ile)
+ * @param {THREE.Camera} camera
+ * @param {OrbitControls} controls
+ * @param {THREE.Vector3} targetPosition
+ */
+export function panCameraTo(camera, controls, targetPosition) {
+    if (!camera || !controls || !targetPosition) return;
+
+    // Hedefe doğru kamerayı taşıyalım, kameranın y'sini biraz yukarıda tutalım
+    const newCameraPos = new THREE.Vector3(
+        targetPosition.x,
+        targetPosition.y + 30, // Kamera biraz yukarıdan baksın
+        targetPosition.z + 40  // Kamera biraz geriden baksın
+    );
+
+    // controls.target animasyonu
+    gsap.killTweensOf(controls.target);
+    gsap.to(controls.target, {
+        x: targetPosition.x,
+        y: targetPosition.y,
+        z: targetPosition.z,
+        duration: 1.0,
+        ease: "power2.out",
+        onUpdate: () => controls.update()
+    });
+
+    // camera.position animasyonu
+    gsap.killTweensOf(camera.position);
+    gsap.to(camera.position, {
+        x: newCameraPos.x,
+        y: newCameraPos.y,
+        z: newCameraPos.z,
+        duration: 1.0,
+        ease: "power2.out",
+        onUpdate: () => controls.update()
+    });
+}
+
+/**
  * Seçim halkası hafif pulse efekti (scale 1→1.1→1, tekrarlı)
  * @param {THREE.Mesh} ring 
  */
@@ -146,6 +185,71 @@ export function upgradeAnimation(mesh) {
                     });
                 }
             });
+        }
+    });
+}
+
+/**
+ * Yükseltme parçacık efekti (küçük altın yıldızlar)
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Vector3} position 
+ */
+export function createUpgradeParticles(scene, position) {
+    if (!scene || !position) return;
+
+    const particleCount = 20;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = [];
+
+    for (let i = 0; i < particleCount; i++) {
+        // Rastgele pozisyon (merkeze yakın)
+        positions[i * 3] = position.x + (Math.random() - 0.5) * 2;
+        positions[i * 3 + 1] = position.y + Math.random() * 2;
+        positions[i * 3 + 2] = position.z + (Math.random() - 0.5) * 2;
+
+        // Rastgele hız (yukarı doğru uçuş)
+        velocities.push({
+            x: (Math.random() - 0.5) * 2,
+            y: Math.random() * 3 + 2, // Hep yukarı yönlü
+            z: (Math.random() - 0.5) * 2
+        });
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // Basit sarı/altın materyal
+    const material = new THREE.PointsMaterial({
+        color: 0xffd700, // Gold
+        size: 0.5,
+        transparent: true,
+        opacity: 1
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // Animasyon döngüsü - GSAP ile her parçacığı güncelleyebiliriz veya onUpdate hook'u kullanabiliriz
+    const dummyObj = { t: 0 };
+    gsap.to(dummyObj, {
+        t: 1,
+        duration: 1.0,
+        ease: "power1.out",
+        onUpdate: () => {
+            const positionsArray = particles.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                positionsArray[i * 3] += velocities[i].x * 0.05;
+                positionsArray[i * 3 + 1] += velocities[i].y * 0.05;
+                positionsArray[i * 3 + 2] += velocities[i].z * 0.05;
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            // Yavaşça kaybol
+            particles.material.opacity = 1 - dummyObj.t;
+        },
+        onComplete: () => {
+            scene.remove(particles);
+            geometry.dispose();
+            material.dispose();
         }
     });
 }

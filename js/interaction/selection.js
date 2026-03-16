@@ -1,6 +1,6 @@
 // js/interaction/selection.js
 import * as THREE from 'three';
-import { bounceAnimation, selectionPulse, panelSlideIn, panelSlideOut, upgradeAnimation, insufficientResourceAnimation, showToast } from './animations.js';
+import { bounceAnimation, selectionPulse, panelSlideIn, panelSlideOut, upgradeAnimation, insufficientResourceAnimation, showToast, panCameraTo, createUpgradeParticles } from './animations.js';
 import { canAfford, spendResource } from '../ui/resourceManager.js';
 import { updateShieldLabel } from '../ui/shieldLabels.js';
 
@@ -42,6 +42,15 @@ function getObjectDirectory(mesh) {
     return null;
 }
 
+// To store reference to global camera and controls for panning
+let globalCamera = null;
+let globalControls = null;
+
+export function setCameraAndControls(camera, controls) {
+    globalCamera = camera;
+    globalControls = controls;
+}
+
 export async function selectBuilding(mesh) {
     if (!mesh) return;
 
@@ -63,6 +72,11 @@ export async function selectBuilding(mesh) {
     const worldPos = new THREE.Vector3();
     selectedMesh.getWorldPosition(worldPos);
     selectionRing.position.set(worldPos.x, worldPos.y + 0.1, worldPos.z);
+    
+    // Smooth pan camera if we have references
+    if (globalCamera && globalControls) {
+        panCameraTo(globalCamera, globalControls, worldPos);
+    }
     
     if (selectedMesh.parent) {
         selectedMesh.parent.add(selectionRing);
@@ -155,6 +169,7 @@ async function handleUpgradeClick(dir) {
         
         // Trigger animations
         upgradeAnimation(newMesh);
+        createUpgradeParticles(newMesh.parent, position);
         
         // Update shield label (DOM)
         updateShieldLabel(shieldId, currentLevel + 1);
