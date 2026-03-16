@@ -1,0 +1,8 @@
+GÖREV - FAZ A1-9: Liman & Su Alanı Sahne Entegrasyonu (DALGA 9)
+TAMAMLANDI.
+
+Yapılan değişiklikler:
+1. public/js/main.js dosyasına su düzlemi (mavi yarı-saydam) ve hafif dalga animasyonu eklendi.
+2. objects/harbor/ ve objects/ship/ için temel model.js, config.json ve interact.js dosyaları oluşturuldu.
+3. public/js/objectLoader.js'de Liman ve Gemi import edildi ve sahneye yerleştirildi.
+4. public/js/interaction/objectModules.js dosyasına harbor ve ship modülleri kaydedildi.

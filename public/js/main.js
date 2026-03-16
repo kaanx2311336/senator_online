@@ -43,6 +43,34 @@ ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.1;
 scene.add(ground);
 
+// Water (South Edge)
+const waterGeo = new THREE.PlaneGeometry(300, 100, 32, 32);
+const waterMat = new THREE.MeshLambertMaterial({ 
+  color: 0x1ca3ec, 
+  transparent: true, 
+  opacity: 0.7,
+  side: THREE.DoubleSide
+});
+const water = new THREE.Mesh(waterGeo, waterMat);
+water.rotation.x = -Math.PI / 2;
+// Positioned at the south edge of the ground (ground z goes from -150 to +150)
+water.position.set(0, -0.2, 100); 
+scene.add(water);
+
+// Store original vertices for wave animation
+const waterVertices = [];
+const posAttribute = waterGeo.attributes.position;
+for (let i = 0; i < posAttribute.count; i++) {
+  waterVertices.push({
+    x: posAttribute.getX(i),
+    y: posAttribute.getY(i),
+    z: posAttribute.getZ(i),
+    ang: Math.random() * Math.PI * 2,
+    amp: 0.5 + Math.random() * 0.5,
+    speed: 0.01 + Math.random() * 0.02
+  });
+}
+
 // Controls
 const controls = setupControls(camera, renderer.domElement);
 
@@ -79,6 +107,18 @@ function animate() {
   scene.traverse(obj => {
     if (obj.isLOD) obj.update(camera);
   });
+  
+  // Wave animation
+  const time = Date.now() * 0.001;
+  const positions = water.geometry.attributes.position;
+  for (let i = 0; i < positions.count; i++) {
+    const v = waterVertices[i];
+    v.ang += v.speed;
+    const offset = Math.sin(v.ang) * v.amp;
+    positions.setZ(i, v.z + offset * 0.5); // Z in PlaneGeometry is the normal when rotated
+  }
+  positions.needsUpdate = true;
+
   renderer.render(scene, camera);
 }
 animate();

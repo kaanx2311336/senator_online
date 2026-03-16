@@ -13,6 +13,10 @@ import { createHouse } from '../objects/house/model.js';
 import houseConfig from '../objects/house/config.json';
 import { createSenate } from '../objects/senate/model.js';
 import senateConfig from '../objects/senate/config.json';
+import { createHarbor } from '../objects/harbor/model.js';
+import harborConfig from '../objects/harbor/config.json';
+import { createShip } from '../objects/ship/model.js';
+import shipConfig from '../objects/ship/config.json';
 
 export const ObjectLoader = {
     loadAllObjects: () => {
@@ -106,6 +110,26 @@ export const ObjectLoader = {
                 objects.push(road);
             }
         }
+
+        // Harbor
+        const harbor = createHarbor(1);
+        harbor.userData.objectType = harborConfig.type || 'building';
+        harbor.userData.objectName = harborConfig.name || 'Liman';
+        harbor.userData.level = 1;
+        if (harborConfig.position) {
+            harbor.position.set(harborConfig.position[0], harborConfig.position[1], harborConfig.position[2]);
+        }
+        objects.push(harbor);
+
+        // Ship
+        const ship = createShip(1);
+        ship.userData.objectType = shipConfig.type || 'vehicle';
+        ship.userData.objectName = shipConfig.name || 'Gemi';
+        ship.userData.level = 1;
+        if (shipConfig.position) {
+            ship.position.set(shipConfig.position[0], shipConfig.position[1], shipConfig.position[2]);
+        }
+        objects.push(ship);
 
         return objects;
     }
