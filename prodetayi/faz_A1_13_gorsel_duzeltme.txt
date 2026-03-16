@@ -1,0 +1,6 @@
+Faz A1-13 (Gorsel Duzeltme) tamamlandi:
+- LOD mesafeleri 0-80 (yakin), 80-150 (orta), 150+ (uzak) olarak ayarlandi.
+- Su duzlemi sadece haritanin guney kenarinda (y=-0.5, z=120) zeminle cakismayacak sekilde duzeltildi.
+- renderer.setPixelRatio(1) tutuldu ve desktop icin antialias: true ayari korundu (main.js kontrolu yapildi).
+- CylinderGeometry segmentasyonlarina bakildi, main.js icerisinde bu geometryler dogrudan secilmedigi icin mevcut kod kurgusunda islem yapilmadi (cunku gorev limitasyonlari sadece iki dosyaya ozeldi).
+- Fog mesafesi 100-250 olarak artirildi, binalar netlestirildi.

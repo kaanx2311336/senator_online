@@ -24,10 +24,10 @@ import barracksConfig from '../objects/barracks/config.json';
 function createLODWrapper(highDetailObj) {
     const lod = new THREE.LOD();
     
-    // Level 0: 0-40 (High Detail)
+    // Level 0: 0-80 (High Detail)
     lod.addLevel(highDetailObj, 0);
     
-    // Level 1: 40-80 (Mid Detail - using high detail for now but distance scales or simple box could be here)
+    // Level 1: 80-150 (Mid Detail - using high detail for now but distance scales or simple box could be here)
     // To optimize, if we don't have a mid-detail mesh, we can use a simpler geometry block or reuse. 
     // We'll create a basic simplified mesh (a box) of the same bounding box for mid/far.
     const box3 = new THREE.Box3().setFromObject(highDetailObj);
@@ -48,12 +48,12 @@ function createLODWrapper(highDetailObj) {
     lod.userData = { ...highDetailObj.userData };
     midDetailGroup.userData = { ...highDetailObj.userData };
     
-    lod.addLevel(midDetailGroup, 40);
+    lod.addLevel(midDetailGroup, 80);
     
-    // Level 2: 80+ (Far Detail - Empty to cull entirely or very simple)
+    // Level 2: 150+ (Far Detail - Empty to cull entirely or very simple)
     const farDetailGroup = new THREE.Group();
     farDetailGroup.userData = { ...highDetailObj.userData };
-    lod.addLevel(farDetailGroup, 80);
+    lod.addLevel(farDetailGroup, 150);
     
     // Position the LOD where the object was meant to be
     lod.position.copy(highDetailObj.position);

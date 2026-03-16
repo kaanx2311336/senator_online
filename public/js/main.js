@@ -131,7 +131,7 @@ function updateFestival() {
 // Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87CEEB);
-scene.fog = new THREE.Fog(0x87CEEB, 80, 200);
+scene.fog = new THREE.Fog(0x87CEEB, 100, 250);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
@@ -197,7 +197,7 @@ const waterMat = new THREE.MeshLambertMaterial({
 const water = new THREE.Mesh(waterGeo, waterMat);
 water.rotation.x = -Math.PI / 2;
 // Positioned at the south edge of the ground (ground z goes from -150 to +150)
-water.position.set(0, -0.2, 100); 
+water.position.set(0, -0.5, 120); 
 scene.add(water);
 
 // Store original vertices for wave animation
