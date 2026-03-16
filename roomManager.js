@@ -52,6 +52,14 @@ class RoomManager {
       throw new Error('Oyuncu odada değil');
     }
 
+    // If game is playing, handle disconnect/reconnect logic
+    if (room.status === 'playing') {
+      const player = room.players[playerIndex];
+      player.disconnectedAt = Date.now();
+      player.isConnected = false;
+      return { roomDeleted: false, room, removedPlayer: player, isDisconnect: true };
+    }
+
     const removedPlayer = room.players.splice(playerIndex, 1)[0];
 
     // If room is empty, delete it
@@ -66,6 +74,41 @@ class RoomManager {
     }
 
     return { roomDeleted: false, room, removedPlayer };
+  }
+
+  reconnectPlayer(roomId, player, socketId) {
+    const room = this.rooms.get(roomId);
+    if (!room) {
+      throw new Error('Oda bulunamadı');
+    }
+
+    const existingPlayer = room.players.find(p => p.id === player.id);
+    if (!existingPlayer) {
+      throw new Error('Oyuncu odada değil');
+    }
+
+    if (existingPlayer.disconnectedAt) {
+      const timeDisconnected = Date.now() - existingPlayer.disconnectedAt;
+      if (timeDisconnected > 60000) { // 60 seconds
+        throw new Error('Yeniden bağlanma süresi doldu');
+      }
+      existingPlayer.disconnectedAt = null;
+      existingPlayer.isConnected = true;
+      existingPlayer.socketId = socketId;
+      return room;
+    }
+
+    throw new Error('Oyuncu zaten bağlı');
+  }
+
+  getPlayerRoom(playerId) {
+    for (const [roomId, room] of this.rooms.entries()) {
+      const player = room.players.find(p => p.id === playerId);
+      if (player) {
+        return room;
+      }
+    }
+    return null;
   }
 
   setPlayerReady(roomId, playerId) {

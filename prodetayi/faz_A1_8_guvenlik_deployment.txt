@@ -1,0 +1,9 @@
+FAZ A1-8: Güvenlik + Reconnect + Deployment (DALGA 6) Tamamlanma Raporu
+
+Gerçekleştirilen İşlemler:
+1. Rate Limiting ve Input Validation: Saniyede max 10, dakikada max 100 event limiti getiren `middleware/socketSecurity.js` middleware'i yazıldı ve `server.js`'e eklendi. Tüm eventler için uzunluk ve tip kontrolü yapan bir validatör eklendi.
+2. CORS Kısıtlamaları: `server.js`'te `cors` kütüphanesi yapılandırıldı. Gelen origin ve allowed headers gibi kurallar sıkılaştırıldı.
+3. Reconnect Mantığı: Oyun sırasında bağlantısı kopan oyuncuların 60 saniye içinde yeniden bağlanabilmesi için `roomManager.js` ve `server.js` güncellendi. Token ile giriş yapan oyuncunun oyun durumu, state'ten alınıp kendisine iletilerek tekrar odaya ve maça dahil olması sağlandı.
+4. Deployment Dosyaları: `Dockerfile` (Node.js backend için), `docker-compose.yml` (App, MySQL ve Nginx servislerini içeren) ve `nginx.conf` (WebSocket proxy ve Gzip desteği ile yapılandırılmış) oluşturuldu.
+
+Tüm gereksinimler eksiksiz bir şekilde tamamlanmıştır.
