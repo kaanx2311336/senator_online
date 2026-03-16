@@ -98,6 +98,37 @@ export async function selectBuilding(mesh) {
                 const detailPanel = document.getElementById('detail-panel');
                 if (currentInteractModule && currentInteractModule.onSelect) {
                     currentInteractModule.onSelect(selectedMesh, detailPanel);
+                    
+                    // Inject Festival button if this is a Colosseum
+                    if (dir === 'colosseum') {
+                        // Modify header text
+                        const h3 = detailPanel.querySelector('h3');
+                        if (h3) h3.textContent = 'Kolezyum / Arena';
+                        
+                        // Restyle upgrade button and append festival button
+                        const upgradeBtn = detailPanel.querySelector('#upgrade-btn');
+                        if (upgradeBtn) {
+                            upgradeBtn.textContent = 'Yükselt';
+                            upgradeBtn.className = 'bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded mb-2 w-full';
+                            
+                            // Check if festival button already exists to avoid duplicates
+                            if (!detailPanel.querySelector('#festival-btn')) {
+                                const festivalBtn = document.createElement('button');
+                                festivalBtn.id = 'festival-btn';
+                                festivalBtn.className = 'bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded w-full';
+                                festivalBtn.textContent = 'Festival Başlat';
+                                upgradeBtn.insertAdjacentElement('afterend', festivalBtn);
+                                
+                                festivalBtn.addEventListener('click', () => {
+                                    import('./animations.js').then(module => {
+                                        module.startFestivalAnimation(selectedMesh.parent, selectedMesh);
+                                    }).catch(err => {
+                                        console.error("Festival animation import error:", err);
+                                    });
+                                });
+                            }
+                        }
+                    }
                 }
                 
                 // Attach upgrade event listener if the button exists

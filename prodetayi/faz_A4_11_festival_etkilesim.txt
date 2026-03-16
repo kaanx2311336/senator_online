@@ -1,0 +1,6 @@
+FAZ A4-11: Festival Başlatma & Kalabalık Animasyonu (DALGA 11) başarıyla tamamlandı.
+- SADECE `public/js/interaction/` dizinindeki dosyalar (animations.js, selection.js) değiştirilerek kurallara uyuldu.
+- `startFestivalAnimation` fonksiyonu `animations.js` içerisine eklendi.
+- Konfeti patlaması (renkli parçacıklar, GSAP ile yağma), kalabalık simülasyonu (Points ile etrafında dönme) ve Kolezyum emissive pulse efekti uygulandı.
+- Festival bitince parçacıkların temizlenmesi ve ödül bildirim mesajı (Toast) gösterilmesi sağlandı.
+- `selection.js` içerisinden Kolezyum seçildiğinde detay paneline "Festival Başlat" butonu dinamik olarak eklendi.

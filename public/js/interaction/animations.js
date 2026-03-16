@@ -669,3 +669,171 @@ function createWaveEffect(scene, position) {
         console.error("createWaveEffect error:", err);
     }
 }
+
+/**
+ * Festival Başlatma Animasyonu
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Object3D} colosseumMesh 
+ */
+export function startFestivalAnimation(scene, colosseumMesh) {
+    try {
+        if (!scene || !colosseumMesh) return;
+        
+        // Işık Efekti (Emissive pulse)
+        const originalEmissives = [];
+        colosseumMesh.traverse((child) => {
+            if (child.isMesh && child.material) {
+                const materials = Array.isArray(child.material) ? child.material : [child.material];
+                materials.forEach(mat => {
+                    if (mat.emissive !== undefined) {
+                        originalEmissives.push({ mat: mat, color: mat.emissive.clone() });
+                        
+                        gsap.to(mat.emissive, {
+                            r: 1,
+                            g: 0.5,
+                            b: 0.2,
+                            duration: 1,
+                            yoyo: true,
+                            repeat: 5,
+                            ease: "sine.inOut"
+                        });
+                    }
+                });
+            }
+        });
+
+        const centerPos = new THREE.Vector3();
+        colosseumMesh.getWorldPosition(centerPos);
+
+        // Konfeti patlaması
+        const confettiCount = 150; // Performance limit < 200
+        const confettiGeo = new THREE.BufferGeometry();
+        const confettiPos = new Float32Array(confettiCount * 3);
+        const confettiColors = new Float32Array(confettiCount * 3);
+        const confettiVelocities = [];
+
+        for (let i = 0; i < confettiCount; i++) {
+            confettiPos[i * 3] = centerPos.x + (Math.random() - 0.5) * 10;
+            confettiPos[i * 3 + 1] = centerPos.y + 15 + Math.random() * 5;
+            confettiPos[i * 3 + 2] = centerPos.z + (Math.random() - 0.5) * 10;
+
+            const color = new THREE.Color();
+            color.setHSL(Math.random(), 1.0, 0.5);
+            confettiColors[i * 3] = color.r;
+            confettiColors[i * 3 + 1] = color.g;
+            confettiColors[i * 3 + 2] = color.b;
+
+            confettiVelocities.push({
+                x: (Math.random() - 0.5) * 2,
+                y: - (Math.random() * 2 + 1), // Falling down
+                z: (Math.random() - 0.5) * 2
+            });
+        }
+
+        confettiGeo.setAttribute('position', new THREE.BufferAttribute(confettiPos, 3));
+        confettiGeo.setAttribute('color', new THREE.BufferAttribute(confettiColors, 3));
+
+        const confettiMat = new THREE.PointsMaterial({
+            size: 0.4,
+            vertexColors: true,
+            transparent: true,
+            opacity: 1
+        });
+
+        const confettiPoints = new THREE.Points(confettiGeo, confettiMat);
+        scene.add(confettiPoints);
+
+        // Kalabalık simülasyonu
+        const crowdCount = 100;
+        const crowdGeo = new THREE.BufferGeometry();
+        const crowdPos = new Float32Array(crowdCount * 3);
+        const crowdVelocities = [];
+        const crowdAngles = new Float32Array(crowdCount);
+
+        for (let i = 0; i < crowdCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 5 + Math.random() * 5; // Arena etrafında
+            
+            crowdPos[i * 3] = centerPos.x + Math.cos(angle) * radius;
+            crowdPos[i * 3 + 1] = centerPos.y + 0.2; // Yerde
+            crowdPos[i * 3 + 2] = centerPos.z + Math.sin(angle) * radius;
+
+            crowdAngles[i] = angle;
+            crowdVelocities.push(0.01 + Math.random() * 0.02); // Angular velocity
+        }
+
+        crowdGeo.setAttribute('position', new THREE.BufferAttribute(crowdPos, 3));
+        const crowdMat = new THREE.PointsMaterial({
+            color: 0xffaa00,
+            size: 0.5,
+            transparent: true,
+            opacity: 1
+        });
+        const crowdPoints = new THREE.Points(crowdGeo, crowdMat);
+        scene.add(crowdPoints);
+
+        // Festival süresi boyunca animasyon döngüsü (GSAP ile)
+        const dummyObj = { t: 0 };
+        gsap.to(dummyObj, {
+            t: 1,
+            duration: 6, // 6 saniye sürsün
+            ease: "none",
+            onUpdate: () => {
+                // Update Confetti
+                const cPosArr = confettiPoints.geometry.attributes.position.array;
+                for (let i = 0; i < confettiCount; i++) {
+                    cPosArr[i * 3] += confettiVelocities[i].x * 0.05;
+                    cPosArr[i * 3 + 1] += confettiVelocities[i].y * 0.05;
+                    cPosArr[i * 3 + 2] += confettiVelocities[i].z * 0.05;
+                    
+                    // Rüzgar etkisi
+                    confettiVelocities[i].x += (Math.random() - 0.5) * 0.1;
+                    confettiVelocities[i].z += (Math.random() - 0.5) * 0.1;
+                    
+                    // Reset if falling below ground
+                    if (cPosArr[i * 3 + 1] < centerPos.y) {
+                        cPosArr[i * 3 + 1] = centerPos.y + 15 + Math.random() * 5;
+                    }
+                }
+                confettiPoints.geometry.attributes.position.needsUpdate = true;
+
+                // Update Crowd
+                const crPosArr = crowdPoints.geometry.attributes.position.array;
+                for (let i = 0; i < crowdCount; i++) {
+                    crowdAngles[i] += crowdVelocities[i];
+                    const radius = 5 + (i % 5); // Simple pseudo-random radius
+                    crPosArr[i * 3] = centerPos.x + Math.cos(crowdAngles[i]) * radius;
+                    crPosArr[i * 3 + 2] = centerPos.z + Math.sin(crowdAngles[i]) * radius;
+                }
+                crowdPoints.geometry.attributes.position.needsUpdate = true;
+
+                // Fade out effect in the last second
+                if (dummyObj.t > 0.8) {
+                    const opacity = (1 - dummyObj.t) / 0.2;
+                    confettiMat.opacity = Math.max(0, opacity);
+                    crowdMat.opacity = Math.max(0, opacity);
+                }
+            },
+            onComplete: () => {
+                // Temizlik
+                scene.remove(confettiPoints);
+                scene.remove(crowdPoints);
+                confettiGeo.dispose();
+                confettiMat.dispose();
+                crowdGeo.dispose();
+                crowdMat.dispose();
+
+                // Restore emissives
+                originalEmissives.forEach(({ mat, color }) => {
+                    mat.emissive.copy(color);
+                });
+
+                // Ödül bildirimi
+                showToast("Festival sona erdi! Halkın mutluluğu arttı, +500 Altın kazanıldı.");
+            }
+        });
+
+    } catch (err) {
+        console.error("startFestivalAnimation error:", err);
+    }
+}
