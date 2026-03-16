@@ -19,6 +19,9 @@ const ObjectRegistry = {
     WHEAT: "wheat",
     POPULATION: "population",
     GOLD: "gold"
+  },
+  COMMERCE: {
+    MARKET: "market"
   }
 };
 

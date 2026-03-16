@@ -1,0 +1,5 @@
+Roma pazarı fiyat formülleri:
+Baz fiyatlar: Odun=10 Altın, Buğday=15 Altın.
+Arz-talep etkisi: Çok satılan malın fiyatı düşer (%5/işlem), az satılanın artar.
+Fiyat limitleri: Min %50, Max %200 baz fiyat.
+Pazar seviyesi bonusu: Her seviye %5 daha iyi fiyat.

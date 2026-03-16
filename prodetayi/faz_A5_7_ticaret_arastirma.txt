@@ -1,0 +1,4 @@
+FAZ A5-7: Ticaret Dengesi Araştırması başarıyla tamamlandı.
+
+- research/ticaret_dengesi.txt dosyası oluşturuldu ve formüller eklendi.
+- shared/contracts/objectRegistry.js dosyasına COMMERCE kategorisi eklendi.
