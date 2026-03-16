@@ -1,6 +1,19 @@
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'gizli_anahtar_okey_online';
+
 module.exports = function(req, res, next) {
-  // Auth middleware logic here
-  next();
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+
+  if (!token) {
+    return res.status(401).json({ error: 'Yetkilendirme reddedildi. Token bulunamadı.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Geçersiz token.' });
+  }
 };

@@ -1,0 +1,15 @@
+FAZ A1-3: Kimlik Doğrulama (DALGA 2) Tamamlandı
+
+Gerçekleştirilen İşlemler:
+1. `routes/authRoutes.js`: 
+   - `POST /register`: Yeni kullanıcı kaydı oluşturuldu (şifreler bcrypt ile hash'lenerek veritabanına kaydedildi).
+   - `POST /login`: Kullanıcı girişi sağlandı, doğru şifre ile JWT token üretildi ve dönüldü.
+   - `POST /guest`: Misafir kullanıcı girişi eklendi. `guest_XXXX` şeklinde benzersiz bir kullanıcı adı ve şifre oluşturulup veritabanına kaydedildi. Misafir kullanıcıya da JWT token sağlandı.
+
+2. `middleware/authMiddleware.js`: 
+   - JWT doğrulama middleware'i oluşturuldu. İsteklerin başlığından (Authorization header) token okunarak doğrulandı.
+   
+3. `server.js`: 
+   - Socket.IO bağlantıları için JWT token kontrolü eklendi (`socket.handshake.auth.token`). Geçersiz veya eksik token'larda bağlantı reddedildi. Başarılı doğrulanan token ile kullanıcı verisi `socket.user` üzerine eklendi.
+
+Her şey istenen kurallara uygun şekilde tamamlandı.

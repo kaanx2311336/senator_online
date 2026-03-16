@@ -24,11 +24,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set up routes
 app.use('/auth', authRoutes);
 
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'gizli_anahtar_okey_online';
+
 // Socket.IO configuration
 const io = new Server(server, {
   cors: {
     origin: '*', // Adjust as necessary
     methods: ['GET', 'POST']
+  }
+});
+
+io.use((socket, next) => {
+  const token = socket.handshake.auth.token;
+  if (!token) {
+    return next(new Error('Authentication error: Token not provided'));
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    socket.user = decoded;
+    next();
+  } catch (err) {
+    next(new Error('Authentication error: Invalid token'));
   }
 });
 
