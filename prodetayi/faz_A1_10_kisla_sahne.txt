@@ -1,0 +1,7 @@
+GÖREV - FAZ A1-10: Kışla Sahne Entegrasyonu (DALGA 10) Başarıyla Tamamlandı
+
+Yapılan İşlemler:
+1. `public/js/objectLoader.js` dosyasına kışla modülü import edildi.
+2. Surların iç tarafına kışla (barracks) için pozisyon belirlenerek yerleştirildi (x: -35, y: 0, z: -35).
+3. Kışlanın önüne `THREE.PlaneGeometry` ile 20x15 boyutlarında farklı renkte (0xc2b280) düz zeminli bir eğitim alanı eklendi.
+4. `public/js/interaction/objectModules.js` dosyasına kışla nesnesinin etkileşim (interact.js) ve yapılandırma (config.json) dosyaları dahil edildi.

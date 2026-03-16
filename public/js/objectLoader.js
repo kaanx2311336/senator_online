@@ -17,6 +17,8 @@ import { createHarbor } from '../objects/harbor/model.js';
 import harborConfig from '../objects/harbor/config.json';
 import { createShip } from '../objects/ship/model.js';
 import shipConfig from '../objects/ship/config.json';
+import { createBarracks } from '../objects/barracks/model.js';
+import barracksConfig from '../objects/barracks/config.json';
 
 export const ObjectLoader = {
     loadAllObjects: () => {
@@ -130,6 +132,38 @@ export const ObjectLoader = {
             ship.position.set(shipConfig.position[0], shipConfig.position[1], shipConfig.position[2]);
         }
         objects.push(ship);
+
+        // Barracks
+        const barracksGroup = new THREE.Group();
+        
+        // Training ground
+        const trainingGroundGeometry = new THREE.PlaneGeometry(20, 15);
+        const trainingGroundMaterial = new THREE.MeshLambertMaterial({ color: 0xc2b280 }); // Sand/Dirt color
+        const trainingGround = new THREE.Mesh(trainingGroundGeometry, trainingGroundMaterial);
+        trainingGround.rotation.x = -Math.PI / 2;
+        trainingGround.position.set(0, 0.05, 5); // Slightly elevated to prevent z-fighting, moved in front
+        barracksGroup.add(trainingGround);
+        
+        // Barracks building
+        const barracks = createBarracks(1);
+        barracks.userData.objectType = barracksConfig.type || 'military';
+        barracks.userData.objectName = barracksConfig.name || 'Kışla';
+        barracks.userData.level = 1;
+        barracksGroup.add(barracks);
+
+        barracksGroup.userData.objectType = barracksConfig.type || 'military';
+        barracksGroup.userData.objectName = barracksConfig.name || 'Kışla';
+        barracksGroup.userData.level = 1;
+        barracksGroup.userData.isBarracksContainer = true;
+
+        if (barracksConfig.position) {
+            barracksGroup.position.set(barracksConfig.position[0], barracksConfig.position[1], barracksConfig.position[2]);
+        } else {
+            // Surların iç tarafına varsayılan bir pozisyon, merkezden uzak ama surlara yakın
+            barracksGroup.position.set(-35, 0, -35); 
+        }
+
+        objects.push(barracksGroup);
 
         return objects;
     }
