@@ -20,3 +20,10 @@ export function onDeselect(mesh, detailPanel) {
 }
 
 export const isUpgradeable = true;
+
+export function onUpgrade(level) {
+    // Return dynamically imported model creator to avoid circular deps or heavy init
+    return import('./model.js').then(module => {
+        return module.createColosseum(level);
+    });
+}

@@ -20,3 +20,9 @@ export function onDeselect(mesh, detailPanel) {
 }
 
 export const isUpgradeable = true;
+
+export function onUpgrade(level) {
+    return import('./model.js').then(module => {
+        return module.createHouse(level);
+    });
+}

@@ -1,0 +1,14 @@
+FAZ A4-4 TAMAMLANDI.
+
+1. `objects/*/interact.js` dosyalarındaki yükseltilebilir binalara (`colosseum`, `house`, `senate`, `tower`) `onUpgrade(level)` eklendi.
+2. `js/interaction/selection.js` dosyasına `handleUpgradeClick` eklendi.
+   - `resourceManager.canAfford` kontrolü yapılıyor.
+   - Başarılıysa `resourceManager.spendResource` çağırılıyor.
+   - Eski obje silinip yenisi ekleniyor (seçim halkası güncelleniyor).
+   - `updateShieldLabel` ile kalkan seviyesi güncelleniyor.
+3. `js/interaction/animations.js` içerisine:
+   - `upgradeAnimation` (büyüyüp küçülme ve mesh parlaması)
+   - `insufficientResourceAnimation` (buton kırmızı parlama efekti)
+   - `showToast` (bildirim mesajı) fonksiyonları eklendi ve bağlandı.
+
+Bu sayede dalga 4 yükseltme etkileşimi ve animasyonları başarıyla projeye entegre edilmiştir.

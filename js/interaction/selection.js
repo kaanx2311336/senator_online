@@ -1,6 +1,8 @@
 // js/interaction/selection.js
 import * as THREE from 'three';
-import { bounceAnimation, selectionPulse, panelSlideIn, panelSlideOut } from './animations.js';
+import { bounceAnimation, selectionPulse, panelSlideIn, panelSlideOut, upgradeAnimation, insufficientResourceAnimation, showToast } from './animations.js';
+import { canAfford, spendResource } from '../ui/resourceManager.js';
+import { updateShieldLabel } from '../ui/shieldLabels.js';
 
 let selectedMesh = null;
 let selectionRing = null;
@@ -77,12 +79,94 @@ export async function selectBuilding(mesh) {
             if (currentInteractModule && currentInteractModule.onSelect) {
                 currentInteractModule.onSelect(selectedMesh, detailPanel);
             }
+            
+            // Attach upgrade event listener if the button exists
+            const upgradeBtn = document.getElementById('upgrade-btn');
+            if (upgradeBtn) {
+                // Remove existing listener to prevent duplicates
+                upgradeBtn.replaceWith(upgradeBtn.cloneNode(true));
+                const newUpgradeBtn = document.getElementById('upgrade-btn');
+                newUpgradeBtn.addEventListener('click', () => handleUpgradeClick(dir));
+            }
         } catch (error) {
             console.warn(`interact.js could not be loaded for ${dir}:`, error);
         }
     }
 
     panelSlideIn();
+}
+
+async function handleUpgradeClick(dir) {
+    if (!selectedMesh || !currentInteractModule || !currentInteractModule.isUpgradeable || !currentInteractModule.onUpgrade) return;
+    
+    // Load config to get cost
+    let config;
+    try {
+        const configModule = await import(`../../objects/${dir}/config.json`, { with: { type: "json" } });
+        config = configModule.default;
+    } catch (e) {
+        console.error("Could not load config for upgrade:", e);
+        return;
+    }
+    
+    const currentLevel = selectedMesh.userData.level || 1;
+    const nextLevelData = config.levels.find(l => l.level === currentLevel + 1);
+    
+    if (!nextLevelData) {
+        showToast("Maksimum seviyeye ulaşıldı.");
+        return;
+    }
+    
+    const cost = nextLevelData.cost;
+    
+    if (canAfford(cost)) {
+        // Spend resources
+        for (const [type, amount] of Object.entries(cost)) {
+            spendResource(type, amount);
+        }
+        
+        const parent = selectedMesh.parent;
+        const position = selectedMesh.position.clone();
+        const rotation = selectedMesh.rotation.clone();
+        const oldY = selectedMesh.userData.originalY; // Get original Y if bounced
+        if (oldY !== undefined) position.y = oldY;
+        
+        // Generate new mesh
+        const newMesh = await currentInteractModule.onUpgrade(currentLevel + 1);
+        
+        // Copy properties
+        newMesh.position.copy(position);
+        newMesh.rotation.copy(rotation);
+        newMesh.userData = { ...selectedMesh.userData, level: currentLevel + 1 };
+        
+        if (nextLevelData.capacity) newMesh.userData.capacity = nextLevelData.capacity;
+        
+        // Save ID references for shield update
+        const shieldId = selectedMesh.userData.shieldId || `shield-${selectedMesh.uuid}`;
+        newMesh.userData.shieldId = shieldId;
+
+        // Add to scene and remove old
+        const oldMesh = selectedMesh;
+        parent.add(newMesh);
+        parent.remove(oldMesh);
+        
+        // Deselect current to clear old references
+        await deselectBuilding();
+        
+        // Trigger animations
+        upgradeAnimation(newMesh);
+        
+        // Update shield label (DOM)
+        updateShieldLabel(shieldId, currentLevel + 1);
+        
+        // Automatically re-select new mesh
+        await selectBuilding(newMesh);
+        
+        showToast("Bina yükseltildi!");
+    } else {
+        insufficientResourceAnimation();
+        showToast("Yetersiz kaynak!");
+    }
 }
 
 export async function deselectBuilding() {

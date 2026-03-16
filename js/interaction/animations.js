@@ -98,3 +98,107 @@ export function panelSlideOut() {
         });
     }
 }
+
+/**
+ * Yükseltme animasyonu (scale 1→1.3→1 ve parıltı)
+ * @param {THREE.Object3D} mesh 
+ */
+export function upgradeAnimation(mesh) {
+    if (!mesh) return;
+
+    // Scale animation
+    const originalScale = mesh.scale.clone();
+    gsap.killTweensOf(mesh.scale);
+    
+    gsap.to(mesh.scale, {
+        x: originalScale.x * 1.3,
+        y: originalScale.y * 1.3,
+        z: originalScale.z * 1.3,
+        duration: 0.2,
+        yoyo: true,
+        repeat: 1,
+        ease: "power1.inOut",
+        onComplete: () => {
+            mesh.scale.copy(originalScale);
+        }
+    });
+
+    // Emissive flash
+    mesh.traverse((child) => {
+        if (child.isMesh && child.material) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach(mat => {
+                // If the material has an emissive property
+                if (mat.emissive !== undefined) {
+                    const originalEmissive = mat.emissive.clone();
+                    
+                    // Flash yellowish/white
+                    gsap.to(mat.emissive, {
+                        r: 1,
+                        g: 1,
+                        b: 0.5,
+                        duration: 0.2,
+                        yoyo: true,
+                        repeat: 1,
+                        onComplete: () => {
+                            mat.emissive.copy(originalEmissive);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+/**
+ * Yetersiz kaynak uyarısı (kırmızı flash)
+ */
+export function insufficientResourceAnimation() {
+    const upgradeBtn = document.getElementById('upgrade-btn');
+    if (upgradeBtn) {
+        gsap.killTweensOf(upgradeBtn);
+        
+        // Add a red glow/background flash
+        gsap.to(upgradeBtn, {
+            backgroundColor: "#ef4444", // Tailwind red-500
+            scale: 0.95,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 3,
+            onComplete: () => {
+                gsap.set(upgradeBtn, { clearProps: "all" });
+            }
+        });
+    }
+}
+
+/**
+ * Toast mesajı göster
+ * @param {string} msg 
+ */
+export function showToast(msg) {
+    let toast = document.getElementById('roman-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'roman-toast';
+        toast.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white px-6 py-3 rounded-full shadow-lg border border-yellow-500 z-[100] pointer-events-none opacity-0 transition-opacity duration-300';
+        document.body.appendChild(toast);
+    }
+    
+    toast.textContent = msg;
+    
+    gsap.killTweensOf(toast);
+    gsap.to(toast, {
+        opacity: 1,
+        y: -10,
+        duration: 0.3,
+        onComplete: () => {
+            gsap.to(toast, {
+                opacity: 0,
+                y: 0,
+                duration: 0.3,
+                delay: 2
+            });
+        }
+    });
+}
