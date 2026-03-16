@@ -281,6 +281,17 @@ async function cezaKaydet(gameId, userId, penaltyScore) {
   }
 }
 
+/**
+ * Liderlik tablosunu (leaderboard) getirir. ELO puanına göre sıralar.
+ * @param {number} limit - Kaç kayıt getirileceği (varsayılan: 10)
+ * @returns {Promise<Array>} - Kullanıcı listesi
+ */
+async function getLeaderboard(limit = 10) {
+  const sql = `SELECT id, username, avatar, elo_rating, games_played, games_won, total_score FROM users ORDER BY elo_rating DESC LIMIT ?`;
+  const [rows] = await pool.query(sql, [limit]);
+  return rows;
+}
+
 module.exports = {
   initDatabase,
   ekle,
@@ -289,5 +300,6 @@ module.exports = {
   sil,
   listele,
   oyunSonucuKaydet,
-  cezaKaydet
+  cezaKaydet,
+  getLeaderboard
 };

@@ -1,0 +1,8 @@
+FAZ A1-7 (DALGA 5): Sohbet + Profil + İstatistik işlemleri başarıyla tamamlandı.
+
+* `sqlm.js` dosyasına `getLeaderboard` eklendi ve dışa aktarıldı.
+* `routes/authRoutes.js` dosyasına `GET /profile/:id`, `PUT /profile/avatar`, `GET /stats/:id`, `GET /leaderboard` endpointleri jwt doğrulama ile eklendi.
+* `sockets/chatSocket.js` dosyasına oda içi mesajlaşma (`room_chat`, `CHAT_EVENTS.SEND_MESSAGE`) ve hazır mesajlaşma (`quick_message`) mantığı implemente edildi.
+* İstenen sözleşmelere tam uyuldu (shared/contracts/socketEvents.js)
+
+Görev başarıyla tamamlandı.
