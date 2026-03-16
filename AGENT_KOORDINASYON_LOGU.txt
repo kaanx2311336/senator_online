@@ -13,3 +13,5 @@ A6-9 Dalga 9 Denetimi tamamlandi.
 [AGENT 6] A6-10 Dalga 10 Denetimi tamamlandi. Durum: KOSULLU GECIS.
 
 [DALGA 11] Festival ve Memnuniyet sistemleri incelendi. Parçacık performansı kurallara uygun. Ancak 'addFestivalDecorations' kullanılmıyor. Durum: KOSULLU GECIS.
+
+[AGENT 6 - FAZ A6-12] Dalga 12 Final Denetimi (YAYIN RAPORU) yapildi. agent6_orchestrator/yayin_raporu_final.txt olusturuldu. Performans, mobil uyumluluk ve UI hedefleri kontrol edildi. KOSULLU GECIS.
