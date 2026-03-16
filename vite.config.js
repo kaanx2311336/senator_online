@@ -3,6 +3,17 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: 'public',
   publicDir: false,
+  build: {
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ['three'],
+          gsap: ['gsap']
+        }
+      }
+    }
+  },
   server: {
     port: 5173,
     proxy: {

@@ -20,6 +20,52 @@ import shipConfig from '../objects/ship/config.json';
 import { createBarracks } from '../objects/barracks/model.js';
 import barracksConfig from '../objects/barracks/config.json';
 
+// Helper to create LOD object for buildings
+function createLODWrapper(highDetailObj) {
+    const lod = new THREE.LOD();
+    
+    // Level 0: 0-40 (High Detail)
+    lod.addLevel(highDetailObj, 0);
+    
+    // Level 1: 40-80 (Mid Detail - using high detail for now but distance scales or simple box could be here)
+    // To optimize, if we don't have a mid-detail mesh, we can use a simpler geometry block or reuse. 
+    // We'll create a basic simplified mesh (a box) of the same bounding box for mid/far.
+    const box3 = new THREE.Box3().setFromObject(highDetailObj);
+    const size = box3.getSize(new THREE.Vector3());
+    const center = box3.getCenter(new THREE.Vector3());
+    
+    // Create a simplified block for mid-distance
+    const midDetailGeo = new THREE.BoxGeometry(size.x, size.y, size.z);
+    const midDetailMat = new THREE.MeshLambertMaterial({ color: 0x888888 });
+    const midDetailMesh = new THREE.Mesh(midDetailGeo, midDetailMat);
+    midDetailMesh.position.copy(center).sub(highDetailObj.position);
+    
+    const midDetailGroup = new THREE.Group();
+    midDetailGroup.add(midDetailMesh);
+    
+    // Transfer important properties so raycaster can still identify it if needed
+    // (Raycaster usually checks lods but we should preserve userData)
+    lod.userData = { ...highDetailObj.userData };
+    midDetailGroup.userData = { ...highDetailObj.userData };
+    
+    lod.addLevel(midDetailGroup, 40);
+    
+    // Level 2: 80+ (Far Detail - Empty to cull entirely or very simple)
+    const farDetailGroup = new THREE.Group();
+    farDetailGroup.userData = { ...highDetailObj.userData };
+    lod.addLevel(farDetailGroup, 80);
+    
+    // Position the LOD where the object was meant to be
+    lod.position.copy(highDetailObj.position);
+    lod.rotation.copy(highDetailObj.rotation);
+    
+    // Reset highDetailObj position since LOD is the parent now
+    highDetailObj.position.set(0,0,0);
+    highDetailObj.rotation.set(0,0,0);
+    
+    return lod;
+}
+
 export const ObjectLoader = {
     loadAllObjects: () => {
         const objects = [];
@@ -32,7 +78,7 @@ export const ObjectLoader = {
         if (senateConfig.position) {
             senate.position.set(senateConfig.position[0], senateConfig.position[1], senateConfig.position[2]);
         }
-        objects.push(senate);
+        objects.push(createLODWrapper(senate));
 
         // Colosseum
         if (colosseumConfig.levels) {
@@ -43,7 +89,7 @@ export const ObjectLoader = {
             if (colosseumConfig.position) {
                 colosseum.position.set(colosseumConfig.position[0], colosseumConfig.position[1], colosseumConfig.position[2]);
             }
-            objects.push(colosseum);
+            objects.push(createLODWrapper(colosseum));
         }
 
         // Walls
@@ -57,7 +103,7 @@ export const ObjectLoader = {
                 const radius = 50;
                 wall.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
                 wall.rotation.y = -angle + Math.PI / 2;
-                objects.push(wall);
+                objects.push(createLODWrapper(wall));
             }
         }
 
@@ -71,7 +117,7 @@ export const ObjectLoader = {
                 const angle = (i / towerConfig.count) * Math.PI * 2;
                 const radius = 55;
                 tower.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
-                objects.push(tower);
+                objects.push(createLODWrapper(tower));
             }
         }
 
@@ -85,7 +131,7 @@ export const ObjectLoader = {
             const x = (i % 5) * 12 - 24;
             const z = Math.floor(i / 5) * 12 + 15;
             house.position.set(x, 0, z);
-            objects.push(house);
+            objects.push(createLODWrapper(house));
         }
 
         // Trees
@@ -99,7 +145,7 @@ export const ObjectLoader = {
                 const rx = (Math.random() - 0.5) * 80;
                 const rz = (Math.random() - 0.5) * 80;
                 tree.position.set(rx, 0, rz);
-                objects.push(tree);
+                objects.push(createLODWrapper(tree));
             }
         }
 
@@ -109,7 +155,7 @@ export const ObjectLoader = {
                 const road = createRoad(path.startX, path.startZ, path.endX, path.endZ, path.width);
                 road.userData.objectType = roadConfig.type || 'decoration';
                 road.userData.objectName = roadConfig.name || 'Yol';
-                objects.push(road);
+                objects.push(createLODWrapper(road));
             }
         }
 
@@ -121,7 +167,7 @@ export const ObjectLoader = {
         if (harborConfig.position) {
             harbor.position.set(harborConfig.position[0], harborConfig.position[1], harborConfig.position[2]);
         }
-        objects.push(harbor);
+        objects.push(createLODWrapper(harbor));
 
         // Ship
         const ship = createShip(1);
@@ -131,7 +177,7 @@ export const ObjectLoader = {
         if (shipConfig.position) {
             ship.position.set(shipConfig.position[0], shipConfig.position[1], shipConfig.position[2]);
         }
-        objects.push(ship);
+        objects.push(createLODWrapper(ship));
 
         // Barracks
         const barracksGroup = new THREE.Group();
@@ -163,7 +209,7 @@ export const ObjectLoader = {
             barracksGroup.position.set(-35, 0, -35); 
         }
 
-        objects.push(barracksGroup);
+        objects.push(createLODWrapper(barracksGroup));
 
         return objects;
     }

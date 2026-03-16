@@ -1,0 +1,8 @@
+FAZ A1-12 Final Optimizasyon Tamamlandı
+
+- `public/js/main.js` üzerinde mobile/desktop ayrımı yapılarak `antialias` sadece masaüstünde çalışacak şekilde ayarlandı. Mobil için `false` yapıldı.
+- `renderer.setPixelRatio(1)` sabit olarak ayarlandı, performansı artırmak adına.
+- `isDebugMode` bayrağı eklendi. Bu mod açıkken (URL üzerinde `?debug=true`) sol üst köşede güncel FPS sayacı çalışmaktadır.
+- Frustum Culling, Three.js tarafından varsayılan olarak açıktır. Görünmeyen objeler optimize edilmektedir.
+- `public/js/objectLoader.js` dosyasında `THREE.LOD` yapısı kurularak `0-40` yakın, `40-80` orta (basit geometrik blok), `80+` uzak (boş obje) için seviyelendirme yapıldı ve tüm yüklenen objeler bunun içine alındı.
+- `vite.config.js` dosyasında `minify: 'esbuild'` tanımlandı ve chunk splitting (`three` ve `gsap` kütüphanelerini ayıracak şekilde) eklendi.

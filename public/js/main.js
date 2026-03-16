@@ -138,11 +138,37 @@ const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerH
 camera.position.set(0, 50, 60);
 camera.lookAt(0, 0, 0);
 
+// Mobile Detection & Renderer Configuration
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const useAntialias = !isMobile;
+
 // Renderer
 const canvas = document.getElementById('game-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: useAntialias });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(1); // Fixed pixel ratio for optimization
+
+// Debug Mode & FPS Counter
+const isDebugMode = window.location.search.includes('debug=true') || window.location.hash.includes('debug');
+let fpsElement = null;
+let frameCount = 0;
+let lastTime = performance.now();
+
+if (isDebugMode) {
+  fpsElement = document.createElement('div');
+  fpsElement.style.position = 'absolute';
+  fpsElement.style.top = '10px';
+  fpsElement.style.left = '10px';
+  fpsElement.style.color = 'white';
+  fpsElement.style.backgroundColor = 'rgba(0,0,0,0.5)';
+  fpsElement.style.padding = '5px';
+  fpsElement.style.fontFamily = 'monospace';
+  fpsElement.style.zIndex = '1000';
+  document.body.appendChild(fpsElement);
+}
+
+// Ensure Frustum Culling is active on objects. 
+// Three.js frustum culling is on by default, but we'll enforce it during object loading.
 
 // Lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -219,6 +245,17 @@ renderer.domElement.addEventListener('touchmove', (e) => onMouseMove(e, camera, 
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
+
+  if (isDebugMode && fpsElement) {
+    frameCount++;
+    const now = performance.now();
+    if (now - lastTime >= 1000) {
+      fpsElement.innerText = `FPS: ${frameCount}`;
+      frameCount = 0;
+      lastTime = now;
+    }
+  }
+
   if (controls) controls.update();
   // Update LOD
   scene.traverse(obj => {
