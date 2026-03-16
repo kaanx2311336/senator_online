@@ -1,0 +1,5 @@
+Faz A4-13 Tamamlandı.
+- Seçim halkası rengi altın sarısı yapıldı (MeshLambertMaterial, 0xFFD700, emissive 0x332200).
+- Hover efekti eklendi: GSAP ile 0.2 saniyede emissive artışı sağlandı (+0x444444). Mouse ayrılınca eski haline dönüyor.
+- Cursor bina üzerinde pointer, boş alanda default olarak ayarlandı (zaten raycaster'da mevcuttu, korundu).
+- Tıklama geri bildirimi: Zıplama yerine 0.15 saniyelik kısa scale pulse (1.0 -> 1.05 -> 1.0) eklendi.

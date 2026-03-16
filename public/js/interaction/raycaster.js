@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { selectBuilding, deselectBuilding } from './selection.js';
 
 const raycaster = new THREE.Raycaster();
@@ -79,14 +80,29 @@ function applyHover(object) {
     object.traverse((child) => {
         if (child.isMesh && child.material) {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
-            materials.forEach(mat => {
-                if (mat.emissive !== undefined) {
-                    // Store original emissive if not exists
-                    if (!mat.userData.originalEmissive) {
-                        mat.userData.originalEmissive = mat.emissive.clone();
+            
+            if (!child.userData.originalEmissives) {
+                child.userData.originalEmissives = [];
+                materials.forEach((mat, index) => {
+                    if (mat.emissive !== undefined) {
+                        child.userData.originalEmissives[index] = mat.emissive.clone();
                     }
-                    // Add slight glow
-                    mat.emissive.add(new THREE.Color(0x222222));
+                });
+            }
+            
+            materials.forEach((mat, index) => {
+                if (mat.emissive !== undefined && child.userData.originalEmissives[index]) {
+                    const original = child.userData.originalEmissives[index];
+                    const targetEmissive = original.clone().add(new THREE.Color(0x444444));
+                    
+                    gsap.killTweensOf(mat.emissive);
+                    gsap.to(mat.emissive, {
+                        r: targetEmissive.r,
+                        g: targetEmissive.g,
+                        b: targetEmissive.b,
+                        duration: 0.2,
+                        ease: "power1.out"
+                    });
                 }
             });
         }
@@ -98,9 +114,18 @@ function clearHover(object) {
     object.traverse((child) => {
         if (child.isMesh && child.material) {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
-            materials.forEach(mat => {
-                if (mat.emissive !== undefined && mat.userData.originalEmissive) {
-                    mat.emissive.copy(mat.userData.originalEmissive);
+            materials.forEach((mat, index) => {
+                if (mat.emissive !== undefined && child.userData.originalEmissives && child.userData.originalEmissives[index]) {
+                    const original = child.userData.originalEmissives[index];
+                    
+                    gsap.killTweensOf(mat.emissive);
+                    gsap.to(mat.emissive, {
+                        r: original.r,
+                        g: original.g,
+                        b: original.b,
+                        duration: 0.2,
+                        ease: "power1.out"
+                    });
                 }
             });
         }

@@ -13,8 +13,9 @@ let currentInteractModule = null;
 
 function createSelectionRing() {
     const geometry = new THREE.RingGeometry(2.5, 3.0, 32);
-    const material = new THREE.MeshBasicMaterial({ 
-        color: 0xffff00, 
+    const material = new THREE.MeshLambertMaterial({ 
+        color: 0xFFD700,
+        emissive: 0x332200,
         side: THREE.DoubleSide,
         transparent: true,
         opacity: 0.8

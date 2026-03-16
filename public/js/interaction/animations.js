@@ -3,31 +3,29 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * Tıklanan bina hafifçe zıplasın (y ekseni yukarı-aşağı, 0.3sn, ease: "back.out")
+ * Tıklanan bina için kısa scale pulse (1.0 → 1.05 → 1.0, 0.15sn)
  * @param {THREE.Object3D} mesh 
  */
 export function bounceAnimation(mesh) {
     if (!mesh) return;
-    
-    // Store original Y if not stored
-    if (mesh.userData.originalY === undefined) {
-        mesh.userData.originalY = mesh.position.y;
+
+    if (mesh.userData.originalScale === undefined) {
+        mesh.userData.originalScale = mesh.scale.clone();
     }
     
-    const originalY = mesh.userData.originalY;
+    const originalScale = mesh.userData.originalScale;
     
-    // Kill any existing animation on this mesh's position
-    gsap.killTweensOf(mesh.position);
+    gsap.killTweensOf(mesh.scale);
+    mesh.scale.copy(originalScale);
     
-    mesh.position.y = originalY;
-    
-    // Bounce up and back down
-    gsap.to(mesh.position, {
-        y: originalY + 1.5,
-        duration: 0.15,
+    gsap.to(mesh.scale, {
+        x: originalScale.x * 1.05,
+        y: originalScale.y * 1.05,
+        z: originalScale.z * 1.05,
+        duration: 0.075,
         yoyo: true,
         repeat: 1,
-        ease: "back.out(1.7)"
+        ease: "power1.inOut"
     });
 }
 
