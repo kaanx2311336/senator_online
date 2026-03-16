@@ -1,0 +1,13 @@
+GÖREV - FAZ A4-9: Gemi Hareket & Liman Etkileşimi (DALGA 9)
+
+Tamamlananlar:
+- public/objects/harbor/interact.js dosyasına onSelect (ticaret rotası panelini açma uyarısı), onDeselect, ve onUpgrade eklendi.
+- public/objects/ship/interact.js dosyasına onSelect eklendi ve gemi detayı eklendi (Yelken Aç butonu eklendi).
+- public/js/interaction/animations.js dosyasına GSAP ile animateShipMovement ve createWaveEffect fonksiyonları eklendi.
+  - A noktasından B noktasına düz çizgide hareket ediyor.
+  - Hafif yukarı-aşağı ve rotation sallanması (deniz efekti) eklendi.
+  - Varışta küçük dalga efekti (halka büyüyerek kaybolma) eklendi.
+- public/js/interaction/selection.js dosyasında gemi ve liman tıklama tespiti düzeltildi.
+- Testler ve görsel kontroller başarıyla Playwright ile teyit edildi.
+
+Görev başarıyla tamamlandı.

@@ -552,3 +552,120 @@ function applyBuffRing(scene, centerPos, radius) {
         console.error("applyBuffRing error:", err);
     }
 }
+
+/**
+ * Gemi hareket animasyonu (A'dan B'ye, deniz efekti ve varışta dalga)
+ * @param {THREE.Object3D} shipMesh 
+ */
+export function animateShipMovement(shipMesh) {
+    if (!shipMesh || !shipMesh.parent) return;
+
+    const scene = shipMesh.parent;
+
+    // Define points (example: current position to an offset destination)
+    const startPos = shipMesh.position.clone();
+    
+    // Choose a destination point. Since it's a ship, maybe just move it along an axis.
+    const destX = startPos.x + 40; 
+    const destZ = startPos.z + 20;
+    
+    const duration = 5; // Move time
+
+    // Calculate rotation to face the destination
+    const targetVector = new THREE.Vector3(destX, startPos.y, destZ);
+    shipMesh.lookAt(targetVector);
+
+    // Stop existing animations on the ship to prevent conflicts
+    gsap.killTweensOf(shipMesh.position);
+    gsap.killTweensOf(shipMesh.rotation);
+
+    showToast("Gemi yola çıktı!");
+
+    // Bobbing effect (deniz efekti - yukarı/aşağı sallanma ve hafif rotation)
+    const bobbingDuration = 0.8;
+    
+    // Animate position Y
+    const yTween = gsap.to(shipMesh.position, {
+        y: startPos.y + 0.5,
+        duration: bobbingDuration,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut"
+    });
+
+    // Animate rotation Z (hafif sallanma)
+    const rotTween = gsap.to(shipMesh.rotation, {
+        z: shipMesh.rotation.z + 0.05,
+        duration: bobbingDuration * 1.5,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut"
+    });
+
+    // Linear movement A -> B
+    gsap.to(shipMesh.position, {
+        x: destX,
+        z: destZ,
+        duration: duration,
+        ease: "none", // Düz çizgide
+        onComplete: () => {
+            // Stop bobbing
+            yTween.kill();
+            rotTween.kill();
+
+            // Return to base position
+            gsap.to(shipMesh.position, { y: startPos.y, duration: 0.5 });
+            gsap.to(shipMesh.rotation, { z: 0, duration: 0.5 });
+
+            // Create water splash / wave effect on arrival
+            createWaveEffect(scene, shipMesh.position);
+            showToast("Gemi hedefe ulaştı!");
+        }
+    });
+}
+
+/**
+ * Dalga efekti (Varışta çıkan küçük su dalgası)
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Vector3} position 
+ */
+function createWaveEffect(scene, position) {
+    try {
+        const ringGeo = new THREE.RingGeometry(1, 1.5, 32);
+        const ringMat = new THREE.MeshBasicMaterial({
+            color: 0x87CEEB, // Sky blue / Water color
+            transparent: true,
+            opacity: 0.8,
+            side: THREE.DoubleSide,
+            depthWrite: false
+        });
+        
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = -Math.PI / 2; // Flat on water
+        ring.position.copy(position);
+        ring.position.y += 0.2; // Slightly above ground/water level
+        
+        scene.add(ring);
+        
+        gsap.to(ring.scale, {
+            x: 5,
+            y: 5,
+            z: 5,
+            duration: 1.5,
+            ease: "power2.out"
+        });
+        
+        gsap.to(ringMat, {
+            opacity: 0,
+            duration: 1.5,
+            ease: "power2.out",
+            onComplete: () => {
+                scene.remove(ring);
+                ringGeo.dispose();
+                ringMat.dispose();
+            }
+        });
+    } catch (err) {
+        console.error("createWaveEffect error:", err);
+    }
+}
