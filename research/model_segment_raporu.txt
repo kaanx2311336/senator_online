@@ -1,0 +1,29 @@
+MODEL SEGMENT SAYILARI TABLOSU
+--------------------------------------------------------
+Model Adı       | CylinderGeometry Seg. | SphereGeometry Seg.
+--------------------------------------------------------
+arena           | 8                     | Yok
+colosseum       | 8, 8, 8, 4            | Yok
+fountain        | 8, 8, 8, 8, 8, 8, 8, 4 | Yok
+house           | 6                     | Yok
+road            | Yok                   | Yok
+senate          | 8, 8, 8, 8, 8, 4      | Yok
+statue          | 8, 6, 6, 4            | 8
+temple          | 8, 3, 3               | 12, 12, 8
+tower           | 8, 8, 8, 4, 4         | Yok
+tree            | 6                     | Yok
+wall            | 4                     | Yok
+arena           | 8                     | Yok
+barracks        | Yok                   | Yok
+colosseum       | 8, 8, 8, 4            | Yok
+fountain        | 8, 8, 8, 8, 8, 8, 8, 4 | Yok
+harbor          | Yok                   | Yok
+house           | 6                     | Yok
+road            | Yok                   | Yok
+senate          | 8, 8, 8, 8, 8, 4      | Yok
+ship            | Yok                   | Yok
+statue          | 8, 6, 6, 4            | 8
+temple          | 8, 3, 3               | 12, 12, 8
+tower           | 8, 8, 8, 4, 4         | Yok
+tree            | 6                     | Yok
+wall            | 4                     | Yok

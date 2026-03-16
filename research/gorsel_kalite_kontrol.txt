@@ -1,0 +1,177 @@
+GÖRSEL KALİTE KONTROL RAPORU (DALGA 13)
+
+Model: arena (objects/arena/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 7, castShadow=false: 7, receiveShadow=false: 7. UYGUN
+
+Model: colosseum (objects/colosseum/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 12, receiveShadow=false: 12. UYGUN
+
+Model: fountain (objects/fountain/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 8, 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Var, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 8, receiveShadow=false: 8. UYGUN DEĞİL
+
+Model: house (objects/house/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 6)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Var, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 11, castShadow=false: 11, receiveShadow=false: 11. UYGUN
+
+Model: road (objects/road/model.js)
+- CylinderGeometry (min 16): UYGUN
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 2, castShadow=false: 2, receiveShadow=false: 2. UYGUN
+
+Model: senate (objects/senate/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 16, castShadow=false: 19, receiveShadow=false: 19. UYGUN
+
+Model: statue (objects/statue/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 6, 6, 4)
+- SphereGeometry (min 16): UYGUN DEĞİL (Bulunan: 8)
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 8, receiveShadow=false: 8. UYGUN DEĞİL
+
+Model: temple (objects/temple/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 3, 3)
+- SphereGeometry (min 16): UYGUN DEĞİL (Bulunan: 12, 12, 8)
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 7, castShadow=false: 8, receiveShadow=false: 8. UYGUN
+
+Model: tower (objects/tower/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 4, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 10, castShadow=false: 11, receiveShadow=false: 11. UYGUN
+
+Model: tree (objects/tree/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 6)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 5, castShadow=false: 5, receiveShadow=false: 5. UYGUN
+
+Model: wall (objects/wall/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 6, castShadow=false: 5, receiveShadow=false: 5. UYGUN DEĞİL
+
+Model: arena (public/objects/arena/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 7, castShadow=false: 7, receiveShadow=false: 7. UYGUN
+
+Model: barracks (public/objects/barracks/model.js)
+- CylinderGeometry (min 16): UYGUN
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 1, castShadow=false: 1, receiveShadow=false: 1. UYGUN
+
+Model: colosseum (public/objects/colosseum/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 12, receiveShadow=false: 12. UYGUN
+
+Model: fountain (public/objects/fountain/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 8, 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Var, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 8, receiveShadow=false: 8. UYGUN DEĞİL
+
+Model: harbor (public/objects/harbor/model.js)
+- CylinderGeometry (min 16): UYGUN
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 1, castShadow=false: 1, receiveShadow=false: 1. UYGUN
+
+Model: house (public/objects/house/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 6)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Var, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 11, castShadow=false: 11, receiveShadow=false: 11. UYGUN
+
+Model: road (public/objects/road/model.js)
+- CylinderGeometry (min 16): UYGUN
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 2, castShadow=false: 2, receiveShadow=false: 2. UYGUN
+
+Model: senate (public/objects/senate/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 8, 8, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 16, castShadow=false: 19, receiveShadow=false: 19. UYGUN
+
+Model: ship (public/objects/ship/model.js)
+- CylinderGeometry (min 16): UYGUN
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 1, castShadow=false: 1, receiveShadow=false: 1. UYGUN
+
+Model: statue (public/objects/statue/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 6, 6, 4)
+- SphereGeometry (min 16): UYGUN DEĞİL (Bulunan: 8)
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 9, castShadow=false: 8, receiveShadow=false: 8. UYGUN DEĞİL
+
+Model: temple (public/objects/temple/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 3, 3)
+- SphereGeometry (min 16): UYGUN DEĞİL (Bulunan: 12, 12, 8)
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 7, castShadow=false: 8, receiveShadow=false: 8. UYGUN
+
+Model: tower (public/objects/tower/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 8, 8, 8, 4, 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 10, castShadow=false: 11, receiveShadow=false: 11. UYGUN
+
+Model: tree (public/objects/tree/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 6)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri: LOD Kullanılmıyor.
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 5, castShadow=false: 5, receiveShadow=false: 5. UYGUN
+
+Model: wall (public/objects/wall/model.js)
+- CylinderGeometry (min 16): UYGUN DEĞİL (Bulunan: 4)
+- SphereGeometry (min 16): UYGUN
+- Renk Paleti Tutarlılığı (mermer: 0xFAF0E6, kiremit: 0xB7410E): Mermer Yok, Kiremit Yok
+- LOD Mesafeleri (0-80/80-150/150+): UYGUN DEĞİL (Beklenen 0, 80, 150)
+- Gölge Ayarları (castShadow=false, receiveShadow=false): Mesh sayısı: 6, castShadow=false: 5, receiveShadow=false: 5. UYGUN DEĞİL
+
