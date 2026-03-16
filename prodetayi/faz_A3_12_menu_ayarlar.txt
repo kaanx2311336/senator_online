@@ -1,0 +1,7 @@
+FAZ A3-12: Ana Menü & Ayarlar Ekranı (DALGA 12) TAMAMLANDI
+
+- Ana menü (Oyuna Başla, Ayarlar, Hakkında) eklendi.
+- Ayarlar paneli (Ses, Müzik Seviyesi, Grafik Kalitesi, Dil) eklendi.
+- Hakkında paneli eklendi.
+- GSAP animasyonları ve Roma temalı arayüz (Cinzel font, altın kenarlıklar, mermer arkaplan) uygulandı.
+- Tüm geliştirmeler sadece izin verilen dosyalarda (public/index.html, public/js/ui/mainMenu.js, public/js/ui/settingsPanel.js) yapıldı.
