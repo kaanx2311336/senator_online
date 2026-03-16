@@ -37,9 +37,10 @@ export function bounceAnimation(mesh) {
  * @param {THREE.Vector3} targetPosition
  */
 export function panCameraTo(camera, controls, targetPosition) {
-    if (!camera || !controls || !targetPosition) return;
+    try {
+        if (!camera || !controls || !targetPosition) return;
 
-    // Hedefe doğru kamerayı taşıyalım, kameranın y'sini biraz yukarıda tutalım
+        // Hedefe doğru kamerayı taşıyalım, kameranın y'sini biraz yukarıda tutalım
     const newCameraPos = new THREE.Vector3(
         targetPosition.x,
         targetPosition.y + 30, // Kamera biraz yukarıdan baksın
@@ -59,14 +60,17 @@ export function panCameraTo(camera, controls, targetPosition) {
 
     // camera.position animasyonu
     gsap.killTweensOf(camera.position);
-    gsap.to(camera.position, {
-        x: newCameraPos.x,
-        y: newCameraPos.y,
-        z: newCameraPos.z,
-        duration: 1.0,
-        ease: "power2.out",
-        onUpdate: () => controls.update()
-    });
+        gsap.to(camera.position, {
+            x: newCameraPos.x,
+            y: newCameraPos.y,
+            z: newCameraPos.z,
+            duration: 1.0,
+            ease: "power2.out",
+            onUpdate: () => controls.update()
+        });
+    } catch (err) {
+        console.error("panCameraTo error:", err);
+    }
 }
 
 /**
@@ -143,9 +147,10 @@ export function panelSlideOut() {
  * @param {THREE.Object3D} mesh 
  */
 export function upgradeAnimation(mesh) {
-    if (!mesh) return;
+    try {
+        if (!mesh) return;
 
-    // Scale animation
+        // Scale animation
     const originalScale = mesh.scale.clone();
     gsap.killTweensOf(mesh.scale);
     
@@ -183,10 +188,13 @@ export function upgradeAnimation(mesh) {
                             mat.emissive.copy(originalEmissive);
                         }
                     });
-                }
-            });
-        }
-    });
+                    }
+                });
+            }
+        });
+    } catch (err) {
+        console.error("upgradeAnimation error:", err);
+    }
 }
 
 /**
@@ -195,9 +203,10 @@ export function upgradeAnimation(mesh) {
  * @param {THREE.Vector3} position 
  */
 export function createUpgradeParticles(scene, position) {
-    if (!scene || !position) return;
+    try {
+        if (!scene || !position) return;
 
-    const particleCount = 20;
+        const particleCount = 20;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const velocities = [];
@@ -246,12 +255,15 @@ export function createUpgradeParticles(scene, position) {
             // Yavaşça kaybol
             particles.material.opacity = 1 - dummyObj.t;
         },
-        onComplete: () => {
-            scene.remove(particles);
-            geometry.dispose();
-            material.dispose();
-        }
-    });
+            onComplete: () => {
+                scene.remove(particles);
+                geometry.dispose();
+                material.dispose();
+            }
+        });
+    } catch (err) {
+        console.error("createUpgradeParticles error:", err);
+    }
 }
 
 /**

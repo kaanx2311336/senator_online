@@ -52,14 +52,15 @@ export function setCameraAndControls(camera, controls) {
 }
 
 export async function selectBuilding(mesh) {
-    if (!mesh) return;
+    try {
+        if (!mesh) return;
 
-    if (selectedMesh) {
-        if (selectedMesh === mesh) {
-            return;
+        if (selectedMesh) {
+            if (selectedMesh === mesh) {
+                return;
+            }
+            await deselectBuilding();
         }
-        await deselectBuilding();
-    }
 
     selectedMesh = mesh;
 
@@ -84,34 +85,38 @@ export async function selectBuilding(mesh) {
 
     selectionPulse(selectionRing);
 
-    // Load and call interact.js
-    const dir = getObjectDirectory(selectedMesh);
-    if (dir) {
-        try {
-            currentInteractModule = await import(`../../objects/${dir}/interact.js`);
-            const detailPanel = document.getElementById('detail-panel');
-            if (currentInteractModule && currentInteractModule.onSelect) {
-                currentInteractModule.onSelect(selectedMesh, detailPanel);
+        // Load and call interact.js
+        const dir = getObjectDirectory(selectedMesh);
+        if (dir) {
+            try {
+                currentInteractModule = await import(`../../objects/${dir}/interact.js`);
+                const detailPanel = document.getElementById('detail-panel');
+                if (currentInteractModule && currentInteractModule.onSelect) {
+                    currentInteractModule.onSelect(selectedMesh, detailPanel);
+                }
+                
+                // Attach upgrade event listener if the button exists
+                const upgradeBtn = document.getElementById('upgrade-btn');
+                if (upgradeBtn) {
+                    // Remove existing listener to prevent duplicates
+                    upgradeBtn.replaceWith(upgradeBtn.cloneNode(true));
+                    const newUpgradeBtn = document.getElementById('upgrade-btn');
+                    newUpgradeBtn.addEventListener('click', () => handleUpgradeClick(dir));
+                }
+            } catch (error) {
+                console.warn(`interact.js could not be loaded for ${dir}:`, error);
             }
-            
-            // Attach upgrade event listener if the button exists
-            const upgradeBtn = document.getElementById('upgrade-btn');
-            if (upgradeBtn) {
-                // Remove existing listener to prevent duplicates
-                upgradeBtn.replaceWith(upgradeBtn.cloneNode(true));
-                const newUpgradeBtn = document.getElementById('upgrade-btn');
-                newUpgradeBtn.addEventListener('click', () => handleUpgradeClick(dir));
-            }
-        } catch (error) {
-            console.warn(`interact.js could not be loaded for ${dir}:`, error);
         }
-    }
 
-    panelSlideIn();
+        panelSlideIn();
+    } catch (err) {
+        console.error("selectBuilding error:", err);
+    }
 }
 
 async function handleUpgradeClick(dir) {
-    if (!selectedMesh || !currentInteractModule || !currentInteractModule.isUpgradeable || !currentInteractModule.onUpgrade) return;
+    try {
+        if (!selectedMesh || !currentInteractModule || !currentInteractModule.isUpgradeable || !currentInteractModule.onUpgrade) return;
     
     // Load config to get cost
     let config;
@@ -174,18 +179,22 @@ async function handleUpgradeClick(dir) {
         // Update shield label (DOM)
         updateShieldLabel(shieldId, currentLevel + 1);
         
-        // Automatically re-select new mesh
-        await selectBuilding(newMesh);
-        
-        showToast("Bina yükseltildi!");
-    } else {
-        insufficientResourceAnimation();
-        showToast("Yetersiz kaynak!");
+            // Automatically re-select new mesh
+            await selectBuilding(newMesh);
+            
+            showToast("Bina yükseltildi!");
+        } else {
+            insufficientResourceAnimation();
+            showToast("Yetersiz kaynak!");
+        }
+    } catch (err) {
+        console.error("handleUpgradeClick error:", err);
     }
 }
 
 export async function deselectBuilding() {
-    if (selectedMesh) {
+    try {
+        if (selectedMesh) {
         // Remove ring
         if (selectionRing && selectionRing.parent) {
             selectionRing.parent.remove(selectionRing);
@@ -197,9 +206,12 @@ export async function deselectBuilding() {
             currentInteractModule.onDeselect(selectedMesh, detailPanel);
         }
 
-        selectedMesh = null;
-        currentInteractModule = null;
+            selectedMesh = null;
+            currentInteractModule = null;
 
-        panelSlideOut();
+            panelSlideOut();
+        }
+    } catch (err) {
+        console.error("deselectBuilding error:", err);
     }
 }

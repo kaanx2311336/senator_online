@@ -12,13 +12,31 @@ const mouse = new THREE.Vector2();
  * @param {Function} callback 
  */
 let hoveredObject = null;
+let isThrottled = false;
 
 export function onMouseMove(event, camera, scene) {
-    // Mouse pozisyon hesaplama
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    try {
+        if (isThrottled) return;
+        isThrottled = true;
+        requestAnimationFrame(() => {
+            isThrottled = false;
+        });
 
-    raycaster.setFromCamera(mouse, camera);
+        // Mouse pozisyon hesaplama
+        let clientX = event.clientX;
+        let clientY = event.clientY;
+        
+        if (event.touches && event.touches.length > 0) {
+            clientX = event.touches[0].clientX;
+            clientY = event.touches[0].clientY;
+        } else if (clientX === undefined || clientY === undefined) {
+            return;
+        }
+
+        mouse.x = (clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children, true);
 
     let found = null;
@@ -50,6 +68,9 @@ export function onMouseMove(event, camera, scene) {
             clearHover(hoveredObject);
             hoveredObject = null;
         }
+    }
+    } catch (error) {
+        console.error("onMouseMove error:", error);
     }
 }
 
@@ -87,11 +108,22 @@ function clearHover(object) {
 }
 
 export function onClick(event, camera, scene, callback) {
-    // Mouse pozisyon hesaplama (normalized device coordinates: -1 to +1)
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    try {
+        // Mouse pozisyon hesaplama (normalized device coordinates: -1 to +1)
+        let clientX = event.clientX;
+        let clientY = event.clientY;
+        
+        if (event.changedTouches && event.changedTouches.length > 0) {
+            clientX = event.changedTouches[0].clientX;
+            clientY = event.changedTouches[0].clientY;
+        } else if (clientX === undefined || clientY === undefined) {
+            return;
+        }
 
-    // Raycaster güncelleme
+        mouse.x = (clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+        // Raycaster güncelleme
     raycaster.setFromCamera(mouse, camera);
 
     // Kesişen nesneleri bul
@@ -121,6 +153,9 @@ export function onClick(event, camera, scene, callback) {
         }
     }
     
-    // Boş alana tıklanmışsa deselect işlemi yap
-    deselectBuilding();
+        // Boş alana tıklanmışsa deselect işlemi yap
+        deselectBuilding();
+    } catch (error) {
+        console.error("onClick error:", error);
+    }
 }
