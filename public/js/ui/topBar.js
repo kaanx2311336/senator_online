@@ -124,3 +124,9 @@ import './faithBar.js';
 
 // Inject Buff Panel
 import './buffPanel.js';
+
+// Inject Happiness Bar
+import './happinessBar.js';
+
+// Inject Festival Panel
+import './festivalPanel.js';

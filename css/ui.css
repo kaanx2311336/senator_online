@@ -79,6 +79,12 @@
     pointer-events: none;
 }
 
+/* Happiness Bar Gradient */
+.happiness-gradient {
+    background: linear-gradient(90deg, #ef4444 0%, #eab308 50%, #22c55e 100%);
+    background-size: 200% 100%;
+}
+
 /* Detail Panel Transition */
 .detail-panel {
     transform: translateY(100%);
@@ -125,6 +131,15 @@
 
 #trade-ship-tooltip {
     transition: left 0.1s linear, top 0.1s linear, opacity 0.2s;
+}
+
+/* Festival Panel specific animations */
+#roman-festival-panel.opacity-100 {
+    pointer-events: auto;
+}
+
+#roman-festival-panel .modal-content {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Responsive adjustments */
