@@ -6,7 +6,8 @@ const interactModules = {
   tree: () => import('../../objects/tree/interact.js'),
   road: () => import('../../objects/road/interact.js'),
   house: () => import('../../objects/house/interact.js'),
-  senate: () => import('../../objects/senate/interact.js')
+  senate: () => import('../../objects/senate/interact.js'),
+  temple: () => import('../../objects/temple/interact.js')
 };
 
 const configModules = {
@@ -16,7 +17,8 @@ const configModules = {
   tree: () => import('../../objects/tree/config.json'),
   road: () => import('../../objects/road/config.json'),
   house: () => import('../../objects/house/config.json'),
-  senate: () => import('../../objects/senate/config.json')
+  senate: () => import('../../objects/senate/config.json'),
+  temple: () => import('../../objects/temple/config.json')
 };
 
 export async function loadInteract(dir) {

@@ -39,6 +39,7 @@ function getObjectDirectory(mesh) {
     if (name.includes('yol') || name.includes('road')) return 'road';
     if (name.includes('ev') || name.includes('house')) return 'house';
     if (name.includes('senato') || name.includes('senate')) return 'senate';
+    if (name.includes('tapınak') || name.includes('tapinak') || name.includes('temple')) return 'temple';
     
     return null;
 }

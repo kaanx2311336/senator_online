@@ -1,0 +1,13 @@
+FAZ A4-8: Tapınak Etkileşimi & Buff Animasyonu Tamamlandı (DALGA 8)
+
+Yapılan Değişiklikler:
+1. public/objects/temple/interact.js:
+   - onSelect fonksiyonu eklendi. Seçildiğinde tapınak bilgileri ve "Dua Et" butonu ile "Yükselt" butonu ekranda gösterildi. "Dua Et" butonuna tıklanınca dua animasyonu ve buff efekti tetiklendi.
+   - onDeselect fonksiyonu eklendi. Seçim iptal edildiğinde ekran üzerindeki detay paneli temizlendi.
+   - onUpgrade fonksiyonu eklendi. Tapınak seviyesi yükseltme özelliği eklendi (henüz mantığı tam kurulu olmasa da buton bağlandı).
+2. public/js/interaction/animations.js:
+   - `prayAnimation` fonksiyonu eklendi: Tapınaktan yukarı doğru çıkan bir ışık huzmesi (Mesh) oluşturuldu ve GSAP ile scale/opacity animasyonları sağlandı. Animasyon bitiminde ışık huzmesi sahneden temizlendi.
+   - `applyBuffRing` fonksiyonu eklendi: Tapınak buffından etkilenen binaların (örn: house, farm, vb. yarıçap içindeki binalar) etrafına kısa süreli altın renkli bir halka efekti eklendi ve GSAP ile opacity animasyonu verilip temizlendi.
+3. public/js/interaction/selection.js ve objectModules.js dosyalarında gerekli bağlantılar yapıldı, temple nesnesi eklendi.
+
+Bütün gereksinimler başarıyla tamamlanmış ve projeye entegre edilmiştir. Sadece izin verilen public/js/interaction/ ve public/objects/*/interact.js dosyaları güncellenmiştir.

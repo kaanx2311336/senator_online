@@ -389,3 +389,166 @@ export function tradeAnimation(scene, position) {
         console.error("tradeAnimation error:", err);
     }
 }
+
+/**
+ * Dua etme animasyonu (Tapınaktan yukarı ışık huzmesi ve etrafındaki binalarda altın halka)
+ * @param {THREE.Object3D} templeMesh
+ */
+export function prayAnimation(templeMesh) {
+    try {
+        if (!templeMesh || !templeMesh.parent) return;
+
+        const scene = templeMesh.parent;
+        const position = new THREE.Vector3();
+        templeMesh.getWorldPosition(position);
+
+        // Işık huzmesi geometrisi ve materyali
+        const beamGeometry = new THREE.CylinderGeometry(0.5, 2, 10, 16, 1, true);
+        const beamMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffaa,
+            transparent: true,
+            opacity: 0,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        const beam = new THREE.Mesh(beamGeometry, beamMaterial);
+        
+        // Işık huzmesi tapınağın merkezinden yukarı doğru uzansın
+        beam.position.copy(position);
+        beam.position.y += 5; // Yüksekliğin yarısı kadar yukarı kaydır
+        
+        scene.add(beam);
+
+        // Beam animasyonu (Scale Y ve Opacity)
+        beam.scale.y = 0.1;
+        
+        gsap.to(beam.scale, {
+            y: 1,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+
+        gsap.to(beamMaterial, {
+            opacity: 0.8,
+            duration: 0.5,
+            ease: "power2.out",
+            yoyo: true,
+            repeat: 1,
+            onComplete: () => {
+                // Işık huzmesini kaldır
+                gsap.to(beamMaterial, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        scene.remove(beam);
+                        beamGeometry.dispose();
+                        beamMaterial.dispose();
+                    }
+                });
+            }
+        });
+
+        // Etraftaki binalara buff efekti uygula
+        applyBuffRing(scene, position, 15); // 15 birim yarıçap
+
+        showToast("Dua edildi! Tanrılar lütfunu sundu.");
+
+    } catch (err) {
+        console.error("prayAnimation error:", err);
+    }
+}
+
+/**
+ * Belirli bir merkez etrafındaki binalara altın halka efekti uygula
+ * @param {THREE.Scene} scene 
+ * @param {THREE.Vector3} centerPos 
+ * @param {number} radius 
+ */
+function applyBuffRing(scene, centerPos, radius) {
+    try {
+        if (!scene || !centerPos) return;
+
+        // Scene içindeki tüm meshleri kontrol et
+        const affectedMeshes = [];
+        
+        scene.traverse((child) => {
+            // Sadece binaları seç (örn. ev, sur, kule vb. - yeryüzü/çimen vb. hariç)
+            if (child.isGroup && child.userData && child.userData.objectType) {
+                const childPos = new THREE.Vector3();
+                child.getWorldPosition(childPos);
+                
+                // Mesafeyi ölç (Y eksenini ihmal edebiliriz veya hesaba katabiliriz, burada 3D mesafe kullanıyoruz)
+                const distance = centerPos.distanceTo(childPos);
+                
+                // Belirli bir yarıçap içindeki, ancak tapınağın kendisi olmayan objeler
+                if (distance > 0.1 && distance <= radius) {
+                    affectedMeshes.push(child);
+                }
+            }
+        });
+
+        // Her etkilenen binaya altın halka efekti ekle
+        affectedMeshes.forEach(mesh => {
+            const meshPos = new THREE.Vector3();
+            mesh.getWorldPosition(meshPos);
+            
+            // Halka geometrisi
+            const ringGeo = new THREE.RingGeometry(1.5, 2.0, 32);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: 0xffd700, // Altın rengi
+                transparent: true,
+                opacity: 0,
+                side: THREE.DoubleSide,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = -Math.PI / 2; // Yere paralel
+            ring.position.copy(meshPos);
+            ring.position.y += 0.2; // Yüzeyin biraz üstünde
+            
+            scene.add(ring);
+            
+            // Halka animasyonu (Büyü ve kaybol)
+            ring.scale.set(0.1, 0.1, 0.1);
+            
+            // Sırayla ortaya çıksınlar diye merkeze olan uzaklığa göre gecikme ekleyelim
+            const dist = centerPos.distanceTo(meshPos);
+            const delay = (dist / radius) * 0.5; // Maksimum 0.5 saniye gecikme
+            
+            gsap.to(ring.scale, {
+                x: 1.5,
+                y: 1.5,
+                z: 1.5,
+                duration: 1.0,
+                delay: delay,
+                ease: "power1.out"
+            });
+            
+            gsap.to(ringMat, {
+                opacity: 0.8,
+                duration: 0.5,
+                delay: delay,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    gsap.to(ringMat, {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => {
+                            scene.remove(ring);
+                            ringGeo.dispose();
+                            ringMat.dispose();
+                        }
+                    });
+                }
+            });
+        });
+
+    } catch (err) {
+        console.error("applyBuffRing error:", err);
+    }
+}
