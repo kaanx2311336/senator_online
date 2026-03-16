@@ -3,8 +3,9 @@ import * as THREE from 'three';
 // Shared Materials
 const materialBase = new THREE.MeshLambertMaterial({ color: 0xE0CDA9, emissive: 0x111111 }); // Plaster/wood
 const materialRoof = new THREE.MeshLambertMaterial({ color: 0x8B3A3A, emissive: 0x1a0b0b }); // Terracotta
-const materialRoofAlt = new THREE.MeshLambertMaterial({ color: 0x9B4A4A, emissive: 0x1a0b0b }); // Alternate Terracotta
-const materialDoor = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Dark wood
+const materialDoor = new THREE.MeshLambertMaterial({ color: 0x3E2723 }); // Darker brown
+const materialDoorFrame = new THREE.MeshLambertMaterial({ color: 0x5C4033 }); // Frame brown
+const materialWindow = new THREE.MeshLambertMaterial({ color: 0x111118, emissive: 0x050510 }); // Dark window
 const materialGarden = new THREE.MeshLambertMaterial({ color: 0x228B22 }); // Grass/plants
 const materialPillar = new THREE.MeshLambertMaterial({ color: 0xFAF0E6, emissive: 0x222222 }); // Marble
 
@@ -17,26 +18,9 @@ export function createHouse(level = 1) {
     const group = new THREE.Group();
     group.name = 'House';
 
-    // Level 1: Simple Hut
-    let width = 4;
-    let height = 3;
-    let depth = 4;
-
-    if (level >= 3) {
-        width = 6;
-        height = 5;
-        depth = 6;
-    }
-    if (level >= 4) {
-        width = 8;
-        height = 6;
-        depth = 8;
-    }
-    if (level === 5) {
-        width = 10;
-        height = 6;
-        depth = 10;
-    }
+    let width = 4 + (level * 1.5);
+    let height = 3 + (level * 0.8);
+    let depth = 4 + (level * 1.5);
 
     // Main Body
     const bodyGeo = new THREE.BoxGeometry(width, height, depth);
@@ -46,54 +30,71 @@ export function createHouse(level = 1) {
     bodyMesh.receiveShadow = false;
     group.add(bodyMesh);
 
-    // Roof
-    if (level === 1) {
-        const roofGeo = new THREE.ConeGeometry(width * 0.7, 2, 4);
-        const roofMesh = new THREE.Mesh(roofGeo, materialRoof);
-        roofMesh.rotation.y = Math.PI / 4;
-        roofMesh.position.y = height + 1;
-        roofMesh.castShadow = false;
-        roofMesh.receiveShadow = false;
-        group.add(roofMesh);
-        
-        // Add some variation for tiles
-        const roofGeoAlt = new THREE.ConeGeometry(width * 0.71, 1.8, 4);
-        const roofMeshAlt = new THREE.Mesh(roofGeoAlt, materialRoofAlt);
-        roofMeshAlt.rotation.y = Math.PI / 4 + 0.05;
-        roofMeshAlt.position.y = height + 1;
-        roofMeshAlt.castShadow = false;
-        roofMeshAlt.receiveShadow = false;
-        group.add(roofMeshAlt);
-    } else {
-        const roofGeo = new THREE.ConeGeometry(width * 0.8, height * 0.5, 4);
-        const roofMesh = new THREE.Mesh(roofGeo, materialRoof);
-        roofMesh.rotation.y = Math.PI / 4;
-        roofMesh.position.y = height + height * 0.25;
-        roofMesh.castShadow = false;
-        roofMesh.receiveShadow = false;
-        group.add(roofMesh);
+    // Roof (Düzgün üçgen çatı - Prism geometry using ExtrudeGeometry or ConeGeometry)
+    const roofHeight = 2 + (level * 0.5);
+    const roofOverhang = 0.5;
+    
+    // Create a triangular prism for the roof
+    const shape = new THREE.Shape();
+    shape.moveTo(-(width + roofOverhang) / 2, 0);
+    shape.lineTo(0, roofHeight);
+    shape.lineTo((width + roofOverhang) / 2, 0);
+    shape.lineTo(-(width + roofOverhang) / 2, 0);
 
-        // Add some variation for tiles
-        const roofGeoAlt = new THREE.ConeGeometry(width * 0.81, height * 0.45, 4);
-        const roofMeshAlt = new THREE.Mesh(roofGeoAlt, materialRoofAlt);
-        roofMeshAlt.rotation.y = Math.PI / 4 + 0.05;
-        roofMeshAlt.position.y = height + height * 0.25;
-        roofMeshAlt.castShadow = false;
-        roofMeshAlt.receiveShadow = false;
-        group.add(roofMeshAlt);
-    }
+    const extrudeSettings = { depth: depth + roofOverhang, bevelEnabled: false };
+    const roofGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    const roofMesh = new THREE.Mesh(roofGeo, materialRoof);
+    roofMesh.position.set(0, height, (depth + roofOverhang) / 2);
+    roofMesh.rotation.y = Math.PI; // Face the right way
+    roofMesh.castShadow = false;
+    roofMesh.receiveShadow = false;
+    group.add(roofMesh);
 
-    // Door
-    const doorGeo = new THREE.BoxGeometry(width * 0.2, height * 0.4, 0.2);
+    // Door and Frame
+    const doorWidth = 1.2 + (level * 0.2);
+    const doorHeight = 2.0 + (level * 0.2);
+    
+    const doorFrameGeo = new THREE.BoxGeometry(doorWidth + 0.4, doorHeight + 0.2, 0.3);
+    const doorFrameMesh = new THREE.Mesh(doorFrameGeo, materialDoorFrame);
+    doorFrameMesh.position.set(0, doorHeight / 2, depth / 2 + 0.05);
+    doorFrameMesh.castShadow = false;
+    doorFrameMesh.receiveShadow = false;
+    group.add(doorFrameMesh);
+
+    const doorGeo = new THREE.BoxGeometry(doorWidth, doorHeight, 0.4);
     const doorMesh = new THREE.Mesh(doorGeo, materialDoor);
-    doorMesh.position.set(0, height * 0.2, depth / 2 + 0.1);
+    doorMesh.position.set(0, doorHeight / 2, depth / 2 + 0.05);
     doorMesh.castShadow = false;
     doorMesh.receiveShadow = false;
     group.add(doorMesh);
 
+    // Windows (2 yan duvarlarda)
+    const winWidth = 1.0;
+    const winHeight = 1.2;
+    const winDepth = 0.4;
+    
+    for (const side of [-1, 1]) {
+        const winGeo = new THREE.BoxGeometry(winDepth, winHeight, winWidth);
+        const winMesh = new THREE.Mesh(winGeo, materialWindow);
+        const winX = side * (width / 2 + 0.05);
+        const winY = height * 0.5;
+        winMesh.position.set(winX, winY, 0);
+        winMesh.castShadow = false;
+        winMesh.receiveShadow = false;
+        group.add(winMesh);
+        
+        // Window Frame
+        const winFrameGeo = new THREE.BoxGeometry(winDepth + 0.1, winHeight + 0.2, winWidth + 0.2);
+        const winFrameMesh = new THREE.Mesh(winFrameGeo, materialDoorFrame);
+        winFrameMesh.position.set(winX, winY, 0);
+        winFrameMesh.castShadow = false;
+        winFrameMesh.receiveShadow = false;
+        group.add(winFrameMesh);
+    }
+
     // Level 3+: Second Story / Balcony
     if (level >= 3) {
-        const balcGeo = new THREE.BoxGeometry(width + 1, 0.5, depth + 1);
+        const balcGeo = new THREE.BoxGeometry(width + 1.5, 0.4, depth + 1.5);
         const balcMesh = new THREE.Mesh(balcGeo, materialBase);
         balcMesh.position.y = height * 0.6;
         balcMesh.castShadow = false;
@@ -147,12 +148,8 @@ export function createHouse(level = 1) {
         group.traverse((child) => {
             if (child.isMesh) {
                 if (child.geometry) child.geometry.dispose();
-                if (child.material && child.material !== materialBase && child.material !== materialRoof && child.material !== materialRoofAlt && child.material !== materialDoor && child.material !== materialGarden && child.material !== materialPillar) {
-                    if (Array.isArray(child.material)) {
-                        child.material.forEach(m => m.dispose());
-                    } else {
-                        child.material.dispose();
-                    }
+                if (child.material && !['MeshLambertMaterial'].includes(child.material.type)) {
+                    // Safe cleanup if custom materials added
                 }
             }
         });

@@ -17,13 +17,13 @@ function createColosseumHigh(level = 1) {
     group.name = 'Colosseum';
 
     // Base Dimensions
-    const radiusX = 10 + level * 2;
-    const radiusZ = 8 + level * 1.5;
-    const height = 4 + level * 2;
+    const radiusX = 12 + level * 1.5;
+    const radiusZ = 9 + level * 1.1;
+    const height = 6 + level * 2;
+    const cylinderSegments = 32; // minimum 24 as requested
     
     // Outer Wall
-    // Geometry optimization: reduced segments from 32 to 24
-    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, 8);
+    const outerGeo = new THREE.CylinderGeometry(radiusX, radiusX, height, cylinderSegments, 1, true);
     const outerWall = new THREE.Mesh(outerGeo, material);
     outerWall.scale.set(1, 1, radiusZ / radiusX);
     outerWall.position.y = height / 2;
@@ -31,15 +31,14 @@ function createColosseumHigh(level = 1) {
     outerWall.receiveShadow = false;
     group.add(outerWall);
 
-    // Inner seating (steps) - increases with level
-    const numSteps = level;
+    // Inner seating (steps) - 3 kademeli oturma sıraları
+    const numSteps = 3;
     for (let i = 0; i < numSteps; i++) {
         const stepHeight = height * ((i + 1) / numSteps) * 0.8;
-        const stepRadiusX = radiusX * (1 - (i * 0.15)) - 1;
+        const stepRadiusX = radiusX * (1 - (i * 0.15)) - 1.5;
         
         if (stepRadiusX > 0) {
-            // Geometry optimization: reduced segments from 32 to 24
-            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, 8);
+            const stepGeo = new THREE.CylinderGeometry(stepRadiusX, stepRadiusX, stepHeight, cylinderSegments);
             const stepMesh = new THREE.Mesh(stepGeo, material);
             stepMesh.scale.set(1, 1, radiusZ / radiusX);
             stepMesh.position.y = stepHeight / 2;
@@ -50,10 +49,9 @@ function createColosseumHigh(level = 1) {
     }
 
     // Inner Arena Floor
-    const arenaRadiusX = radiusX * (1 - (numSteps * 0.15)) - 1;
+    const arenaRadiusX = radiusX * (1 - ((numSteps - 1) * 0.15)) - 1.5;
     if (arenaRadiusX > 0) {
-        // Geometry optimization: reduced segments from 32 to 24
-        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, 8);
+        const arenaGeo = new THREE.CylinderGeometry(arenaRadiusX, arenaRadiusX, 0.2, cylinderSegments);
         const arenaMesh = new THREE.Mesh(arenaGeo, arenaMaterial);
         arenaMesh.scale.set(1, 1, radiusZ / radiusX);
         arenaMesh.position.y = 0.1;
@@ -62,62 +60,54 @@ function createColosseumHigh(level = 1) {
         group.add(arenaMesh);
     }
 
-    // Detailed Arches for Level 3+
-    if (level >= 3) {
-        const numArches = 16 + level * 4;
-        const numFloors = level - 1;
-        const floorHeight = height / (numFloors + 0.5);
+    // Detailed Arches
+    const numArches = 16 + (level * 2);
+    const numFloors = 3;
+    const floorHeight = height / (numFloors + 0.5);
 
-        for (let floor = 0; floor < numFloors; floor++) {
-            for (let i = 0; i < numArches; i++) {
-                const angle = (i / numArches) * Math.PI * 2; 
-                const archWidth = 1.0 + (level * 0.1);
-                const archHeight = floorHeight * 0.6;
-                const archDepth = 2;
+    for (let floor = 0; floor < numFloors; floor++) {
+        for (let i = 0; i < numArches; i++) {
+            const angle = (i / numArches) * Math.PI * 2; 
+            const archWidth = 1.0 + (level * 0.1);
+            const archHeight = floorHeight * 0.6;
+            const archDepth = 2;
 
-                const archGeo = new THREE.BoxGeometry(archWidth, archHeight, archDepth);
-                const archMesh = new THREE.Mesh(archGeo, archMaterial);
-                archMesh.castShadow = false;
-                archMesh.receiveShadow = false;
-                
-                const x = Math.cos(angle) * (radiusX - 0.5);
-                const z = Math.sin(angle) * (radiusZ - 0.5);
-                const yPos = floor * floorHeight + archHeight / 2 + 0.5;
-                
-                archMesh.position.set(x, yPos, z);
-                archMesh.lookAt(new THREE.Vector3(x * 2, yPos, z * 2));
-                
-                archMesh.castShadow = false;
-                archMesh.receiveShadow = false;
-                group.add(archMesh);
+            const archGeo = new THREE.BoxGeometry(archWidth, archHeight, archDepth);
+            const archMesh = new THREE.Mesh(archGeo, archMaterial);
+            
+            const x = Math.cos(angle) * (radiusX - 0.5);
+            const z = Math.sin(angle) * (radiusZ - 0.5);
+            const yPos = floor * floorHeight + archHeight / 2 + 0.5;
+            
+            archMesh.position.set(x, yPos, z);
+            archMesh.lookAt(new THREE.Vector3(x * 2, yPos, z * 2));
+            
+            archMesh.castShadow = false;
+            archMesh.receiveShadow = false;
+            group.add(archMesh);
 
-                // Add a small decorative ledge below each arch
-                const ledgeGeo = new THREE.BoxGeometry(archWidth * 1.2, 0.2, archDepth * 1.1);
-                const ledgeMesh = new THREE.Mesh(ledgeGeo, material);
-                ledgeMesh.castShadow = false;
-                ledgeMesh.receiveShadow = false;
-                ledgeMesh.position.set(x, yPos - archHeight / 2, z);
-                ledgeMesh.lookAt(new THREE.Vector3(x * 2, yPos - archHeight / 2, z * 2));
-                ledgeMesh.castShadow = false;
-                ledgeMesh.receiveShadow = false;
-                group.add(ledgeMesh);
-            }
+            // Add a small decorative ledge below each arch
+            const ledgeGeo = new THREE.BoxGeometry(archWidth * 1.2, 0.2, archDepth * 1.1);
+            const ledgeMesh = new THREE.Mesh(ledgeGeo, material);
+            ledgeMesh.position.set(x, yPos - archHeight / 2, z);
+            ledgeMesh.lookAt(new THREE.Vector3(x * 2, yPos - archHeight / 2, z * 2));
+            ledgeMesh.castShadow = false;
+            ledgeMesh.receiveShadow = false;
+            group.add(ledgeMesh);
         }
     }
 
-    // Entrance Gates
+    // Entrance Gates (4 büyük kapı - Kuzey/Güney/Doğu/Batı)
     const gateAngles = [0, Math.PI / 2, Math.PI, Math.PI * 1.5];
     const gateHeight = height * 0.4;
     
     for (let i = 0; i < gateAngles.length; i++) {
         const angle = gateAngles[i];
-        const gateWidth = 2 + level * 0.5;
+        const gateWidth = 3 + level * 0.5;
         const gateDepth = 3;
         
         const gateGeo = new THREE.BoxGeometry(gateWidth, gateHeight, gateDepth);
         const gateMesh = new THREE.Mesh(gateGeo, gateMaterial);
-        gateMesh.castShadow = false;
-        gateMesh.receiveShadow = false;
         
         const x = Math.cos(angle) * (radiusX - 0.2);
         const z = Math.sin(angle) * (radiusZ - 0.2);
@@ -133,8 +123,6 @@ function createColosseumHigh(level = 1) {
         if (level === 5) {
             const trimGeo = new THREE.BoxGeometry(gateWidth + 0.4, gateHeight + 0.4, gateDepth - 1);
             const trimMesh = new THREE.Mesh(trimGeo, goldMaterial);
-            trimMesh.castShadow = false;
-            trimMesh.receiveShadow = false;
             trimMesh.position.set(x, gateHeight / 2, z);
             trimMesh.lookAt(new THREE.Vector3(x * 2, gateHeight / 2, z * 2));
             trimMesh.castShadow = false;

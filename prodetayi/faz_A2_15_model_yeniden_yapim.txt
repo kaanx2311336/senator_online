@@ -1,0 +1,24 @@
+FAZ A2-15: Senato & Kolezyum Modeli YENİDEN YAPIM (DALGA 13) tamamlanmıştır.
+
+1. SENATO Modelleri:
+   - Level 1 dahil tüm seviyelere SphereGeometry kullanılarak kubbe (kiremit kırmızı) eklendi.
+   - Dikdörtgen taban beyaz mermer materyal ile oluşturuldu.
+   - Ön cepheye 4 sütun (CylinderGeometry min 16 segment) ve 3 basamaklı merdiven eklendi.
+   - ExtrudeGeometry kullanılarak üçgen alınlık oluşturuldu.
+   - Seviye arttıkça kubbe, sütun sayısı ve altın detayları artacak şekilde ayarlandı.
+
+2. KOLEZYUM Modelleri:
+   - CylinderGeometry için minimum 32 segment kullanılarak önceki sekizgen görünüm giderildi.
+   - Oval bir yapı elde etmek için scale.z kullanıldı (radiusX=12, radiusZ=9).
+   - İç kısımda 3 kademeli oturma sırası oluşturuldu.
+   - Her katta 16+ kemerli açıklık eklendi.
+   - Kum rengi arena zemini yapıldı.
+   - Kuzey, Güney, Doğu ve Batı yönlerine bakan 4 büyük giriş kapısı eklendi.
+
+3. EV Modelleri:
+   - Çatı ExtrudeGeometry yardımıyla düzgün üçgen çatı ve çatı saçağı olacak şekilde iyileştirildi.
+   - Yan duvarlara 2 adet koyu renkli ve çerçeveli pencere eklendi.
+   - Kapı daha belirgin, kahverengi ve çerçeveli bir şekilde eklendi.
+
+Tüm nesneler için castShadow = false ve receiveShadow = false ayarları yapılmıştır.
+Görev başarıyla tamamlanmış ve `objects/` ile `public/objects/` klasörlerindeki ilgili dosyalar (senate, colosseum, house) güncellenmiştir.
