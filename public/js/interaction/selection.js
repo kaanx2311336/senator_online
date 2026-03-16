@@ -42,6 +42,7 @@ function getObjectDirectory(mesh) {
     if (name.includes('tapınak') || name.includes('tapinak') || name.includes('temple')) return 'temple';
     if (name.includes('liman') || name.includes('harbor')) return 'harbor';
     if (name.includes('gemi') || name.includes('ship')) return 'ship';
+    if (name.includes('kışla') || name.includes('kisla') || name.includes('barracks')) return 'barracks';
     
     return null;
 }

@@ -1,0 +1,12 @@
+FAZ A4-10: Asker Yerleştirme & Savaş Animasyonları (DALGA 10) Başarıyla Tamamlandı.
+
+Gerçekleştirilen İşlemler:
+1. `public/objects/barracks/interact.js` oluşturuldu. İçerisinde `onSelect`, `onDeselect`, ve `onUpgrade` fonksiyonları export edildi.
+2. `onSelect` fonksiyonu ile Ordu Paneli açılarak (veya simüle edilerek) "Asker Eğit", "Savunma Modu", ve "Saldırı Simülasyonu" butonları UI'a eklendi.
+3. Asker Eğitim Animasyonu (`trainSoldier`): Kışlanın önünde beliren silindir şeklinde asker modelinin GSAP kullanılarak scale değerinin 0'dan 1'e animasyonla çıkarılması sağlandı.
+4. Savunma Modu Animasyonu (`activateDefenseMode`): Sahnedeki "wall" (sur) objeleri taranarak askerlerin bu surların üzerine sıçraması ve hareket etmesi animasyonu eklendi.
+5. Saldırı Efekti (`simulateEnemyAttack`): Kışlaya yönelik kırmızı parçacık patlaması efekti ve kışlanın titreme (shake) efekti başarıyla entegre edildi.
+6. `public/js/interaction/selection.js` içerisinde `getObjectDirectory` fonksiyonu güncellenerek "kışla" veya "barracks" objeleri için 'barracks' dizinine yönlendirme eklendi.
+7. Olası import hatalarını gidermek için `public/objects/barracks/config.json` ve `public/objects/barracks/model.js` dosyaları stub/basit veri ile oluşturuldu (Çünkü Vite importları build veya analiz sırasında dosya eksikliğinden dolayı hata verebiliyor).
+
+Gereksinimler tamamen karşılanmış ve `AGENT 4` sınırları dâhilinde görev bitirilmiştir.
