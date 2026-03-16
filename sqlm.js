@@ -183,11 +183,111 @@ async function listele(table, conditions = {}) {
   return rows;
 }
 
+/**
+ * Oyun sonucunu (el veya maç sonu) veritabanına kaydeder.
+ * @param {number} gameId - Oyunun ID'si
+ * @param {Object} scores - Oyuncu ID'lerine karşılık gelen skorlar objesi
+ * @param {number} winnerId - Kazanan oyuncunun ID'si (opsiyonel)
+ * @param {boolean} isMatchEnd - Maçın tamamen bitip bitmediği
+ */
+async function oyunSonucuKaydet(gameId, scores, winnerId = null, isMatchEnd = false) {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    // 1. Oyuncuların skorlarını guncelle (game_players)
+    for (const [userId, score] of Object.entries(scores)) {
+      // game_players tablosunda kullanıcının bu oyun için skorunu güncelle
+      await connection.query(
+        'UPDATE game_players SET score = score + ? WHERE game_id = ? AND user_id = ?',
+        [score, gameId, userId]
+      );
+      
+      // 2. Kullanıcıların genel istatistiklerini güncelle (stats, users)
+      if (isMatchEnd) {
+        // users tablosunu güncelle
+        await connection.query(
+          'UPDATE users SET games_played = games_played + 1, total_score = total_score + ? WHERE id = ?',
+          [score, userId]
+        );
+        
+        // stats tablosunu güncelle (yoksa oluştur)
+        const [statRec] = await connection.query('SELECT id FROM stats WHERE user_id = ?', [userId]);
+        if (statRec.length === 0) {
+          await connection.query('INSERT INTO stats (user_id) VALUES (?)', [userId]);
+        }
+        
+        await connection.query(
+          'UPDATE stats SET total_hands = total_hands + 1, highest_score = GREATEST(highest_score, ?) WHERE user_id = ?',
+          [score, userId]
+        );
+      }
+    }
+
+    if (isMatchEnd) {
+      // Oyunu bitir
+      await connection.query(
+        "UPDATE games SET status = 'finished', ended_at = CURRENT_TIMESTAMP WHERE id = ?",
+        [gameId]
+      );
+      
+      // Kazanan varsa istatistiklerine yansıt
+      if (winnerId) {
+        await connection.query('UPDATE users SET games_won = games_won + 1 WHERE id = ?', [winnerId]);
+        await connection.query('UPDATE stats SET wins = wins + 1 WHERE user_id = ?', [winnerId]);
+        
+        // Diğer oyuncuların kayıplarını artır
+        for (const userId of Object.keys(scores)) {
+          if (String(userId) !== String(winnerId)) {
+            await connection.query('UPDATE stats SET losses = losses + 1 WHERE user_id = ?', [userId]);
+          }
+        }
+      }
+    } else {
+      // Sadece el bitti, oyun devam ediyor (hand_number artırılabilir)
+      await connection.query(
+        'UPDATE games SET hand_number = hand_number + 1 WHERE id = ?',
+        [gameId]
+      );
+    }
+
+    await connection.commit();
+    return true;
+  } catch (error) {
+    await connection.rollback();
+    console.error('Oyun sonucu kaydetme hatası:', error);
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
+/**
+ * Yanlış el açma (declare_win) durumunda oyuncuya ceza puanı kaydeder.
+ * @param {number} gameId - Oyunun ID'si
+ * @param {number} userId - Ceza alacak kullanıcının ID'si
+ * @param {number} penaltyScore - Ceza puanı (örn: -101)
+ */
+async function cezaKaydet(gameId, userId, penaltyScore) {
+  try {
+    const [result] = await pool.query(
+      'UPDATE game_players SET score = score + ? WHERE game_id = ? AND user_id = ?',
+      [penaltyScore, gameId, userId]
+    );
+    return result.affectedRows > 0;
+  } catch (error) {
+    console.error('Ceza kaydetme hatası:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   initDatabase,
   ekle,
   getir,
   guncelle,
   sil,
-  listele
+  listele,
+  oyunSonucuKaydet,
+  cezaKaydet
 };

@@ -1,5 +1,6 @@
 const OkeyEngine = require('../services/OkeyEngine');
 const { GAME_EVENTS, GAME_RESPONSES } = require('../shared/contracts/socketEvents');
+const sqlm = require('../sqlm');
 
 const turnTimers = {};
 const TURN_DURATION = 30000;
@@ -109,6 +110,86 @@ module.exports = function(io, socket) {
       OkeyEngine.sortTiles(roomId, playerId, sortedTiles);
     } catch (error) {
       console.error('Sort tiles error:', error);
+    }
+  });
+
+  socket.on(GAME_EVENTS.DECLARE_WIN || 'declare_win', async (data) => {
+    const { roomId, playerId } = data;
+    try {
+      // OkeyEngine ile kazanma durumunu doğrula
+      const winValidation = OkeyEngine.validateWin(roomId, playerId);
+      
+      if (winValidation && winValidation.valid) {
+        // Geçerli bitirme: Timer'ı durdur
+        if (turnTimers[roomId]) clearTimeout(turnTimers[roomId]);
+        
+        const { hands, scores, isMatchEnd } = winValidation;
+        
+        // 1. hand_result eventini tüm oyunculara gönder
+        io.to(roomId).emit(GAME_RESPONSES.HAND_RESULT || 'hand_result', {
+          winner: playerId,
+          scores: scores,
+          hands: hands,
+          isMatchEnd: !!isMatchEnd
+        });
+        
+        // 2. Eğer maç bittiyse match_result eventini gönder
+        if (isMatchEnd) {
+          io.to(roomId).emit(GAME_RESPONSES.MATCH_RESULT || 'match_result', {
+            winner: playerId,
+            finalScores: scores
+          });
+        }
+        
+        // 3. Veritabanına sonuçları kaydet
+        try {
+          await sqlm.oyunSonucuKaydet(roomId, scores, playerId, !!isMatchEnd);
+        } catch (dbError) {
+          console.error('Database save error on win:', dbError);
+        }
+        
+      } else {
+        // Geçersiz bitirme: Oyuncuya hata bildir ve ceza uygula
+        socket.emit(GAME_RESPONSES.WIN_ERROR || 'win_error', {
+          error: winValidation ? winValidation.error : 'Invalid win condition'
+        });
+        
+        // Örn: Yanlış bitirme için -101 puan ceza
+        const penaltyScore = -101;
+        try {
+          await sqlm.cezaKaydet(roomId, playerId, penaltyScore);
+          // İsteğe bağlı olarak herkese ceza bilgisini bildirebiliriz:
+          io.to(roomId).emit('penalty_applied', { playerId, penaltyScore });
+        } catch (dbError) {
+          console.error('Database penalty save error:', dbError);
+        }
+      }
+    } catch (error) {
+      console.error('Declare win error:', error);
+    }
+  });
+
+  socket.on(GAME_EVENTS.NEW_HAND || 'new_hand', (data) => {
+    const { roomId } = data;
+    try {
+      const newHandState = OkeyEngine.startNewHand(roomId);
+      
+      if (newHandState && newHandState.players) {
+        // Tüm oyunculara yeni elin başladığını bildir
+        newHandState.players.forEach(player => {
+          io.to(player.id).emit(GAME_RESPONSES.NEW_HAND || 'new_hand', {
+            tiles: player.tiles,
+            indicator: newHandState.indicator,
+            okey: newHandState.okey,
+            currentTurn: newHandState.currentTurn
+          });
+        });
+        
+        // Yeni sırayı başlat
+        startTurnTimer(io, roomId, newHandState.currentTurn);
+      }
+    } catch (error) {
+      console.error('New hand error:', error);
     }
   });
 };

@@ -1,0 +1,16 @@
+[FAZ A1-6] El Bitirme ve Skor Hesaplamaları Tamamlandı
+
+1. declare_win Olayı (gameSocket.js):
+   - OkeyEngine.validateWin() ile geçerlilik kontrolü eklendi.
+   - Geçerli durumlarda (hands, scores alınarak) hand_result herkese broadcast edildi.
+   - Maç bitimi (isMatchEnd) durumunda match_result broadcast edildi.
+   - Geçersiz durumlarda oyuncuya hata (win_error) bildirildi ve -101 ceza puanı uygulandı.
+
+2. Veritabanı Entegrasyonu (sqlm.js):
+   - oyunSonucuKaydet(): Skorlar game_players tablosuna atomik olarak eklendi. isMatchEnd durumunda games durumu 'finished' olarak işaretlenip, stats ve users tablolarındaki (total_hands, games_played, wins, vb.) veriler güncellendi.
+   - cezaKaydet(): Geçersiz bitirme durumlarında ilgili oyuncunun puanına atomik olarak ceza (penalty) eklendi.
+
+3. new_hand Olayı (gameSocket.js):
+   - OkeyEngine.startNewHand() çağrıldı.
+   - Yeni taşlar, okey ve gösterge her oyuncuya özel olarak new_hand olayıyla gönderildi.
+   - Yeni sıra (turnTimer) başlatıldı.
