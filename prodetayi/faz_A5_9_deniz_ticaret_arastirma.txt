@@ -1,0 +1,4 @@
+FAZ A5-9: Deniz Ticareti Araştırması (DALGA 9) tamamlandı.
+
+- research/deniz_ticareti.txt oluşturuldu ve Antik Roma deniz ticaret rotaları ile ilgili kurallar eklendi.
+- shared/contracts/objectRegistry.js dosyasına TRADE kategorisi eklendi.

@@ -1,0 +1,5 @@
+Antik Roma deniz ticaret rotaları.
+Rota tipleri: Kısa (30sn, düşük kar), Orta (60sn, orta kar), Uzun (120sn, yüksek kar).
+Risk faktörü: Uzun rotalarda %10 kayıp riski.
+Gemi kapasitesi: Ticaret=100 birim, Savaş=20 birim, Balıkçı=30 birim.
+Liman seviyesi: Her seviye +1 eşzamanlı rota kapasitesi.

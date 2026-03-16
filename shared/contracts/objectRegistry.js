@@ -25,6 +25,10 @@ const ObjectRegistry = {
   },
   FAITH: {
     TEMPLE: "temple"
+  },
+  TRADE: {
+    PORT: "port",
+    SHIP: "ship"
   }
 };
 
