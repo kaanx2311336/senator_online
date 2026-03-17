@@ -1,0 +1,6 @@
+FAZ A1-15: Hamam & Su Kemeri Sahne Entegrasyonu (DALGA 15) Tamamlandı.
+- objectLoader.js'e objects/bathhouse/ ve objects/aqueduct/ import'ları eklendi.
+- Hamam kolezyum yakınına yerleştirildi.
+- Su kemeri haritanın kuzey kenarı boyunca yerleştirildi.
+- Su kemeri boyunca mavi küçük küre parçacıkları ile A→B hareket eden basit su akış efekti main.js'de oluşturuldu ve optimize edildi.
+- objectModules.js dosyasına bathhouse ve aqueduct interact/config modülleri eklendi.

@@ -21,6 +21,10 @@ import { createBarracks } from '../objects/barracks/model.js';
 import barracksConfig from '../objects/barracks/config.json';
 import { createFarm } from '../objects/farm/model.js';
 import farmConfig from '../objects/farm/config.json';
+import { createBathhouse } from '../objects/bathhouse/model.js';
+import bathhouseConfig from '../objects/bathhouse/config.json';
+import { createAqueduct } from '../objects/aqueduct/model.js';
+import aqueductConfig from '../objects/aqueduct/config.json';
 
 // Helper to create LOD object for buildings
 function createLODWrapper(highDetailObj) {
@@ -221,6 +225,24 @@ export const ObjectLoader = {
         }
 
         objects.push(createLODWrapper(barracksGroup));
+
+        // Bathhouse
+        const bathhouse = createBathhouse(1);
+        bathhouse.userData.objectType = bathhouseConfig.type || 'wellness';
+        bathhouse.userData.objectName = bathhouseConfig.name || 'Hamam';
+        bathhouse.userData.level = 1;
+        // Positioned near the Colosseum [40, 0, 10]
+        bathhouse.position.set(25, 0, 10);
+        objects.push(createLODWrapper(bathhouse));
+
+        // Aqueduct
+        const aqueduct = createAqueduct(100); // 100 length
+        aqueduct.userData.objectType = aqueductConfig.type || 'infrastructure';
+        aqueduct.userData.objectName = aqueductConfig.name || 'Su Kemeri';
+        aqueduct.userData.isAqueduct = true;
+        // Northern edge of the map
+        aqueduct.position.set(0, 0, -100);
+        objects.push(createLODWrapper(aqueduct));
 
         return objects;
     }

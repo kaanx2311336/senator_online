@@ -12,6 +12,48 @@ import { addResource } from './ui/resourceManager.js';
 // Make gsap globally available for UI components that check window.gsap
 window.gsap = gsap;
 
+// Aqueduct Flow Particles
+const aqueductParticles = [];
+const aqueductParticleGeo = new THREE.SphereGeometry(0.3, 8, 8);
+const aqueductParticleMat = new THREE.MeshBasicMaterial({ color: 0x4A90E2 });
+let cachedAqueduct = null;
+
+function updateAqueductParticles() {
+  // Try to find the aqueduct object in the scene if not cached
+  if (!cachedAqueduct) {
+    scene.traverse(obj => {
+      if (obj.userData && obj.userData.isAqueduct) {
+        cachedAqueduct = obj;
+      }
+    });
+  }
+
+  if (!cachedAqueduct) return;
+
+  // Add new particle occasionally
+  if (Math.random() < 0.1 && aqueductParticles.length < 50) {
+    const p = new THREE.Mesh(aqueductParticleGeo, aqueductParticleMat);
+    // Aqueduct spans from x = -50 to x = 50 roughly.
+    // Length is 100, positioned at x=0, z=-100, channel height is around 8-9.
+    // Let's spawn particles at the left end (-50) and move right (+50)
+    p.position.set(-50, 8.5, -100 + (Math.random() - 0.5) * 1.5);
+    scene.add(p);
+    aqueductParticles.push({ mesh: p, life: 100, startX: -50, speed: 0.1 + Math.random() * 0.05 });
+  }
+
+  // Update existing particles
+  for (let i = aqueductParticles.length - 1; i >= 0; i--) {
+    const p = aqueductParticles[i];
+    p.mesh.position.x += p.speed;
+    
+    // Remove if it reaches the end or life is up
+    if (p.mesh.position.x > 50) {
+      scene.remove(p.mesh);
+      aqueductParticles.splice(i, 1);
+    }
+  }
+}
+
 // Festival System Variables
 window.festivalActive = false;
 const particles = [];
@@ -367,6 +409,9 @@ function animate() {
   
   // Update Festival Particles
   updateFestival();
+  
+  // Update Aqueduct Particles
+  updateAqueductParticles();
 
   renderer.render(scene, camera);
 }

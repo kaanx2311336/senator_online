@@ -11,7 +11,9 @@ const interactModules = {
   harbor: () => import('../../objects/harbor/interact.js'),
   ship: () => import('../../objects/ship/interact.js'),
   barracks: () => import('../../objects/barracks/interact.js'),
-  farm: () => import('../../objects/farm/interact.js')
+  farm: () => import('../../objects/farm/interact.js'),
+  bathhouse: () => import('../../objects/bathhouse/interact.js'),
+  aqueduct: () => import('../../objects/aqueduct/interact.js')
 };
 
 const configModules = {
@@ -26,7 +28,9 @@ const configModules = {
   harbor: () => import('../../objects/harbor/config.json'),
   ship: () => import('../../objects/ship/config.json'),
   barracks: () => import('../../objects/barracks/config.json'),
-  farm: () => import('../../objects/farm/config.json')
+  farm: () => import('../../objects/farm/config.json'),
+  bathhouse: () => import('../../objects/bathhouse/config.json'),
+  aqueduct: () => import('../../objects/aqueduct/config.json')
 };
 
 export async function loadInteract(dir) {
