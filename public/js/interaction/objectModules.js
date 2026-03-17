@@ -10,7 +10,8 @@ const interactModules = {
   temple: () => import('../../objects/temple/interact.js'),
   harbor: () => import('../../objects/harbor/interact.js'),
   ship: () => import('../../objects/ship/interact.js'),
-  barracks: () => import('../../objects/barracks/interact.js')
+  barracks: () => import('../../objects/barracks/interact.js'),
+  farm: () => import('../../objects/farm/interact.js')
 };
 
 const configModules = {
@@ -24,7 +25,8 @@ const configModules = {
   temple: () => import('../../objects/temple/config.json'),
   harbor: () => import('../../objects/harbor/config.json'),
   ship: () => import('../../objects/ship/config.json'),
-  barracks: () => import('../../objects/barracks/config.json')
+  barracks: () => import('../../objects/barracks/config.json'),
+  farm: () => import('../../objects/farm/config.json')
 };
 
 export async function loadInteract(dir) {

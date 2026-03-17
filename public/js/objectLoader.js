@@ -19,6 +19,8 @@ import { createShip } from '../objects/ship/model.js';
 import shipConfig from '../objects/ship/config.json';
 import { createBarracks } from '../objects/barracks/model.js';
 import barracksConfig from '../objects/barracks/config.json';
+import { createFarm } from '../objects/farm/model.js';
+import farmConfig from '../objects/farm/config.json';
 
 // Helper to create LOD object for buildings
 function createLODWrapper(highDetailObj) {
@@ -178,6 +180,15 @@ export const ObjectLoader = {
             ship.position.set(shipConfig.position[0], shipConfig.position[1], shipConfig.position[2]);
         }
         objects.push(createLODWrapper(ship));
+
+        // Farm
+        const farm = createFarm(1);
+        farm.userData.objectType = farmConfig.type || 'production';
+        farm.userData.objectName = farmConfig.name || 'Çiftlik';
+        farm.userData.level = 1;
+        // senato solunda, evlerin arkasında
+        farm.position.set(-30, 0, -15);
+        objects.push(createLODWrapper(farm));
 
         // Barracks
         const barracksGroup = new THREE.Group();

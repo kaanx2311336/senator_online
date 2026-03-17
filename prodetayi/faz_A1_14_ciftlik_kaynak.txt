@@ -1,0 +1,12 @@
+FAZ A1-14: Çiftlik Sahne Entegrasyonu & Kaynak Üretim Timer (DALGA 14) tamamlandı.
+
+Yapılan Değişiklikler:
+1. `public/js/objectLoader.js` dosyasına `farm` modeli ve konfigürasyonu import edildi ve Senato soluna, evlerin arkasına (pozisyon: -30, 0, -15) yerleştirildi.
+2. `public/js/interaction/objectModules.js` dosyasına `farm` interact ve config modülleri eklendi.
+3. `public/js/main.js` dosyasına her 10 saniyede bir çalışan kaynak üretim zamanlayıcısı (timer) eklendi.
+   - Binalar seviyelerine göre kontrol edilerek `Nüfus`, `Buğday` ve `Altın` üretmesi sağlandı.
+   - Her seviye için %50 artış formülü (`üretim * Math.pow(1.5, level - 1)`) kullanıldı.
+   - Üretilen kaynakların `resourceManager.addResource()` üzerinden güncellenmesi sağlandı.
+   - Üretim sonrasında binaların üzerinde üretilen kaynak ve miktarı belirten, yukarı doğru kayarak kaybolan hareketli metin (floating text) eklendi. Metin gösteriminde kameranın arkasında kalan objeler için göstermeme kontrolü eklendi (`tempV.z > 1`).
+
+Tüm işlemler test edilip UI üzerinden doğrulandı. İşlem tamamlandı.

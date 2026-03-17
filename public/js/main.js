@@ -7,6 +7,7 @@ import { initDetailPanel } from './ui/detailPanel.js';
 import { initNotifications, showNotification } from './ui/notifications.js';
 import './ui/topBar.js';
 import './ui/tooltip.js';
+import { addResource } from './ui/resourceManager.js';
 
 // Make gsap globally available for UI components that check window.gsap
 window.gsap = gsap;
@@ -128,6 +129,94 @@ function updateFestival() {
   }
 }
 
+// Resource Production System
+function setupResourceProduction(scene) {
+  setInterval(() => {
+    scene.traverse(obj => {
+      // Find building objects
+      if (obj.isGroup && obj.userData && obj.userData.objectType) {
+        let type = obj.userData.objectType;
+        let name = obj.userData.objectName;
+        // The type might be "residential" or "production" or others depending on config.
+        // Identify based on name or folder/type if consistent.
+        // However, looking at the objects, name usually holds "Ev", "Çiftlik", "Pazar"
+        
+        const isHouse = obj.userData.objectName === 'Ev' || type === 'residential';
+        const isFarm = obj.userData.objectName === 'Çiftlik' || type === 'production' && name === 'Çiftlik';
+        const isMarket = obj.userData.objectName === 'Pazar'; // assuming market is added in future
+        
+        let level = obj.userData.level || 1;
+        
+        let producedResource = null;
+        let amount = 0;
+        let iconText = '';
+        
+        if (isHouse) {
+          amount = Math.floor(2 * Math.pow(1.5, level - 1));
+          producedResource = 'population';
+          iconText = `+${amount} Nüfus`;
+        } else if (isFarm) {
+          amount = Math.floor(5 * Math.pow(1.5, level - 1));
+          producedResource = 'wheat';
+          iconText = `+${amount} Buğday`;
+        } else if (isMarket) {
+          amount = Math.floor(3 * Math.pow(1.5, level - 1));
+          producedResource = 'gold';
+          iconText = `+${amount} Altın`;
+        }
+        
+        if (producedResource && amount > 0) {
+          addResource(producedResource, amount);
+          showFloatingText(obj, iconText);
+        }
+      }
+    });
+  }, 10000);
+}
+
+function showFloatingText(object, text) {
+  // We use standard HTML positioning based on projection
+  // as CSS2DRenderer might not be fully initialized in this project yet.
+  const tempV = new THREE.Vector3();
+  object.getWorldPosition(tempV);
+  // move slightly up
+  tempV.y += 10;
+  
+  tempV.project(camera);
+  
+  if (tempV.z > 1) {
+    // object is behind camera
+    return;
+  }
+  
+  const x = (tempV.x *  .5 + .5) * window.innerWidth;
+  const y = (tempV.y * -.5 + .5) * window.innerHeight;
+  
+  const el = document.createElement('div');
+  el.textContent = text;
+  el.style.position = 'absolute';
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
+  el.style.color = '#fff';
+  el.style.textShadow = '1px 1px 2px #000';
+  el.style.fontWeight = 'bold';
+  el.style.fontSize = '18px';
+  el.style.pointerEvents = 'none';
+  el.style.zIndex = '100';
+  el.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(el);
+  
+  gsap.to(el, {
+    top: y - 50,
+    opacity: 0,
+    duration: 2,
+    ease: 'power1.out',
+    onComplete: () => {
+      el.remove();
+    }
+  });
+}
+
 // Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87CEEB);
@@ -226,6 +315,9 @@ try {
   const objects = ObjectLoader.loadAllObjects();
   objects.forEach(obj => scene.add(obj));
   showNotification('Roma İnşa Edildi!');
+  
+  // Start resource production timer
+  setupResourceProduction(scene);
 } catch (e) {
   console.error('Object loading error:', e);
 }
