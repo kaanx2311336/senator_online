@@ -46,6 +46,14 @@ export function initDetailPanel() {
                     </button>
                 </div>
 
+                <div id="health-bonus-container" class="hidden mb-4 w-full flex-col items-center bg-white/60 p-3 rounded-xl border-2 border-red-500/50 shadow-md">
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl animate-pulse">❤️</span>
+                        <span class="text-sm uppercase text-red-900 font-bold tracking-widest">Sağlık Bonusu:</span>
+                        <span id="health-bonus-val" class="text-xl font-bold text-green-600">+0%</span>
+                    </div>
+                </div>
+
                 <button id="upgrade-btn" aria-label="Binayı Yükselt" class="roman-gold-btn text-red-900 font-bold py-3 px-16 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-yellow-500 text-xl tracking-wider uppercase border-2 border-yellow-700 relative overflow-hidden group">
                     <span class="relative z-10">Yükselt</span>
                     <div class="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
@@ -158,6 +166,27 @@ export function showPanel(buildingData) {
             } else {
                 prayContainer.classList.remove('flex');
                 prayContainer.classList.add('hidden');
+            }
+        }
+
+        // Show/hide health bonus based on building type (e.g., Hamam)
+        const healthContainer = document.getElementById('health-bonus-container');
+        const healthVal = document.getElementById('health-bonus-val');
+        if (healthContainer && healthVal) {
+            const isHamam = (buildingData.name && buildingData.name.toLowerCase().includes('hamam')) || 
+                            buildingData.type === 'wellness';
+            
+            if (isHamam) {
+                healthContainer.classList.remove('hidden');
+                healthContainer.classList.add('flex');
+                
+                // Assuming buildingData has healthBonus or we calculate based on level
+                const level = parseInt(buildingData.level) || 1;
+                const bonus = buildingData.healthBonus || (level * 5); // +5% per level default
+                healthVal.textContent = `+${bonus}%`;
+            } else {
+                healthContainer.classList.remove('flex');
+                healthContainer.classList.add('hidden');
             }
         }
     }

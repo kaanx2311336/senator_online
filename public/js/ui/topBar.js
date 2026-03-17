@@ -155,3 +155,9 @@ import './festivalPanel.js';
 
 // Inject Production Panel
 import './productionPanel.js';
+
+// Inject Beauty Bar
+import './beautyBar.js';
+
+// Inject Decoration Menu
+import './decorationMenu.js';

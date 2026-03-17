@@ -111,6 +111,18 @@
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
+/* Decoration Menu specific styles */
+.decoration-menu {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out;
+}
+.beauty-icon {
+    animation: sparkle 2s infinite ease-in-out alternate;
+}
+@keyframes sparkle {
+    0% { filter: drop-shadow(0 0 2px #ec4899); transform: scale(0.95); }
+    100% { filter: drop-shadow(0 0 8px #ec4899); transform: scale(1.05); }
+}
+
 /* Floating Text Effect */
 .floating-text {
     opacity: 1;

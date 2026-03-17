@@ -1,0 +1,18 @@
+FAZ A3-15: Hamam & Dekorasyon UI (DALGA 15) Tamamlandı
+
+Yapılan İşlemler:
+1. `public/js/ui/detailPanel.js` dosyası güncellendi:
+   - Hamam (Wellness) binaları için sağlık bonusu göstergesi (kalp ikonu ve bonus yüzdesi) eklendi.
+2. `public/js/ui/beautyBar.js` dosyası oluşturuldu:
+   - Üst bar'da Güzellik Puanı'nı gösterecek bileşen eklendi.
+   - Puan arttığında tetiklenecek animasyonlar eklendi.
+3. `public/js/ui/decorationMenu.js` dosyası oluşturuldu:
+   - Sağ alt köşede yüzen bir buton ile açılıp kapanabilen dekorasyon menüsü eklendi.
+   - Menüye Çeşme ve Heykel seçenekleri ile mini thumbnail ikonları eklendi.
+   - Seçeneklere tıklandığında `window.placementModeActive` bayrağını ayarlayan mantık eklendi.
+4. `public/js/ui/topBar.js` dosyası güncellendi:
+   - `beautyBar.js` ve `decorationMenu.js` dosyalarının projeye dahil edilmesi sağlandı.
+5. CSS Stilleri eklendi:
+   - `css/ui.css` ve `public/css/ui.css` dosyalarına `decoration-menu` ve `beauty-icon` için gerekli olan animasyon (sparkle) ve geçiş stilleri eklendi.
+
+Agent 3 (UI_DESIGNER) olarak görev başarıyla tamamlandı. Gerekli görsel testler yapıldı ve yeni UI elemanlarının doğru render edildiği doğrulandı.
