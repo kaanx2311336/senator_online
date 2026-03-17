@@ -55,6 +55,120 @@ let globalControls = null;
 export function setCameraAndControls(camera, controls) {
     globalCamera = camera;
     globalControls = controls;
+    
+    // Setup production indicators using requestAnimationFrame
+    if (!window.__productionIndicatorsInit) {
+        window.__productionIndicatorsInit = true;
+        initProductionIndicators();
+    }
+}
+
+let productionBuildingsCache = null;
+
+function initProductionIndicators() {
+    function updateLoop() {
+        requestAnimationFrame(updateLoop);
+        
+        if (!globalCamera) return;
+        
+        // Cache buildings periodically instead of every frame
+        if (!productionBuildingsCache || Math.random() < 0.01) { 
+            // 1% chance each frame to refresh cache, roughly every 1.5 seconds at 60fps
+            refreshProductionCache();
+        }
+        
+        if (productionBuildingsCache) {
+            productionBuildingsCache.forEach(({obj, icon}) => {
+                updateProductionIndicator(obj, icon, globalCamera);
+            });
+        }
+    }
+    
+    requestAnimationFrame(updateLoop);
+}
+
+function refreshProductionCache() {
+    let scene = globalCamera;
+    while (scene && !scene.isScene) {
+        scene = scene.parent;
+    }
+    if (!scene || !scene.isScene) {
+        if (window.RomanUI && window.RomanUI.scene) scene = window.RomanUI.scene;
+    }
+    if (!scene || !scene.isScene) return;
+
+    const newCache = [];
+    const newIds = new Set();
+    
+    scene.traverse((obj) => {
+        if (obj.isGroup && obj.userData && obj.userData.objectType) {
+            const type = obj.userData.objectType;
+            const name = obj.userData.objectName;
+            
+            const isHouse = name === 'Ev' || type === 'residential';
+            const isFarm = name === 'Çiftlik' || (type === 'production' && name === 'Çiftlik');
+            const isMarket = name === 'Pazar';
+            
+            let icon = '';
+            if (isHouse) icon = '🧑';
+            else if (isFarm) icon = '🌾';
+            else if (isMarket) icon = '🪙';
+            
+            if (icon) {
+                newCache.push({ obj, icon });
+                if (obj.userData.productionIndicatorId) {
+                    newIds.add(obj.userData.productionIndicatorId);
+                }
+            }
+        }
+    });
+
+    // Cleanup orphaned indicators
+    if (productionBuildingsCache) {
+        productionBuildingsCache.forEach(({obj}) => {
+            const id = obj.userData.productionIndicatorId;
+            if (id && !newIds.has(id)) {
+                const el = document.getElementById(id);
+                if (el) el.remove();
+            }
+        });
+    }
+
+    productionBuildingsCache = newCache;
+}
+
+function updateProductionIndicator(obj, icon, camera) {
+    if (!obj.userData.productionIndicatorId) {
+        obj.userData.productionIndicatorId = 'prod-ind-' + Math.random().toString(36).substr(2, 9);
+        const el = document.createElement('div');
+        el.id = obj.userData.productionIndicatorId;
+        el.textContent = icon;
+        el.className = 'absolute text-xl pointer-events-none drop-shadow-md z-40 transition-opacity duration-300';
+        el.style.transform = 'translate(-50%, -50%)';
+        document.body.appendChild(el);
+    }
+    
+    const el = document.getElementById(obj.userData.productionIndicatorId);
+    if (!el) return;
+
+    const tempV = new THREE.Vector3();
+    obj.getWorldPosition(tempV);
+    tempV.y += 12; // Height above building
+    
+    tempV.project(camera);
+    
+    // Check if behind camera or too far
+    if (tempV.z > 1) {
+        el.style.opacity = '0';
+        return;
+    }
+    
+    const x = (tempV.x * 0.5 + 0.5) * window.innerWidth;
+    const y = -(tempV.y * 0.5 - 0.5) * window.innerHeight;
+    
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+    el.style.opacity = '1';
 }
 
 export async function selectBuilding(mesh) {

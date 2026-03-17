@@ -1,0 +1,9 @@
+FAZ A4-14: Çiftlik Etkileşimi & Kaynak Toplama (DALGA 14) tamamlandı.
+
+- public/objects/farm/interact.js dosyası güncellendi.
+- onSelect fonksiyonu detay paneli ve üretim paneli entegrasyonuyla geliştirildi.
+- onDeselect fonksiyonu ile temizleme yapıldı.
+- Hasat animasyonu (buğday parçacıkları) ve "+5 🌾" kaynak toplama efekti (floating text) eklendi.
+- Tüm üretim binaları üzerinde (çiftlik, pazar, ev) üretim göstergelerini (küçük ikon) gösteren bir mekanizma public/js/interaction/selection.js içine yerleştirildi, ana döngüye girmeden ve sadece izin verilen klasörlerde çalışacak şekilde tasarlandı.
+
+DURUM: GECIS ONAY
