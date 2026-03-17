@@ -1,0 +1,9 @@
+FAZ A2-16: Çiftlik 3D Modeli (DALGA 14) başarıyla tamamlandı.
+
+- objects/farm/model.js oluşturuldu: createFarm(level) fonksiyonu eklendi. Seviye 1-5 arası için istenen 3D modeller Three.js (MeshLambertMaterial, düşük poligon) kullanılarak tanımlandı ve level 4,5 için dönen kanat animasyonları (userData üzerinden) eklendi.
+- objects/farm/config.json oluşturuldu: Çiftlik temel bilgileri, type="production", üretim="wheat", seviyeler 1-5 arası maliyetler eklendi.
+- objects/farm/interact.js oluşturuldu: onSelect, onDeselect, onUpgrade fonksiyonları tanımlandı (emissive 0x222222 kullanılarak efekt eklendi).
+- Tüm dosyalar public/objects/farm/ dizinine de başarıyla kopyalandı.
+- shared/contracts/objectRegistry.js içine PRODUCTION: { FARM: "farm" } tanımı yapıldı.
+
+Görev tamamlandı.

@@ -14,6 +14,9 @@ const ObjectRegistry = {
     TREE: "tree",
     ROAD: "road"
   },
+  PRODUCTION: {
+    FARM: "farm"
+  },
   RESOURCES: {
     WOOD: "wood",
     WHEAT: "wheat",

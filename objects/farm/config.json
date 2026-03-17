@@ -1,0 +1,37 @@
+{
+  "name": "Çiftlik",
+  "type": "production",
+  "production": "wheat",
+  "levels": [
+    {
+      "level": 1,
+      "cost": { "wood": 20, "gold": 10 },
+      "productionRate": 5,
+      "capacity": 20
+    },
+    {
+      "level": 2,
+      "cost": { "wood": 40, "gold": 25 },
+      "productionRate": 10,
+      "capacity": 40
+    },
+    {
+      "level": 3,
+      "cost": { "wood": 80, "stone": 40, "gold": 50 },
+      "productionRate": 20,
+      "capacity": 80
+    },
+    {
+      "level": 4,
+      "cost": { "wood": 150, "stone": 100, "gold": 100 },
+      "productionRate": 40,
+      "capacity": 160
+    },
+    {
+      "level": 5,
+      "cost": { "wood": 300, "stone": 200, "gold": 250, "population": 10 },
+      "productionRate": 80,
+      "capacity": 320
+    }
+  ]
+}
