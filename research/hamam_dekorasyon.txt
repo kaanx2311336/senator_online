@@ -1,0 +1,14 @@
+Roma Hamamları (Thermae) Yapısı:
+- Frigidarium (Soğuk Bölüm): Kullanıcıların soğuk suya girdiği, genellikle hamam sürecinin son aşamasıdır. Canlandırıcı etkisi vardır.
+- Tepidarium (Ilık Bölüm): Vücudu sıcak ve soğuk odalar arasında geçişe hazırlayan ılık odadır.
+- Caldarium (Sıcak Bölüm): Buharlı, sıcak odadır. Gözenekleri açar ve terlemeyi sağlar.
+
+Dekorasyon Bonus Sistemi:
+- Şehre yerleştirilen her dekorasyon (heykel, süs havuzu, mozaik vb.) yapıya veya çevreye ekstra Güzellik Puanı sağlar.
+- Her dekorasyon objesi, türüne göre +X Güzellik Puanı üretir.
+
+Güzellik Puanı → Memnuniyet Bonusu Formülü:
+- Toplam Güzellik Puanı, şehirdeki vatandaşların genel memnuniyetine doğrudan etki eder.
+- Memnuniyet Bonusu = (Toplam Güzellik Puanı / Şehir Nüfusu) * Dekorasyon Çarpanı (Örn: 0.5)
+- Eğer belirli bir hamamın veya yapının etrafındaysa:
+  Bölgesel Memnuniyet Artışı = (Yakın Çevredeki Güzellik Puanı Toplamı * 0.1)

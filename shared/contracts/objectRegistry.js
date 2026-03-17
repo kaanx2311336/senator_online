@@ -38,6 +38,9 @@ const ObjectRegistry = {
     ARCHERY_RANGE: "archery_range",
     STABLE: "stable"
   },
+  WELLNESS: {
+    BATHS: "baths"
+  },
   PRODUCTION: {
     FARM: "farm",
     LUMBERJACK: "lumberjack",

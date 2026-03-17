@@ -1,0 +1,14 @@
+FAZ A5-15: Roma Hamamları & Dekorasyon Araştırması (DALGA 15)
+
+Durum: Tamamlandı
+
+Gerçekleştirilen İşlemler:
+1. `research/hamam_dekorasyon.txt` dosyası oluşturuldu:
+   - Roma hamamlarının (Frigidarium, Tepidarium, Caldarium) yapısı detaylandırıldı.
+   - Dekorasyon objelerinin +X güzellik puanı kazandıracağı "Dekorasyon Bonus Sistemi" açıklandı.
+   - Güzellik puanının vatandaş memnuniyetine dönüşme formülü (Güzellik Puanı → Memnuniyet Bonusu) belirlendi.
+
+2. `shared/contracts/objectRegistry.js` dosyası güncellendi:
+   - WELLNESS kategorisi eklendi. (DECORATION kategorisi zaten mevcuttu).
+
+Sonraki aşamalar için hamam mekanikleri ve dekorasyon bonusları kullanılmaya hazırdır.
