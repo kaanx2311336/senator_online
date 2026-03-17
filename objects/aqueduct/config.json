@@ -1,0 +1,6 @@
+{
+  "name": "Su Kemeri",
+  "type": "infrastructure",
+  "cost": { "stone": 150, "gold": 30 },
+  "positions": []
+}
