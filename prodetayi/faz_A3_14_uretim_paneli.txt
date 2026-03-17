@@ -1,0 +1,7 @@
+FAZ A3-14: Kaynak Üretim Paneli UI (DALGA 14) TAMAMLANDI
+
+Yapılan İşlemler:
+1. `public/js/ui/productionPanel.js` dosyası oluşturuldu. İçerisinde üretim yapan binaların listesi, toplam üretim/dakika özeti gösterildi. Ayrıca "+5 🌾" gibi text'lerin yukarı kayarak kaybolmasını sağlayan `showFloatingText` fonksiyonu eklendi.
+2. `public/js/ui/topBar.js` güncellendi, üst bardaki kaynak objelerine tıklandığında `window.RomanUI.ProductionPanel.toggle()` metodu ile üretim panelinin açılıp kapanması sağlandı.
+3. `public/css/ui.css` ve `css/ui.css` dosyalarına üretim paneli ve kayan yazı ("floating-text" sınıfı) animasyonları için gerekli CSS transition ve transform özellikleri eklendi.
+4. UI'ın düzgün çalıştığı ve efektlerin düzgün render edildiği Playwright ve test scriptleri vasıtasıyla test edilip doğrulandı.

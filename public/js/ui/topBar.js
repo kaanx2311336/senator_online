@@ -41,6 +41,16 @@ function initTopBar() {
 
             item.appendChild(topRow);
             
+            // Add event listener to open production panel
+            item.addEventListener('click', () => {
+                if (window.RomanUI && window.RomanUI.ProductionPanel) {
+                    window.RomanUI.ProductionPanel.toggle();
+                }
+            });
+            item.style.cursor = 'pointer';
+            item.title = 'Üretim Özetini Gör';
+            item.classList.add('hover:bg-red-900', 'rounded', 'transition-colors', 'p-1');
+            
             // Production rate element
             const rateSpan = document.createElement('span');
             rateSpan.id = `resource-rate-${key}`;
@@ -142,3 +152,6 @@ import './happinessBar.js';
 
 // Inject Festival Panel
 import './festivalPanel.js';
+
+// Inject Production Panel
+import './productionPanel.js';
