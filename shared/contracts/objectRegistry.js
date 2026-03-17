@@ -34,6 +34,11 @@ const ObjectRegistry = {
     BARRACKS: "barracks",
     ARCHERY_RANGE: "archery_range",
     STABLE: "stable"
+  },
+  PRODUCTION: {
+    FARM: "farm",
+    LUMBERJACK: "lumberjack",
+    MINE: "mine"
   }
 };
 

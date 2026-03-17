@@ -1,0 +1,6 @@
+Çiftlik: Lv1=5 buğday/10sn, Lv2=8, Lv3=12, Lv4=18, Lv5=25.
+Ev: Lv1=2 nüfus/10sn, Lv2=3, Lv3=5, Lv4=8, Lv5=12.
+Pazar: Lv1=3 altın/10sn, Lv2=5, Lv3=8, Lv4=12, Lv5=18.
+Oduncu: Lv1=5 odun/10sn, Lv2=8, Lv3=12, Lv4=18, Lv5=25.
+Maden: Lv1=3 altın/10sn, Lv2=5, Lv3=8, Lv4=12, Lv5=18.
+Denge: Oyuncu 5dk'da ilk yükseltmeyi, 15dk'da Lv3'leri yapabilmeli.
