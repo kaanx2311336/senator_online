@@ -1,0 +1,17 @@
+================================================================================
+ROMA CITY BUILDER - AGENT 6: ORCHESTRATOR
+DALGA 14 DENETIM RAPORU (ÇİFTLİK & KAYNAK ÜRETİM)
+================================================================================
+
+Tarih/Saat: [OTOMATIK]
+Denetim Sonucu: GECILEBILIR
+
+Denetim Notları:
+1. Çiftlik nesnesi klasörü incelendi. objects/farm/ dizininde model.js, config.json ve interact.js dosyalarının eksiksiz bulunduğu doğrulandı.
+2. Kaynak üretim timer'ının public/js/main.js içerisinde düzgün çalıştığı, belirtilen kaynakları zamana bağlı olarak (10 saniye aralıklarla) ürettiği ve göstergeleri güncellediği tespit edildi.
+3. Üretim Paneli (Production Panel) UI sisteminin dahil edildiği, TopBar üzerindeki kaynak butonlarına tıklanarak panelin açılıp kapatılabildiği ve verileri doğru şekilde sunduğu doğrulandı.
+
+Gözlemler:
+- Herhangi bir hata veya eksik tespit edilmemiştir.
+- Uygulama belirtilen süre zarfında beklendiği gibi tepki vermiştir.
+================================================================================
